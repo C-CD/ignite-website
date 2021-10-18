@@ -35,6 +35,8 @@ import { MatAutocomplete, MatAutocompleteModule } from '@angular/material/autoco
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IgniteSoccerStarMaleComponent } from './competition/ignite-soccer-star-male/ignite-soccer-star-male.component';
+import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-star-female/ignite-soccer-star-female.component';
 
 
 
@@ -58,6 +60,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     GalleryComponent,
     ContactComponent,
     BlogComponent,
+    IgniteSoccerStarMaleComponent,
+    IgniteSoccerStarFemaleComponent,
   ],
   imports: [
     BrowserModule,
