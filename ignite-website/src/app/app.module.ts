@@ -6,20 +6,36 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavComponent } from './nav/nav.component';
-import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { BlogComponent } from './blog/blog.component';
-import { ContactComponent } from './contact/contact.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { CoachAgentApplicationComponent } from './coach-agent-application/coach-agent-application.component';
-import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
-import { CoachesTermsAndConditionsComponent } from './coaches-terms-and-conditions/coaches-terms-and-conditions.component';
-import { PlayersTermsAndConditionsComponent } from './players-terms-and-conditions/players-terms-and-conditions.component';
-// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AboutComponent } from './pages/about/about.component';
+import { HomeComponent } from './pages/home/home.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { BlogComponent } from './pages/blog/blog.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { NavComponent } from './pages/nav/nav.component';
+import { FooterComponent } from './pages/footer/footer.component';
+import { CoachAgentApplicationComponent } from './pages/coach-agent-application/coach-agent-application.component';
+import { CoachesTermsAndConditionsComponent } from './pages/coaches-terms-and-conditions/coaches-terms-and-conditions.component';
+import { PlayersTermsAndConditionsComponent } from './pages/players-terms-and-conditions/players-terms-and-conditions.component';
+import { AngularFireModule } from '@angular/fire';
+import { firebase_configuration } from '../environments/environment.prod';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxFormValidationsModule } from 'ngx-form-validations';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocomplete, MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -37,7 +53,6 @@ import { PlayersTermsAndConditionsComponent } from './players-terms-and-conditio
     TermsOfUseComponent,
     CoachesTermsAndConditionsComponent,
     PlayersTermsAndConditionsComponent,
-
     HomeComponent,
     AboutComponent,
     GalleryComponent,
@@ -49,7 +64,24 @@ import { PlayersTermsAndConditionsComponent } from './players-terms-and-conditio
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AngularFireModule.initializeApp(firebase_configuration),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    HttpClientModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    NgxFormValidationsModule,
   ],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyCI4-K7wpTRDBdT12PadtoDcnlrLCzIjGM",
+    authDomain: "ignitemegastars-5376e.firebaseapp.com",
+    projectId: "ignitemegastars-5376e",
+    storageBucket: "ignitemegastars-5376e.appspot.com",
+    messagingSenderId: "559858827116",
+    appId: "1:559858827116:web:009fb00c14ab0fa35bfd49",
+    measurementId: "G-G2XMWWFYPQ"
+  }
 };
 
 /*
@@ -14,13 +23,3 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-
-export const firebase_configuration = {
-  apiKey: "AIzaSyCI4-K7wpTRDBdT12PadtoDcnlrLCzIjGM",
-  authDomain: "ignitemegastars-5376e.firebaseapp.com",
-  projectId: "ignitemegastars-5376e",
-  storageBucket: "ignitemegastars-5376e.appspot.com",
-  messagingSenderId: "559858827116",
-  appId: "1:559858827116:web:009fb00c14ab0fa35bfd49",
-  measurementId: "G-G2XMWWFYPQ"
-}
