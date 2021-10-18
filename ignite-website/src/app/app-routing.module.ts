@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
-import { BlogComponent } from './blog/blog.component';
-import { CoachAgentApplicationComponent } from './coach-agent-application/coach-agent-application.component';
-import { CoachesTermsAndConditionsComponent } from './coaches-terms-and-conditions/coaches-terms-and-conditions.component';
-import { ContactComponent } from './contact/contact.component';
-import { FooterComponent } from './footer/footer.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { HomeComponent } from './home/home.component';
-import { PlayersTermsAndConditionsComponent } from './players-terms-and-conditions/players-terms-and-conditions.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AboutComponent } from './pages/about/about.component';
+import { BlogComponent } from './pages/blog/blog.component';
+import { CoachAgentApplicationComponent } from './pages/coach-agent-application/coach-agent-application.component';
+import { CoachesTermsAndConditionsComponent } from './pages/coaches-terms-and-conditions/coaches-terms-and-conditions.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { FooterComponent } from './pages/footer/footer.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PlayersTermsAndConditionsComponent } from './pages/players-terms-and-conditions/players-terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
