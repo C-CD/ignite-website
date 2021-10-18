@@ -19,6 +19,8 @@ import { CoachAgentApplicationComponent } from './coach-agent-application/coach-
 import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
 import { CoachesTermsAndConditionsComponent } from './coaches-terms-and-conditions/coaches-terms-and-conditions.component';
 import { PlayersTermsAndConditionsComponent } from './players-terms-and-conditions/players-terms-and-conditions.component';
+import { IgniteSoccerStarMaleComponent } from './competition/ignite-soccer-star-male/ignite-soccer-star-male.component';
+import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-star-female/ignite-soccer-star-female.component';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
@@ -43,6 +45,8 @@ import { PlayersTermsAndConditionsComponent } from './players-terms-and-conditio
     GalleryComponent,
     ContactComponent,
     BlogComponent,
+    IgniteSoccerStarMaleComponent,
+    IgniteSoccerStarFemaleComponent,
   ],
   imports: [
     BrowserModule,
