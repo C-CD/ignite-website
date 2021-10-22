@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
@@ -11,6 +12,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { PlayersTermsAndConditionsComponent } from './pages/players-terms-and-conditions/players-terms-and-conditions.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
+import { AboutComponent as FemaleCompetitionAbout } from './pages/competition/female/about/about.component';
+import { AboutComponent as MaleCompetitionAbout } from './pages/competition/male/about/about.component';
+import { FixturesComponent as FemaleCompetitionFixtures } from './pages/competition/female/fixtures/fixtures.component';
+import { FixturesComponent as MaleCompetitionFixtures } from './pages/competition/male/fixtures/fixtures.component';
+import { HighlightsComponent as FemaleCompetitionHighlights } from './pages/competition/female/highlights/highlights.component';
+import { HighlightsComponent as MaleCompetitionHighlights } from './pages/competition/male/highlights/highlights.component';
+import { PlayersComponent as FemaleCompetitionPlayers } from './pages/competition/female/players/players.component';
+import { PlayersComponent as MaleCompetitionPlayers } from './pages/competition/male/players/players.component';
+import { RegisterComponent as FemaleCompetitionRegister } from './pages/competition/female/register/register.component';
+import { RegisterComponent as MaleCompetitionRegister } from './pages/competition/male/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +34,17 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'players-terms-and-conditions', component: PlayersTermsAndConditionsComponent },
- ];
+  { path: 'competition/female', component: FemaleCompetitionAbout },
+  { path: 'competition/female/fixtures', component: FemaleCompetitionFixtures },
+  { path: 'competition/female/highlights', component: FemaleCompetitionHighlights },
+  { path: 'competition/female/players', component: FemaleCompetitionPlayers },
+  { path: 'competition/female/register', component: FemaleCompetitionRegister },
+  { path: 'competition/male', component: MaleCompetitionAbout },
+  { path: 'competition/male/fixtures', component: MaleCompetitionFixtures },
+  { path: 'competition/male/highlights', component: MaleCompetitionHighlights },
+  { path: 'competition/male/players', component: MaleCompetitionPlayers },
+  { path: 'competition/male/register', component: MaleCompetitionRegister },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

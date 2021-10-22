@@ -1,3 +1,5 @@
+import { FemaleModule } from './pages/competition/female/female.module';
+import { MaleModule } from './pages/competition/male/male.module';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -5,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -66,7 +67,6 @@ import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-sta
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule,
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
@@ -85,6 +85,8 @@ import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-sta
     MatChipsModule,
     MatAutocompleteModule,
     NgxFormValidationsModule,
+    MaleModule,
+    FemaleModule
   ],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
