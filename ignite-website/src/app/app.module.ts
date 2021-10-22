@@ -39,7 +39,6 @@ import { IgniteSoccerStarMaleComponent } from './competition/ignite-soccer-star-
 import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-star-female/ignite-soccer-star-female.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
