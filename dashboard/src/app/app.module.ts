@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,10 +20,47 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocomplete, MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersComponent } from './pages/users/users.component';
+import { PlayersComponent } from './pages/players/players.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
+import { TopLoaderComponent } from './components/top-loader/top-loader.component';
+import { DataTablesModule } from 'angular-datatables';
+import { SetupComponent } from './pages/setup/setup.component';
+import { VotingsComponent } from './pages/votings/votings.component';
+import { AddPlayersComponent } from './pages/add-players/add-players.component';
+import { AddTeamsComponent } from './pages/add-teams/add-teams.component';
+import { MaleTeamsComponent } from './pages/male-teams/male-teams.component';
+import { FemaleTeamsComponent } from './pages/female-teams/female-teams.component';
+import { TeamsComponent } from './pages/teams/teams.component';
+import { MalePlayersComponent } from './pages/male-players/male-players.component';
+import { FemalePlayersComponent } from './pages/female-players/female-players.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    UsersComponent,
+    PlayersComponent,
+    SidebarComponent,
+    HeaderComponent,
+    FooterComponent,
+    CustomNotificationComponent,
+    TopLoaderComponent,
+    SetupComponent,
+    VotingsComponent,
+    AddPlayersComponent,
+    AddTeamsComponent,
+    MaleTeamsComponent,
+    FemaleTeamsComponent,
+    TeamsComponent,
+    MalePlayersComponent,
+    FemalePlayersComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +82,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatChipsModule,
     MatAutocompleteModule,
     NgxFormValidationsModule,
+    DataTablesModule
   ],
-  providers: [],
+  providers: [
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

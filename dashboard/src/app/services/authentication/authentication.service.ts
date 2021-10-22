@@ -6,8 +6,8 @@ import { MylocalstorageService } from '../mylocalstorage/mylocalstorage.service'
 
 export class Auth {
   createdAt!:string;
-  lastLoggedIn!: string;
-  lastSeen!: string;
+  lastLoggedIn!: string|null;
+  lastSeen!: string | null;
   emailVerified!: boolean;
   uid!: string;
 }
