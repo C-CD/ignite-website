@@ -1,3 +1,4 @@
+import { TeamService } from './../../services/team/team.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class AddTeamsComponent implements OnInit {
     public firebaseAuth: FirebaseAuthService,
     public loadingService: LoadingService,
     private toaster: ToastrService,
+    protected teamService: TeamService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +45,25 @@ export class AddTeamsComponent implements OnInit {
   }
 
   addTeam(formData:any){
+    this.formDataGroup.disable();
+    this.loadingService.quickLoader().then(() => {
+      this.teamService.addTeams({
+        name: formData.name,
+        gender: formData.gender,
+        year: formData.year,
+        updated: moment().format(),
+        created: moment().format(),
+      }).then(() => {
+        this.toaster.quickToast({msg: "New Team Created Successfully"});
+        this.loadingService.clearLoader();
 
+        this.formDataGroup.enable();
+        this.formDataGroup.reset();
+      }).catch((error) => {
+        this.toaster.quickToast({ msg: "Error creating team data!", cat: "danger" });
+        this.loadingService.clearLoader();
+        this.formDataGroup.enable();
+      })
+    });
   }
 }

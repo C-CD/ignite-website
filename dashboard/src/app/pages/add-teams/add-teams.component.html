@@ -67,7 +67,7 @@
                     </div>
 
                     <div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" [disabled]="!formDataGroup.valid" class="btn btn-primary">Submit</button>
                     </div>
                   </form>
                 </div>
@@ -75,10 +75,7 @@
             </div>
           </div>
 
-
         </div>
-
-
 
       </div>
     </main>
