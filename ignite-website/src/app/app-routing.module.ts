@@ -23,6 +23,10 @@ import { PlayersComponent as FemaleCompetitionPlayers } from './pages/competitio
 import { PlayersComponent as MaleCompetitionPlayers } from './pages/competition/male/players/players.component';
 import { RegisterComponent as FemaleCompetitionRegister } from './pages/competition/female/register/register.component';
 import { RegisterComponent as MaleCompetitionRegister } from './pages/competition/male/register/register.component';
+import { PostLagosEndorseIgniteComponent } from './pages/blog/post-lagos-endorse-ignite/post-lagos-endorse-ignite.component';
+import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-governor-visits-venia-business-hub/post-governor-visits-venia-business-hub.component';
+import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
+import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,6 +49,10 @@ const routes: Routes = [
   { path: 'competition/male/highlights', component: MaleCompetitionHighlights },
   { path: 'competition/male/players', component: MaleCompetitionPlayers },
   { path: 'competition/male/register', component: MaleCompetitionRegister },
+  { path: 'blog/post/lagos-endorse', component: PostLagosEndorseIgniteComponent },
+  { path: 'blog/post/govornor-visits', component: PostGovernorVisitsVeniaBusinessHubComponent },
+  { path: 'blog/post/ignite-team', component: PostIgniteTeamVisitsRadianceFootballClubComponent },
+  { path: 'blog/post/first-of-its-kind', component: PostFirstOfItsKindComponent },
 ];
 
 @NgModule({

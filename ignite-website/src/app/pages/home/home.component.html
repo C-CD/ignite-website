@@ -1,12 +1,12 @@
 <!-- Slider -->
 <div class="carousel slide" data-ride="carousel" data-pause="hover" data-interval="7000" id="slider">
 	<div class="carousel-inner">
-		<ol class="carousel-indicators">
-			<li data-target="#slider" data-slide-to="0" class="active"></li>
-			<li data-target="#slider" data-slide-to="1"></li>
-			<li data-target="#slider" data-slide-to="2"></li>
-			<li data-target="#slider" data-slide-to="3"></li>
-		</ol>
+		<div class="carousel-indicators">
+      <button type="button" data-bs-target="#slider" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#slider" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#slider" data-bs-slide-to="2"></button>
+      <button type="button" data-bs-target="#slider" data-bs-slide-to="3"></button>
+    </div>
 		<div class="carousel-item active w-100">
 			<img src="../assets/img/slide-4.jpg" class="img-fluid" alt="First Slide">
 		</div>
@@ -25,11 +25,11 @@
 		<div class="carousel-item w-100">
 			<img src="../assets/img/slide-2.jpg" class="img-fluid" alt="Fourth Slide">
 		</div>
-		<a class="carousel-control-prev" role="button" data-slide="prev" href="#slider">
+		<a class="carousel-control-prev" role="button" data-bs-slide="prev" href="#slider">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			<span class="sr-only">Previous</span>
 		</a>
-		<a class="carousel-control-next" role="button" data-slide="next" href="#slider">
+		<a class="carousel-control-next" role="button" data-bs-slide="next" href="#slider">
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
 			<span class="sr-only">Next</span>
 		</a>
