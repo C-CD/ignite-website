@@ -38,6 +38,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IgniteSoccerStarMaleComponent } from './competition/ignite-soccer-star-male/ignite-soccer-star-male.component';
 import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-star-female/ignite-soccer-star-female.component';
+import { PostLagosEndorseIgniteComponent } from './pages/blog/post-lagos-endorse-ignite/post-lagos-endorse-ignite.component';
+import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-governor-visits-venia-business-hub/post-governor-visits-venia-business-hub.component';
+import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
+import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
 
 
 @NgModule({
@@ -62,6 +66,10 @@ import { IgniteSoccerStarFemaleComponent } from './competition/ignite-soccer-sta
     BlogComponent,
     IgniteSoccerStarMaleComponent,
     IgniteSoccerStarFemaleComponent,
+    PostLagosEndorseIgniteComponent,
+    PostGovernorVisitsVeniaBusinessHubComponent,
+    PostIgniteTeamVisitsRadianceFootballClubComponent,
+    PostFirstOfItsKindComponent,
   ],
   imports: [
     BrowserModule,
