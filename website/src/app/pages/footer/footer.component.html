@@ -21,7 +21,7 @@
                 <span class="footer-icon">
                     <a href="https://www.youtube.com/channel/UCbBRZnF3eNr4hO-Sa7zizrQ" target="_blank"><fa-icon [icon]="faYoutube" class="h3"></fa-icon></a>
                 </span>
-				
+
 				<div class="navbar-nav footer-nav">
 					<ul>
 						<li><a href="/terms-of-use">Terms of use</a></li>
@@ -55,7 +55,7 @@
 </div>
 
 <div class="whatsAppChat">
-	<a class="text-dark no-border chat" role="button" aria-expanded="false" href="javascript:void(0);"><div class="chat-icon"><fa-icon [icon]="faWhatsapp" size="2x"></fa-icon></div></a>
+	<a class="text-dark no-border chat" role="button" aria-expanded="false" href="javascript:void(0);"><div class="chat-icon"><i class="fa fa-whatsapp text-white fa-2x" ></i></div></a>
 </div>
 
 <script src="https://kit.fontawesome.com/171142fa47.js" crossorigin="anonymous"></script>
@@ -68,19 +68,19 @@
 
 <script>
     jQuery(function($) {
-        var path = window.location.href; 
+        var path = window.location.href;
         $('ul.main-nav a').each(function() {
 			if (this.href === path) {
 			$(this).addClass('nav-active').parents("li.dropdown").addClass("nav-active");
         }
-            
+
        });
 
         $('ul.ignite-soccer-stars-nav a').each(function() {
 			if (this.href === path) {
 			$(this).addClass('ignite-soccer-stars-nav-active');
         }
-            
+
        });
-    });   
+    });
 </script>
