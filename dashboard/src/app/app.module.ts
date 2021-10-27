@@ -29,7 +29,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 import { TopLoaderComponent } from './components/top-loader/top-loader.component';
-import { DataTablesModule } from 'angular-datatables';
+// import { DataTablesModule } from 'angular-datatables';
 import { SetupComponent } from './pages/setup/setup.component';
 import { VotingsComponent } from './pages/votings/votings.component';
 import { AddPlayersComponent } from './pages/add-players/add-players.component';
@@ -82,7 +82,7 @@ import { FemalePlayersComponent } from './pages/female-players/female-players.co
     MatChipsModule,
     MatAutocompleteModule,
     NgxFormValidationsModule,
-    DataTablesModule
+    // DataTablesModule
   ],
   providers: [
     Title
