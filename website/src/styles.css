@@ -36,7 +36,7 @@ a span {
 
 h1,
 h2 {
-  font-weight: 900;
+  font-weight: 700;
 }
 
 h3,
@@ -445,15 +445,21 @@ a.nav-active {
 .carousel-control-prev-icon {
   width: 50px;
   height: 50px;
+  z-index: 10;
 }
 
 .carousel-control-next,
 .carousel-control-prev {
   opacity: .7;
+  z-index: 10;
 }
 
 .carousel-indicators li {
   height: 5px;
+}
+.carousel-controls a:hover {
+  color: 004289;
+  z-index: 10;
 }
 
 .slide-news {
@@ -530,6 +536,12 @@ a.nav-active {
   padding-top: 1rem;
   padding-right: 1.5rem;
   align-items: middle;
+  text-align: justify;
+}
+
+.home-about .h2{
+  font-weight: 900;
+  font-size: calc(1.325rem + 0.9vw);
 }
 
 .home-gallery-container h5 {
