@@ -455,7 +455,8 @@ a.nav-active {
 }
 
 .carousel-indicators li {
-  height: 5px;
+  height: 70px;
+  width: 70px;
 }
 .carousel-controls a:hover {
   color: 004289;
@@ -463,7 +464,7 @@ a.nav-active {
 }
 
 .slide-news {
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgba(255, 255, 255, 0.5);
   position: absolute;
   top: 60%;
   left: 15%;
@@ -471,6 +472,7 @@ a.nav-active {
   height: 140px;
   overflow: hidden;
   text-align: center;
+  border-radius: 50px;
 }
 
 .slide-news .news-content {
@@ -716,6 +718,9 @@ a.nav-active {
 .home-blog-title {
   color: var(--blue) !important;
   text-decoration: none !important;
+}
+.home-blog-title .text-underline-hover{
+  text-decoration: underline;
 }
 
 /* Used for the 3 column blog */
