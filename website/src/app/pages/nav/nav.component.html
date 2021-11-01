@@ -19,21 +19,21 @@
             <li class="navbar-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" id="competitionNav" data-bs-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">Competition</a>
-                    <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="competitionNav">
-                        <li class="dropdown-submenu dropdown">
-                            <a class="dropdown-item" routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
-                            <ul class="dropdown-menu main-nav-dropdown d-none">
-                                <li><a routerLink="/ignite-soccer-stars-male">About</a></li>
-                                <li><a routerLink="/ignite-soccer-stars-male/register">Register</a></li>
-                                <li><a routerLink="#">Fixtures/Results</a></li>
-                                <li><a routerLink="#">Highlights</a></li>
-                                <li><a routerLink="#">Player Profile</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
-                        </li>
-                    </ul>
+                <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="competitionNav">
+                    <li class="dropdown-submenu dropdown">
+                        <a class="dropdown-item" data-bs-toggle="dropdown" routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
+                        <ul class="dropdown-menu main-nav-dropdown d-none">
+                            <li><a routerLink="/ignite-soccer-stars-male">About</a></li>
+                            <li><a routerLink="/ignite-soccer-stars-male/register">Register</a></li>
+                            <li><a routerLink="#">Fixtures/Results</a></li>
+                            <li><a routerLink="#">Highlights</a></li>
+                            <li><a routerLink="#">Player Profile</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
+                    </li>
+                </ul>
             </li>
 
             <li class="navbar-item dropdown">
@@ -66,32 +66,31 @@
                 <li class="navbar-item">
                     <a class="nav-link" routerLink="/about">About</a>
                 </li>
-                <li class="navbar-item">
-                    <button class="nav-link mobile-dropdown-btn">Competition<span class="fas fa-caret-down"></span></button>
-                        <ul class="mobile-dropdown-container">
-                            <li class="navbar-item">
-                                <button class="nav-link mobile-dropdown-btn">Ignite Soccer Stars (Male)<span class="fas fa-caret-down"></span></button>
-                                <ul class="mobile-dropdown-submenu-container main-nav-dropdown">
-                                    <li><a class="dropdown-item" routerLink="/competition/male">About</a></li>
-                                    <li><a class="dropdown-item" routerLink="/competition/male/register">Register</a></li>
-                                    <li><a class="dropdown-item" routerLink="/competition/male/fixtures">Fixtures/Results</a></li>
-                                    <li><a class="dropdown-item" routerLink="/competition/male/highlights">Highlights</a></li>
-                                    <li><a class="dropdown-item" routerLink="/competition/male/players">Player Profile</a></li>
-                                </ul>
-                            </li>
-                            <li class="navbar-item">
-                              <button class="nav-link mobile-dropdown-btn">Ignite Soccer Stars (Male)<span
-                                  class="fas fa-caret-down"></span></button>
-                              <ul class="mobile-dropdown-submenu-container main-nav-dropdown">
-                                  <li><a class="dropdown-item" routerLink="/competition/female">About</a></li>
-                                  <li><a class="dropdown-item" routerLink="/competition/female/register">Register</a></li>
-                                  <li><a class="dropdown-item" routerLink="/competition/female/fixtures">Fixtures/Results</a></li>
-                                  <li><a class="dropdown-item" routerLink="/competition/female/highlights">Highlights</a></li>
-                                  <li><a class="dropdown-item" routerLink="/competition/female/players">Player Profile</a></li>
-                              </ul>
-                              <a routerLink="#">Ignite Soccer Stars (Female)</a></li>
-                        </ul>
-                </li>
+
+
+                <li class="navbar-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" id="smCompetitionNav" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Competition</a>
+                  <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="smCompetitionNav">
+                      <li class="dropdown-submenu dropdown">
+                          <a class="dropdown-item" data-bs-toggle="dropdown" routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
+                          <ul class="dropdown-menu main-nav-dropdown d-none">
+                              <li><a routerLink="/ignite-soccer-stars-male">About</a></li>
+                              <li><a routerLink="/ignite-soccer-stars-male/register">Register</a></li>
+                              <li><a routerLink="#">Fixtures/Results</a></li>
+                              <li><a routerLink="#">Highlights</a></li>
+                              <li><a routerLink="#">Player Profile</a></li>
+                          </ul>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
+                      </li>
+                  </ul>
+              </li>
+
+
+
+
                 <li class="navbar-item">
                     <button class="nav-link mobile-dropdown-btn">Coaches<span class="fas fa-caret-down"></span></button>
                         <ul class="mobile-dropdown-container">
