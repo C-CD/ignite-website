@@ -244,6 +244,11 @@ button:active {
   color: var(--red) !important;
 }
 
+.nav-link {
+  font-family:sans-serif;
+  font-size: 16px;
+}
+
 .nav-link:hover {
   background: var(--white) !important;
 }
@@ -717,9 +722,8 @@ a.nav-active {
 
 .home-blog-title {
   color: var(--blue) !important;
-  text-decoration: none !important;
 }
-.home-blog-title .text-underline-hover{
+.home-blog-title:hover{
   text-decoration: underline;
 }
 
@@ -778,6 +782,10 @@ a.nav-active {
 
 .blog-title {
   padding-top: 0px;
+}
+
+.blog-link:hover{
+  text-decoration: underline;
 }
 
 .single-blog {
