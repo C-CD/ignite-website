@@ -7,7 +7,7 @@
 
 .player-box {
   background: #20273f;
-  border-radius: 3px;
+  border-radius: 10px;
   width: 100%;
   float: left;
   margin: 0 0 30px;
@@ -43,4 +43,16 @@
   list-style: none;
   width: 100%;
   float: left;
+}
+
+.player-img{
+  height: 250px;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.player-card{
+  color: #fff;
+  border-radius: 0px 0px 10px 10px;
 }

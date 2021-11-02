@@ -1238,7 +1238,7 @@ body {
 .coming-soon-box {
   height: 850px;
   display: flex;
-  z-index: 999;
+  z-index: 99;
 }
 
 .overlay-container {

@@ -6,7 +6,7 @@
 </div>
 
 
-<nav class="navbar navbar-expand-lg bg-dark sticky-top d-none d-lg-block px-4">
+<nav class="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block px-4">
     <div class="container-fluid">
         <a class="nav-brand" routerLink="https://ignitemegastars.ng"><img src="../assets/img/logo.png" alt="Logo" class="img-fluid" width="100"/></a>
         <ul class="navbar-nav main-nav">
@@ -54,6 +54,8 @@
         </ul>
     </div>
 </nav>
+
+<div [style.height]="'70px'"></div>
 
 <!-- Mobile Navigation-->
 <div class="mobile-menu-wrapper">

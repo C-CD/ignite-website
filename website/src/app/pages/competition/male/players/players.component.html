@@ -14,16 +14,16 @@
 
 <div class="soccer-star-spacer"></div>
 
-<div class="w-100 position-absolute coming-soon-box">
+<!-- <div class="w-100 position-absolute coming-soon-box">
   <div class="overlay-container w-100 d-flex justify-content-center">
     <div class="align-self-center text-center">
       <h1 class="fw-bold text-white">Players Profile</h1>
       <p class="text-muted">Coming soon</p>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="container">
+<div class="container-fluid px-4">
 
   <div class="pt-5 pb-4">
     <h1 class="fw-bold">Players Profile</h1>
@@ -32,92 +32,25 @@
   <div id="c2">
 
     <div class="team-squad wf100 p80-50">
-      <div class="container">
+      <div class="container-fluid">
 
         <div class="row text-white">
           <!--Player Box Start-->
-          <div class="col-md-6">
-            <div class="player-box rounded rounded-lg text-white">
-              <div class="player-thumb"><img src="http://gramotech.net/html/tigers/images/player1.png" alt=""></div>
-              <div class="player-txt">
-                <h3 class="fw-bold text-light">Geryson Ramsy</h3>
-                <strong class="player-desi">League Captain</strong>
-                <!-- <p> Hi, I am Gerrysson Ramsy the team captain of the soccer club. </p> -->
-                <ul>
-                  <li>29 <span>Age</span></li>
-                  <li>87 <span>matches</span></li>
-                  <li>113 <span>Goals</span></li>
-                  <li>87 <span>matches</span></li>
-                </ul>
-                <div class="">
-                  <button class="btn btn-primary">View Player</button>&nbsp;
-                  <button class="btn btn-success">Vote</button>
-                </div>
+          <div class="col-6 col-md-3 col-lg-2" *ngFor="let player of players">
+            <div class="player-box  text-white">
+              <div class="player-img" [style.background]="'http://gramotech.net/html/tigers/images/player1.png'">
+
               </div>
-            </div>
-          </div>
-          <!--Player Box End-->
-          <!--Player Box Start-->
-          <div class="col-md-6">
-            <div class="player-box rounded rounded-lg text-white">
-              <div class="player-thumb"><img src="http://gramotech.net/html/tigers/images/player1.png" alt=""></div>
-              <div class="player-txt">
-                <h3 class="fw-bold text-light">Jaun Carry</h3>
-                <strong class="player-desi">Goal Keeper</strong>
-                <!-- <p> Hi, I am Jaun Carry the team captain of the soccer club.</p> -->
-                <ul>
-                  <li>29 <span>Age</span></li>
-                  <li>87 <span>matches</span></li>
-                  <li>113 <span>Goals</span></li>
-                  <li>87 <span>matches</span></li>
-                </ul>
+              <div class="bg-dark p-3 text-white player-card">
+                <div class="fw-bolder">Malla Sudan</div>
+                <div class="fw-bold">GK</div>
                 <div class="">
-                  <button class="btn btn-primary">View Player</button>&nbsp;
-                  <button class="btn btn-success">Vote</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Player Box End-->
-          <!--Player Box Start-->
-          <div class="col-md-6">
-            <div class="player-box rounded rounded-lg text-white">
-              <div class="player-thumb"><img src="http://gramotech.net/html/tigers/images/player1.png" alt=""></div>
-              <div class="player-txt">
-                <h3 class="fw-bold text-light">Jaun Carry</h3>
-                <strong class="player-desi">Goal Keeper</strong>
-                <!-- <p> Hi, I am Jaun Carry the team captain of the soccer club.</p> -->
-                <ul>
-                  <li>29 <span>Age</span></li>
-                  <li>87 <span>matches</span></li>
-                  <li>113 <span>Goals</span></li>
-                  <li>87 <span>matches</span></li>
-                </ul>
-                <div class="">
-                  <button class="btn btn-primary">View Player</button>&nbsp;
-                  <button class="btn btn-success">Vote</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Player Box End-->
-          <!--Player Box Start-->
-          <div class="col-md-6">
-            <div class="player-box rounded rounded-lg text-white">
-              <div class="player-thumb"><img src="http://gramotech.net/html/tigers/images/player1.png" alt=""></div>
-              <div class="player-txt">
-                <h3 class="fw-bold text-light">Geryson Ramsy</h3>
-                <strong class="player-desi">League Captain</strong>
-                <!-- <p> Hi, I am Gerrysson Ramsy the team captain of the soccer club. </p> -->
-                <ul>
-                  <li>29 <span>Age</span></li>
-                  <li>87 <span>matches</span></li>
-                  <li>113 <span>Goals</span></li>
-                  <li>87 <span>matches</span></li>
-                </ul>
-                <div class="">
-                  <button class="btn btn-primary">View Player</button>&nbsp;
-                  <button class="btn btn-success">Vote</button>
+                  <button class="btn btn-primary">
+                    View Player
+                  </button>
+                  <button class="btn btn-success ms-2">
+                    Vote
+                  </button>
                 </div>
               </div>
             </div>
