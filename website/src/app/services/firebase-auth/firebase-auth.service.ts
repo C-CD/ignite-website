@@ -9,6 +9,10 @@ export class FirebaseAuthService {
 
   constructor(public angularFire: AngularFireAuth) { }
 
+  fire(){
+    return this.angularFire;
+  }
+
   getUser(){
     return this.angularFire.currentUser;
   }

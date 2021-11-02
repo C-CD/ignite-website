@@ -72,4 +72,8 @@ export class FunctionsService {
     // return formatted date
     return `${hours}:${minutes}:${seconds}`;
   }
+
+  generateRandomString(length = 5){
+    return Math.random().toString(20).substr(2, length);
+  }
 }
