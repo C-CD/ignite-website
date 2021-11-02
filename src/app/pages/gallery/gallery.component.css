@@ -1,0 +1,12 @@
+.gallery-nav .btn{
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.gallery-nav .btn.active, .gallery-nav .btn:hover {
+  color: var(--red);
+  border: 2px solid var(--red);
+  background:#fff;
+}
+
