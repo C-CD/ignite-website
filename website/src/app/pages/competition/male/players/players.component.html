@@ -34,21 +34,24 @@
     <div class="team-squad wf100 p80-50">
       <div class="container-fluid">
 
-        <div class="row text-white">
+        <div class="row text-white" *ngIf="players">
           <!--Player Box Start-->
           <div class="col-6 col-md-3 col-lg-2" *ngFor="let player of players">
             <div class="player-box  text-white">
-              <div class="player-img" [style.background]="'http://gramotech.net/html/tigers/images/player1.png'">
-
+              <div class="player-img"
+                [style.background-image]="(player.media) ? 'url(' + player.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
               </div>
               <div class="bg-dark p-3 text-white player-card">
-                <div class="fw-bolder">Malla Sudan</div>
-                <div class="fw-bold">GK</div>
+                <div class="text-white fw-light" *ngIf="player.team_data">{{ player.team_data.name }}</div>
+                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}</div>
+                <div class="fw-bold pb-2 text-white">{{ player.position }}</div>
                 <div class="">
-                  <button class="btn btn-primary">
+                  <button class="btn btn-primary me-2 mt-2" (click)="viewPlayer(player)" data-bs-toggle="modal"
+                    data-bs-target="#playerModal">
                     View Player
                   </button>
-                  <button class="btn btn-success ms-2">
+                  <button class="btn btn-success mt-2" (click)="votePlayer(player)"  data-bs-toggle="modal"
+                    data-bs-target="#votingModal" disabled>
                     Vote
                   </button>
                 </div>
@@ -61,3 +64,6 @@
     </div>
   </div>
 </div>
+
+<app-player-modal [player]="view_player"></app-player-modal>
+<app-vote-modal></app-vote-modal>

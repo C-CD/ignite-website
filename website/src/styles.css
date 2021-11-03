@@ -1246,3 +1246,7 @@ body {
   height: 100%;
   color: #fff;
 }
+
+.b-rad-10{
+  border-radius: 10px;
+}

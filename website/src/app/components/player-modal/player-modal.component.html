@@ -1,0 +1,62 @@
+<div class="modal fade" tabindex="-1" id="playerModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" *ngIf="player">
+      <div class="modal-body">
+        <div class="container-fluid py-2">
+          <div class="row g-4">
+            <div class="col-sm-6">
+              <div class="player-col"
+                [style.background-image]="(player.media) ? 'url(' + player.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <!-- <div class="fw-light text-uppercase">{{ player.team_data.name }}</div> -->
+              <div class="fw-bold h2 text-uppercase">{{ player.fname }}&nbsp;{{ player.lname }}</div>
+              <hr>
+              <div class="text-uppercase">
+                <span class="fw-bold">GENDER: </span><span>{{ player.gender }}</span>
+              </div>
+              <div class="text-uppercase">
+                <span class="fw-bold">STATE: </span><span>{{ player.state }}</span>
+              </div>
+              <div class="text-uppercase">
+                <span class="fw-bold">LGA: </span><span>{{ player.local_gov }}</span>
+              </div>
+              <div class="text-uppercase">
+                <span class="fw-bold">TEAM: </span><span>{{ player.team_data.name }}</span>
+              </div>
+              <hr>
+              <div class="row g-4">
+                <div class="col-6">
+                  <div class="player-info-small-box bg-rhythm">
+                    <div class="pill-info rounded-pill">
+                      <i class="mdi mdi-bullseye-arrow text-light"></i>&nbsp;<span class="fw-light text-light">Position</span>
+                    </div>
+                    <div class="fw-bold display-4 text-center pt-4 pb-5 text-light">{{ player.position }}</div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="player-info-small-box bg-ultra-red">
+                    <div class="pill-info rounded-pill">
+                      <i class="mdi mdi-shoe-cleat text-light"></i>&nbsp;<span
+                        class="fw-light text-light">Boot Size</span>
+                    </div>
+                    <div class="fw-bold display-4 text-center pt-4 pb-5 text-light">{{ player.bootsize }}</div>
+                  </div>
+                </div>
+
+                <div class="col-12 d-grid">
+                  <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" disabled>
+                    VOTE {{ player.fname }}&nbsp;{{ player.lname }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

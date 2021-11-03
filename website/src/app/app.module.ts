@@ -1,3 +1,4 @@
+import { TopLoaderComponent } from './components/top-loader/top-loader.component';
 import { FemaleModule } from './pages/competition/female/female.module';
 import { MaleModule } from './pages/competition/male/male.module';
 
@@ -42,7 +43,7 @@ import { PostLagosEndorseIgniteComponent } from './pages/blog/post-lagos-endorse
 import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-governor-visits-venia-business-hub/post-governor-visits-venia-business-hub.component';
 import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
 import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
-
+import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,8 @@ import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind
     PostGovernorVisitsVeniaBusinessHubComponent,
     PostIgniteTeamVisitsRadianceFootballClubComponent,
     PostFirstOfItsKindComponent,
+    CustomNotificationComponent,
+    TopLoaderComponent,
   ],
   imports: [
     BrowserModule,

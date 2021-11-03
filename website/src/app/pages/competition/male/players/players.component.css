@@ -47,12 +47,17 @@
 
 .player-img{
   height: 250px;
-  background-position: center !important;
+  background-position: center top !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .player-card{
   color: #fff;
   border-radius: 0px 0px 10px 10px;
+}
+
+.team-squad{
+  min-height: 500px;
 }

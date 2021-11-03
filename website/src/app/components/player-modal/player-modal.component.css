@@ -1,0 +1,35 @@
+.modal-content {
+  border-radius: 10px;
+}
+
+.player-col {
+  min-height: 300px;
+  height: 100%;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  border-radius: 10px;
+}
+
+.player-info-small-box{
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.pill-info{
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.3rem 0.6rem;
+  display: inline;
+}
+
+.bg-rhythm{
+  background: rgb(118, 121, 168);
+}
+
+.bg-champagne-pink{
+  background: rgb(241, 225, 212);
+}
+
+.bg-ultra-red {
+  background: rgb(244, 112, 130);
+}

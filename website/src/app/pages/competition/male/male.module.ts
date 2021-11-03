@@ -12,6 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { PlayerModalComponent } from 'src/app/components/player-modal/player-modal.component';
+import { VoteModalComponent } from 'src/app/components/vote-modal/vote-modal.component';
 
 
 
@@ -21,14 +23,18 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     RegisterComponent,
     FixturesComponent,
     AboutComponent,
-    HighlightsComponent
+    HighlightsComponent,
+    PlayerModalComponent,
+    VoteModalComponent
   ],
   exports: [
     PlayersComponent,
     RegisterComponent,
     FixturesComponent,
     AboutComponent,
-    HighlightsComponent
+    HighlightsComponent,
+    PlayerModalComponent,
+    VoteModalComponent
   ],
   imports: [
     BrowserModule,
