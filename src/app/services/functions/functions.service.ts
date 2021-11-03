@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import * as moment from 'moment';
+import { FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root',
 })
@@ -74,6 +75,36 @@ export class FunctionsService {
   }
 
   generateRandomString(length = 5){
-    return Math.random().toString(20).substr(2, length);
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() *
+        charactersLength));
+    }
+    return result;;
+  }
+
+  resetReactiveForm(form: FormGroup) {
+    form.reset();
+
+    Object.keys(form.controls).forEach((key) => {
+      form.get(key)!.setErrors(null);
+    });
+  }
+
+  handleSnapshot(snapshots:any){
+    if (snapshots && snapshots.size) {
+      let result = snapshots.docs.map((snapshot: any) => {
+        let data = snapshot.data();
+        data.snap_id = snapshot.id;
+
+        return data;
+      });
+
+      return result;
+    }else{
+      return null;
+    }
   }
 }

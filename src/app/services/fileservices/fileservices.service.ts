@@ -19,15 +19,19 @@ export class FileservicesService {
   }
 
   readSingleImage(event: any) {
-    return new Promise((resolve) => {
-      const imageFile = event.target.files[0];
-      // File Preview
-      const reader = new FileReader();
-      reader.onload = () => {
-        // console.log(reader.result);
-        resolve(reader.result as string);
-      };
-      reader.readAsDataURL(imageFile);
+    return new Promise((resolve, reject) => {
+      if (event.target.files.length){
+        const imageFile = event.target.files[0];
+        // File Preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          // console.log(reader.result);
+          resolve(reader.result as string);
+        };
+        reader.readAsDataURL(imageFile);
+      }else{
+        reject("No File Selected");
+      }
     });
   }
 
