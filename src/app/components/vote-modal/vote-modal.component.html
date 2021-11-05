@@ -1,16 +1,56 @@
 <div class="modal fade" tabindex="-1" id="votingModal">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <h5 class="modal-title">Vote Player</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="modal-body" *ngIf="player">
+        <div class="alert alert-primary ">
+          <strong>Information</strong>
+          <div>Please note the instructions and fill the below information before voting begins.</div>
+          <div>
+            <ul>Votes cost N50 per vote</ul>
+          </div>
+        </div>
+        <div class="mb-3" >
+          <h5>Player Information</h5>
+          <div class="text-uppercase">
+            <span class="fw-bold">FULL NAME: </span><span>{{ player.fname }}&nbsp;{{ player.lname }}</span>
+          </div>
+          <div class="text-uppercase">
+            <span class="fw-bold">GENDER: </span><span>{{ player.gender }}</span>
+          </div>
+          <div class="text-uppercase">
+            <span class="fw-bold">TEAM: </span><span>{{ player.team_data.name }}</span>
+          </div>
+        </div>
+        <div>
+          <form [formGroup]="formDataGroup" (ngSubmit)="authPayment(formDataGroup.value)">
+            <div class="row g-3">
+              <div class="form-group col-12">
+                <input class="form-control" type="email" formControlName="email" placeholder="Email Address">
+              </div>
+              <div class="form-group col-12">
+                <input class="form-control" formControlName="phone" placeholder="Phone Number">
+              </div>
+              <div class="form-group col-12">
+                <select class="form-control" formControlName="votes">
+                  <option disabled selected>Select number of votes</option>
+                  <option *ngFor="let vote_count of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]">
+                    {{ vote_count }}</option>
+                </select>
+              </div>
+
+              <div class="col-12 d-grid">
+                <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" type="submit">
+                  VOTE {{ player.fname }}&nbsp;{{ player.lname }}
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
       </div>
     </div>
   </div>

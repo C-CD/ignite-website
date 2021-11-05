@@ -42,7 +42,7 @@ export class PlayersComponent implements OnInit {
   }
 
   votePlayer(player: any) {
-    this.view_player = player;
+    this.vote_player = player;
   }
 
   fetchPlayers() {

@@ -37,7 +37,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
               "src/assets/js/script.js",
-              "src/assets/js/form.widget.js"
+              "src/assets/js/form.widget.js",
+              "src/assets/js/app.init.js"
             ]
           },
           "configurations": {
