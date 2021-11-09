@@ -469,7 +469,7 @@ a.nav-active {
 }
 
 .slide-news {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(235,235,236);
   position: absolute;
   top: 60%;
   left: 15%;
@@ -477,12 +477,12 @@ a.nav-active {
   height: 140px;
   overflow: hidden;
   text-align: center;
-  border-radius: 50px;
 }
 
 .slide-news .news-content {
   padding: 15px;
 }
+
 
 .news-content h5 {
   padding-bottom: 10px
