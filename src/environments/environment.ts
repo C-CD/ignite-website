@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  api: "https://api.ignitemegastars.ng/"
 };
 
 /*
@@ -24,3 +25,4 @@ export const firebase_configuration = {
   appId: "1:559858827116:web:009fb00c14ab0fa35bfd49",
   measurementId: "G-G2XMWWFYPQ"
 }
+

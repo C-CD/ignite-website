@@ -1,5 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  api: "https://api.ignitemegastars.ng/"
 };
 
 export const firebase_configuration = {
