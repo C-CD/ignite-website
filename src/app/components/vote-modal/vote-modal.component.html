@@ -2,54 +2,109 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Vote Player</h5>
+        <h5 class="modal-title">VOTE PLAYER</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="player">
-        <div class="alert alert-primary ">
-          <strong>Information</strong>
-          <div>Please note the instructions and fill the below information before voting begins.</div>
+        <div *ngIf="!loading && !success">
+          <div class="alert alert-primary ">
+            <strong>Information</strong>
+            <div>Please note the following.</div>
+            <div>
+              <ul>
+                <li>Each vote costs <b>&#8358;50.00</b></li>
+                <li>Each vote gives <b>5(five) points</b> to the selected player.</li>
+                <li>You can vote as much as you want for your favorite players</li>
+              </ul>
+            </div>
+          </div>
+          <div *ngIf="error">
+            <div class="alert alert-danger">
+              <b>{{ error }}</b>
+            </div>
+          </div>
           <div>
-            <ul>Votes cost N50 per vote</ul>
-          </div>
-        </div>
-        <div class="mb-3" >
-          <h5>Player Information</h5>
-          <div class="text-uppercase">
-            <span class="fw-bold">FULL NAME: </span><span>{{ player.fname }}&nbsp;{{ player.lname }}</span>
-          </div>
-          <div class="text-uppercase">
-            <span class="fw-bold">GENDER: </span><span>{{ player.gender }}</span>
-          </div>
-          <div class="text-uppercase">
-            <span class="fw-bold">TEAM: </span><span>{{ player.team_data.name }}</span>
-          </div>
-        </div>
-        <div>
-          <form [formGroup]="formDataGroup" (ngSubmit)="authPayment(formDataGroup.value)">
-            <div class="row g-3">
-              <div class="form-group col-12">
-                <input class="form-control" type="email" formControlName="email" placeholder="Email Address">
-              </div>
-              <div class="form-group col-12">
-                <input class="form-control" formControlName="phone" placeholder="Phone Number">
-              </div>
-              <div class="form-group col-12">
-                <select class="form-control" formControlName="votes">
-                  <option disabled selected>Select number of votes</option>
-                  <option *ngFor="let vote_count of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]">
-                    {{ vote_count }}</option>
-                </select>
+            <form [formGroup]="formDataGroup" (ngSubmit)="authPayment(formDataGroup.value)" #fd="ngForm"
+              [ngxFvControl]="fd">
+              <div class="row g-3">
+                <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.email"
+                  labelName='Email Address'>
+                  <label class="form-label">Email Address</label>
+                  <input class="form-control form-control-lg" type="email" formControlName="email"
+                    placeholder="Ex: myemail@example.com"
+                    #ngxFvFormControl>
+                    <div class="text-danger pt-1">
+                      <ngx-fv-error></ngx-fv-error>
+                    </div>
+                </ngx-fv-validate>
+                <div class="form-group col-12">
+                  <label class="form-label">Mobile Number</label>
+                  <input class="form-control form-control-lg" formControlName="phone"
+                    placeholder="Ex: +234 90123456789">
+                </div>
+                <div class="form-group col-4">
+                  <label class="form-label">Number of votes</label>
+                  <input type="number" class="form-control form-control-lg" (input)="setVoteConfig(formDataGroup.value)"
+                    formControlName="votes" placeholder="Number of votes">
+                </div>
+                <div class="form-group col-4">
+                  <label class="form-label">Points Earned</label>
+                  <input class="form-control form-control-lg" readonly [value]="voteConfig.points" placeholder="Points">
+                </div>
+                <div class="form-group col-4">
+                  <label class="form-label">Amount</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="mdi mdi-currency-ngn"></i>
+                    </span>
+                    <input class="form-control form-control-lg" readonly [value]="voteConfig.amount"
+                      placeholder="Amount">
+                  </div>
+
+                </div>
+
+                <div class="col-12 d-grid">
+                  <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" type="submit"
+                    [disabled]="!formDataGroup.valid">
+                    VOTE {{ player.fname }}&nbsp;{{ player.lname }}
+                  </button>
+                </div>
               </div>
 
-              <div class="col-12 d-grid">
-                <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" type="submit">
-                  VOTE {{ player.fname }}&nbsp;{{ player.lname }}
-                </button>
+            </form>
+          </div>
+        </div>
+
+        <div *ngIf="loading">
+          <div class="d-flex justify-content-center" [style.height]="'350px'">
+            <div class="text-center align-self-center">
+              <div class="p-y mb-3">
+                <img style="width: 100px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
+              </div>
+              <div class="mb-3">
+                <b class="h4 fw-bold">Verifying Payment..</b><br />
+                <div>
+                  Kindly wait while we validate your payment for <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-          </form>
+        <div *ngIf="success">
+          <div class="d-flex justify-content-center" [style.height]="'350px'">
+            <div class="text-center align-self-center">
+              <div class="px-5 mb-3">
+                <img style="min-width: 200px;" class="img-fluid" src="assets/img/gifs/success.gif">
+              </div>
+              <div class="mb-3">
+                <b class="h4 fw-bold">Payment Successful..</b><br />
+                <div>
+                  Thanks for voting <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

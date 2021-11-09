@@ -97,7 +97,8 @@ import { CustomNotificationComponent } from './components/custom-notification/cu
     MatAutocompleteModule,
     NgxFormValidationsModule,
     MaleModule,
-    FemaleModule
+    FemaleModule,
+    NgxFormValidationsModule
   ],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

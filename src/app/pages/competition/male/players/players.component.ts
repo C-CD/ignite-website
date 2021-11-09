@@ -17,9 +17,12 @@ import { ToastrService } from 'src/app/services/toastr/toastr.service';
 })
 export class PlayersComponent implements OnInit {
 
-  players: any[] = [];
-  view_player: any = null;
-  vote_player: any = null;
+  players: any = [];
+  selected_player: any = null;
+  teams: any[] = [];
+  showTeam = false;
+  selectedTeam: any;
+  searchInput: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,25 +36,48 @@ export class PlayersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchPlayers();
+    this.fetchTeams();
+    // this.fetchPlayers();
   }
 
-  viewPlayer(player: any) {
+  selectPlayer(player: any) {
     console.log(player);
-    this.view_player = player;
-  }
-
-  votePlayer(player: any) {
-    this.vote_player = player;
+    this.selected_player = player;
   }
 
   fetchPlayers() {
+    return new Promise((resolve, reject) => {
+      this.loadingService.quickLoader().then(() => {
+        this.playerService.getPlayers().then((snapshots: any) => {
+          // console.log(snapshots);
+
+          let snapshots_data = this.funcService.handleSnapshot(snapshots);
+          if (snapshots_data) {
+            resolve(this.organizePlayerData(snapshots_data, true));
+          } else {
+            reject(snapshots_data);
+          }
+          // console.log(this.players);
+          this.loadingService.clearLoader();
+        });
+      });
+    })
+
+  }
+
+  fetchPlayersByTeam(team:any) {
+    this.selectedTeam = team;
+    this.players = [];
     this.loadingService.quickLoader().then(() => {
-      this.playerService.getPlayers().then((snapshots: any) => {
+      this.playerService.collection().where("team", "==", team.snap_id).get().then((snapshots: any) => {
         // console.log(snapshots);
 
         let snapshots_data = this.funcService.handleSnapshot(snapshots);
-        this.organizePlayerData(snapshots_data);
+        if(snapshots_data){
+          this.organizePlayerData(snapshots_data);
+        }else{
+          this.players = snapshots_data;
+        }
         // console.log(this.players);
         this.loadingService.clearLoader();
       });
@@ -72,13 +98,13 @@ export class PlayersComponent implements OnInit {
     return new Promise((resolve) => {
       this.mediaService.getMedia(id).pipe(take(1)).subscribe((data: any) => {
         // console.log((data && data.avatar) ? data : false, id);
-        resolve((data && data.avatar) ? data : false);
+        resolve((data && data.avatar) ? data : null);
       });
     })
   }
 
-  organizePlayerData(players: any) {
-    this.players = [];
+  organizePlayerData(players: any, parse = false) {
+    let storePlayers: any = [];
     players.forEach((player: any) => {
       // team info
       this.fetchTeam(player.team).then((team_data) => {
@@ -88,14 +114,53 @@ export class PlayersComponent implements OnInit {
           player.media = media;
           // format date
           player.date = moment(player.created).calendar();
-          this.players.push(player);
+          storePlayers.push(player);
         });
+      });
+    });
+
+    if (!parse) {
+      this.players = storePlayers;
+    }
+
+    return storePlayers;
+  }
+
+  fetchTeams() {
+    this.loadingService.quickLoader().then(() => {
+      this.teamService.collection().get().then((snapshots: any) => {
+        console.log(snapshots);
+        this.teams = this.funcService.handleSnapshot(snapshots);
+        this.selectedTeam = this.teams[0];
+        this.fetchPlayersByTeam(this.selectedTeam);
+        this.loadingService.clearLoader();
       });
     });
   }
 
+  searchPlayer(){
+    console.log(this.searchInput);
+    this.players = [];
+    this.fetchPlayers().then((players:any) => {
+      console.log(players, players.length);
+      players.forEach((player: any) => {
+        console.log(player);
+        let checks = {
+          team: player.team_data.name.includes(this.searchInput),
+          name: (player.fname.includes(this.searchInput) || player.lname.includes(this.searchInput)),
+        };
+        console.log(checks);
+        if (checks.team || checks.name){
+          this.players.push(player);
+        }
+      });
 
+      this.players = (this.players.length) ? this.players : null;
 
-
+    }).catch((error) => {
+      console.log(error);
+      this.players = error;
+    })
+  }
 
 }

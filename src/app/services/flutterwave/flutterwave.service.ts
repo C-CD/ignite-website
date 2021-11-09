@@ -2,12 +2,14 @@ import { ApiService } from './../apiservice/apiservice.service';
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { HttphelperService } from '../httphelper/httphelper.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class FlutterwaveService {
+  env = environment;
   // flutterwave key
   publicKey = 'FLWPUBK-1a2a5e3c6a2dfb316ba3ccb1c3c9795d-X';
   secretKey = 'FLWSECK_TEST-1103ae7e8e97b319576ff948e718c048-X';
@@ -41,7 +43,7 @@ export class FlutterwaveService {
 
     // console.log(postData);
     return new Promise((resolve, reject) => {
-        this.httpHelper.httpPost('https://api.urge2k.com/', postData, {
+      this.httpHelper.httpPost(this.env.api, postData, {
           Authorization: `Bearer ${this.secretKey}`
         }).subscribe((response) => {
           console.log(response);
@@ -58,7 +60,7 @@ export class FlutterwaveService {
       'payments', 'verify-payment', data
     );
     return new Promise((resolve, reject) => {
-        this.httpHelper.httpPost('https://api.urge2k.com/', postData).subscribe((response) => {
+      this.httpHelper.httpPost(this.env.api, postData).subscribe((response) => {
           console.log(response);
           resolve(response);
         }, (error) => {

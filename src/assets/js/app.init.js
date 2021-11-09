@@ -3,7 +3,8 @@ var initFwCheckout = function (usr, data) {
 
     return new Promise( function (resolve, reject) {
       FlutterwaveCheckout({
-          public_key: 'FLWPUBK_TEST-4eeafe86eb3ca7e8f3fbd486ea3c4650-X',
+        // public_key: 'FLWPUBK-39a42c2e75f6ad587b73b7c7e51717e6-X',
+          public_key: 'FLWPUBK-39a42c2e75f6ad587b73b7c7e51717e6-X',
           tx_ref: data.reference,
           amount: data.amount,
           currency: "NGN",
@@ -11,7 +12,7 @@ var initFwCheckout = function (usr, data) {
           customer: {
               email: usr.email,
               phonenumber: usr.phone,
-              name: 'Ignite Voting User'
+              name: 'Ignite Player Voting'
           },
           callback: function(data) {
               console.log(data);

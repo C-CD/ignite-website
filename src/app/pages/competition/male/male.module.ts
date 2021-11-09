@@ -14,6 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { PlayerModalComponent } from 'src/app/components/player-modal/player-modal.component';
 import { VoteModalComponent } from 'src/app/components/vote-modal/vote-modal.component';
+import { NgxFormValidationsModule } from 'ngx-form-validations';
 
 
 
@@ -44,6 +45,7 @@ import { VoteModalComponent } from 'src/app/components/vote-modal/vote-modal.com
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxFormValidationsModule
   ]
 })
 export class MaleModule { }
