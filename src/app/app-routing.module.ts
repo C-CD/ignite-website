@@ -27,6 +27,7 @@ import { PostLagosEndorseIgniteComponent } from './pages/blog/post-lagos-endorse
 import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-governor-visits-venia-business-hub/post-governor-visits-venia-business-hub.component';
 import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
 import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
+import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'blog/post/govornor-visits', component: PostGovernorVisitsVeniaBusinessHubComponent },
   { path: 'blog/post/ignite-team', component: PostIgniteTeamVisitsRadianceFootballClubComponent },
   { path: 'blog/post/first-of-its-kind', component: PostFirstOfItsKindComponent },
+  { path: 'blog/post/post-next-top', component: PostNextTopComponent },
 ];
 
 @NgModule({

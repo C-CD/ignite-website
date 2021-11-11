@@ -42,6 +42,7 @@ import { PostLagosEndorseIgniteComponent } from './pages/blog/post-lagos-endorse
 import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-governor-visits-venia-business-hub/post-governor-visits-venia-business-hub.component';
 import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
 import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
+import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind
     PostGovernorVisitsVeniaBusinessHubComponent,
     PostIgniteTeamVisitsRadianceFootballClubComponent,
     PostFirstOfItsKindComponent,
+    PostNextTopComponent,
   ],
   imports: [
     BrowserModule,
