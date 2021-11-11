@@ -47,6 +47,7 @@ export class PlayersComponent implements OnInit {
 
   fetchPlayers() {
     return new Promise((resolve, reject) => {
+      this.showTeam = true;
       this.loadingService.quickLoader().then(() => {
         this.playerService.getPlayers().then((snapshots: any) => {
           // console.log(snapshots);
@@ -66,6 +67,7 @@ export class PlayersComponent implements OnInit {
   }
 
   fetchPlayersByTeam(team:any) {
+    this.showTeam = false;
     this.selectedTeam = team;
     this.players = [];
     this.loadingService.quickLoader().then(() => {
@@ -154,6 +156,7 @@ export class PlayersComponent implements OnInit {
           this.players.push(player);
         }
       });
+
 
       this.players = (this.players.length) ? this.players : null;
 
