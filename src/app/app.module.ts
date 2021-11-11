@@ -1,3 +1,4 @@
+import { TopLoaderComponent } from './components/top-loader/top-loader.component';
 import { FemaleModule } from './pages/competition/female/female.module';
 import { MaleModule } from './pages/competition/male/male.module';
 
@@ -43,7 +44,7 @@ import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-g
 import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
 import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
 import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
-
+import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,8 @@ import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.c
     PostIgniteTeamVisitsRadianceFootballClubComponent,
     PostFirstOfItsKindComponent,
     PostNextTopComponent,
+    CustomNotificationComponent,
+    TopLoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.c
     MatAutocompleteModule,
     NgxFormValidationsModule,
     MaleModule,
-    FemaleModule
+    FemaleModule,
+    NgxFormValidationsModule
   ],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

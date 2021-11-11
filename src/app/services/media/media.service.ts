@@ -28,8 +28,8 @@ export class MediaService {
     return this.afs.collection('media').doc(id).valueChanges();
   }
 
-  setMedia(media: Media, id: string | undefined = undefined) {
-    return this.afs.collection('media').doc(id).update(media);
+  setMedia(media: Media, id: string|undefined = undefined) {
+    return this.afs.collection('media').doc(id).set(media);
   }
 
   deleteMedia(id:string) {
