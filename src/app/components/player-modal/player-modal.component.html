@@ -13,30 +13,63 @@
               <!-- <div class="fw-light text-uppercase">{{ player.team_data.name }}</div> -->
               <div class="fw-bold h2 text-uppercase">{{ player.fname }}&nbsp;{{ player.lname }}</div>
               <hr>
-              <div class="text-uppercase">
-                <span class="fw-bold">GENDER: </span><span>{{ player.gender }}</span>
+              <div>
+                <b>Personal Information</b>
+                <!-- <div class="text-uppercase">
+                  <span class="fw-bold">GENDER: </span><span>{{ player.gender }}</span>
+                </div> -->
+                <div class="text-uppercase">
+                  <span class="fw-bold">AGE: </span><span>{{ player.age }}</span>
+                </div>
+                <div class="text-uppercase">
+                  <span class="fw-bold">STATE: </span><span>{{ player.state }}</span>
+                </div>
+                <div class="text-uppercase">
+                  <span class="fw-bold">LGA: </span><span>{{ player.local_gov }}</span>
+                </div>
               </div>
-              <div class="text-uppercase">
-                <span class="fw-bold">STATE: </span><span>{{ player.state }}</span>
-              </div>
-              <div class="text-uppercase">
-                <span class="fw-bold">LGA: </span><span>{{ player.local_gov }}</span>
-              </div>
-              <div class="text-uppercase">
-                <span class="fw-bold">TEAM: </span><span>{{ player.team_data.name }}</span>
+              <hr>
+              <div>
+                <b>Player Information</b>
+                <div class="text-uppercase">
+                  <span class="fw-bold">TEAM: </span><span>TEAM {{ player.team_data.name }}</span>
+                </div>
+                <div class="text-uppercase">
+                  <span class="fw-bold">POSITION: </span><span>{{ player.position }}</span>
+                </div>
               </div>
               <hr>
               <div class="row g-4">
-                <div class="col-6">
+                <div class="col-12">
                   <div class="player-info-small-box bg-rhythm">
                     <div class="pill-info rounded-pill">
-                      <i class="mdi mdi-bullseye-arrow text-light"></i>&nbsp;<span class="fw-light text-light">Position</span>
+                      <i class="mdi mdi-bullseye-arrow text-light"></i>&nbsp;<span
+                        class="fw-light text-light">Statistics</span>
                     </div>
-                    <div class="fw-bold display-4 text-center pt-4 pb-5 text-light">{{ player.position }}</div>
+                    <div class="row g-3  text-center pt-4 pb-5 ">
+                      <div class="col-sm-4">
+                        <div class="display-5 text-light fw-bold">00</div>
+                        <div>
+                          <small class="text-light">Games Played</small>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 border-light border-left-1 border-right-1">
+                        <div class="display-5 text-light fw-bold">00</div>
+                        <div>
+                          <small class="text-light">Goals Scored</small>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="display-5 text-light fw-bold">00</div>
+                        <div>
+                          <small class="text-light">Goals Assist</small>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-6">
+                <!-- <div class="col-6">
                   <div class="player-info-small-box bg-ultra-red">
                     <div class="pill-info rounded-pill">
                       <i class="mdi mdi-shoe-cleat text-light"></i>&nbsp;<span
@@ -44,7 +77,7 @@
                     </div>
                     <div class="fw-bold display-4 text-center pt-4 pb-5 text-light">{{ player.bootsize }}</div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-12 d-grid">
                   <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" data-bs-toggle="modal"
