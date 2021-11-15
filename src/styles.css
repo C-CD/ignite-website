@@ -291,7 +291,7 @@ a.nav-active {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 999;
+  z-index: 4;
 }
 
 .ignite-soccer-stars-nav li {
@@ -353,20 +353,24 @@ a.nav-active {
 }
 
 .mobile-header {
-  padding: 40px 20px 20px 20px;
+  padding: 20px;
+  position: fixed;
+  z-index: 7;
+  background: #000;
+  width: 100%;
 }
 
 .mobile-logo {
-  margin-top: -40px;
+  /* margin-top: -40px; */
 }
 
 .mobile-logo img {
-  width: 100px;
+  width: 70px;
 }
 
 .hamburger {
   color: #c4c4c4;
-  padding-top: 50px;
+  padding-top: 5px;
 }
 
 .nodisplay {
@@ -377,7 +381,7 @@ a.nav-active {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   top: 0;
   left: 0;
   background-color: #000;
@@ -443,6 +447,7 @@ a.nav-active {
 .hamburger {
   font-size: 30px;
   cursor: pointer;
+  position: absolute;
 }
 
 /* Slider */
@@ -1009,6 +1014,10 @@ a.nav-active {
     display: block;
   }
 
+  .header-spacer{
+    height: 81px !important;
+  }
+
   .fa-caret-down {
     padding-left: 10px;
   }
@@ -1034,9 +1043,9 @@ a.nav-active {
     text-align: justify;
   }
 
-  .ignite-soccer-stars-nav-wrapper {
+  /* .ignite-soccer-stars-nav-wrapper {
     display: none;
-  }
+  } */
 
   .carousel-indicators {
     top: 80%;
