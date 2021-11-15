@@ -54,6 +54,7 @@ export class PlayersComponent implements OnInit {
 
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           if (snapshots_data) {
+
             resolve(this.organizePlayerData(snapshots_data, true));
           } else {
             reject(snapshots_data);
@@ -76,7 +77,8 @@ export class PlayersComponent implements OnInit {
 
         let snapshots_data = this.funcService.handleSnapshot(snapshots);
         if(snapshots_data){
-          this.organizePlayerData(snapshots_data);
+          let playersOrdered = this.orderPlayers(snapshots_data);
+          this.organizePlayerData(playersOrdered);
         }else{
           this.players = snapshots_data;
         }
@@ -126,6 +128,23 @@ export class PlayersComponent implements OnInit {
     }
 
     return storePlayers;
+  }
+
+  orderPlayers(players:any){
+    let requiredFormat = ['gk', 'df', 'mf', 'fw'];
+    let formatted:any[]  = [];
+
+    requiredFormat.forEach((position) => {
+      let filtered = players.filter((player:any) => {
+        // console.log(player.position, position);
+        return (player.position.toLowerCase() === position);
+      });
+
+      formatted = [...formatted, ...filtered];
+    });
+
+    // console.log(formatted);
+    return formatted;
   }
 
   fetchTeams() {
