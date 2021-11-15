@@ -18,7 +18,6 @@ import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { NavComponent } from './pages/nav/nav.component';
 import { FooterComponent } from './pages/footer/footer.component';
-import { CoachAgentApplicationComponent } from './pages/coach-agent-application/coach-agent-application.component';
 import { CoachesTermsAndConditionsComponent } from './pages/coaches-terms-and-conditions/coaches-terms-and-conditions.component';
 import { PlayersTermsAndConditionsComponent } from './pages/players-terms-and-conditions/players-terms-and-conditions.component';
 import { AngularFireModule } from '@angular/fire';
@@ -45,6 +44,9 @@ import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/
 import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
 import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
+import { CoachesVotingComponent } from './pages/coache/coaches-voting/coaches-voting.component';
+import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-evictions.component';
+import { CoachAgentApplicationComponent } from './pages/coache/coaches-apply/coach-agent-application.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { CustomNotificationComponent } from './components/custom-notification/cu
     PostNextTopComponent,
     CustomNotificationComponent,
     TopLoaderComponent,
+    CoachesVotingComponent,
+    MaleEvictionsComponent,
   ],
   imports: [
     BrowserModule,

@@ -39,8 +39,9 @@
             <li class="navbar-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" id="coachesNav" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Coaches</a>
                     <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="coachesNav">
-                        <li><a class="dropdown-item" routerLink="/coach-agent-application">Apply</a></li>
-                    </ul>
+                        <li><a class="dropdown-item" routerLink="coaches/register">Apply</a></li>
+                        <li><a class="dropdown-item" routerLink="/coaches/voting">Coaches Voting</a></li>
+                      </ul>
             </li>
             <li class="navbar-item">
                 <a class="nav-link" routerLink="/gallery">Gallery</a>
@@ -54,8 +55,6 @@
         </ul>
     </div>
 </nav>
-
-<div [style.height]="'70px'"></div>
 
 <!-- Mobile Navigation-->
 <div class="mobile-menu-wrapper">
@@ -97,8 +96,10 @@
                     <button class="nav-link mobile-dropdown-btn">Coaches<span class="fas fa-caret-down"></span></button>
                         <ul class="mobile-dropdown-container">
                             <li class="navbar-item">
-                                <a class="dropdown-item" routerLink="/coach-agent-application">Apply</a>
+                                <a class="dropdown-item" routerLink="coaches/register">Apply</a>
                             </li>
+                            <li><a class="dropdown-item" routerLink="/coaches/voting">Coaches Voting</a></li>
+
                         </ul>
                 </li>
                 <li class="navbar-item">
@@ -120,4 +121,7 @@
         </div>
     </div>
 </div>
+
+<div class="d-block header-spacer" [style.height]="'70px'"></div>
+
 

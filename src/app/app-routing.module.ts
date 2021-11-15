@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
 import { BlogComponent } from './pages/blog/blog.component';
-import { CoachAgentApplicationComponent } from './pages/coach-agent-application/coach-agent-application.component';
+import { CoachAgentApplicationComponent } from './pages/coache/coaches-apply/coach-agent-application.component';
 import { CoachesTermsAndConditionsComponent } from './pages/coaches-terms-and-conditions/coaches-terms-and-conditions.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './pages/footer/footer.component';
@@ -28,6 +28,8 @@ import { PostGovernorVisitsVeniaBusinessHubComponent } from './pages/blog/post-g
 import { PostIgniteTeamVisitsRadianceFootballClubComponent } from './pages/blog/post-ignite-team-visits-radiance-football-club/post-ignite-team-visits-radiance-football-club.component';
 import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind/post-first-of-its-kind.component';
 import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
+import { CoachesVotingComponent } from './pages/coache/coaches-voting/coaches-voting.component';
+import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-evictions.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -35,7 +37,6 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'whats-hot', component: BlogComponent },
-  { path: 'coach-agent-application', component: CoachAgentApplicationComponent },
   { path: 'coaches-terms-and-conditions', component: CoachesTermsAndConditionsComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'footer', component: FooterComponent },
@@ -50,11 +51,14 @@ const routes: Routes = [
   { path: 'competition/male/highlights', component: MaleCompetitionHighlights },
   { path: 'competition/male/players', component: MaleCompetitionPlayers },
   { path: 'competition/male/register', component: MaleCompetitionRegister },
+  { path: 'competition/male/evictions', component: MaleEvictionsComponent },
   { path: 'blog/post/lagos-endorse', component: PostLagosEndorseIgniteComponent },
   { path: 'blog/post/govornor-visits', component: PostGovernorVisitsVeniaBusinessHubComponent },
   { path: 'blog/post/ignite-team', component: PostIgniteTeamVisitsRadianceFootballClubComponent },
   { path: 'blog/post/first-of-its-kind', component: PostFirstOfItsKindComponent },
   { path: 'blog/post/post-next-top', component: PostNextTopComponent },
+  {path: 'coaches/voting', component: CoachesVotingComponent},
+  { path: 'coaches/register', component: CoachAgentApplicationComponent },
 ];
 
 @NgModule({
