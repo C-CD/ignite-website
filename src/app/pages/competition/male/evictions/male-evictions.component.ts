@@ -7,6 +7,7 @@ import { FunctionsService } from 'src/app/services/functions/functions.service';
 import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
 import { PlayerService } from 'src/app/services/players/player.service';
+import { StatisticsService } from 'src/app/services/statistics/statistics.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 
@@ -35,7 +36,8 @@ export class MaleEvictionsComponent implements OnInit {
     private funcService: FunctionsService,
     private mediaService: MediaService,
     protected teamService: TeamService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private statsService: StatisticsService,
   ) { }
 
   ngOnInit(): void {
@@ -80,6 +82,7 @@ export class MaleEvictionsComponent implements OnInit {
         let snapshots_data = this.funcService.handleSnapshot(snapshots);
         if(snapshots_data){
           this.organizePlayerData(snapshots_data);
+          // this.players = null;
         }else{
           this.players = snapshots_data;
         }
@@ -117,9 +120,17 @@ export class MaleEvictionsComponent implements OnInit {
         // media
         this.fetchMedia(player.snap_id).then((media) => {
           player.media = media;
-          // format date
-          player.date = moment(player.created).calendar();
-          storePlayers.push(player);
+
+          this.statsService.getPlayerStats(player.snap_id).pipe(take(1)).subscribe((stats) => {
+            player.stats = stats;
+
+            player.date = moment(player.created).calendar();
+            player.position_full = this.teamInfoPosition(player.position);
+
+            if(player.eviction === "on-going"){
+              storePlayers.push(player);
+            }
+          });
         });
       });
     });
@@ -143,8 +154,22 @@ export class MaleEvictionsComponent implements OnInit {
     });
   }
 
+  teamInfoPosition(position: string) {
+    if (position.toLowerCase() === "gk") {
+      return "Goal Keeper";
+    } else if (position.toLowerCase() === "df") {
+      return "Defender"
+    } else if (position.toLowerCase() === "mf") {
+      return "Midfielder"
+    } else if (position.toLowerCase() === "fw") {
+      return "Forward"
+    } else {
+      return null;
+    }
+  }
+
   searchPlayer(){
-    console.log(this.searchInput);
+    // console.log(this.searchInput);
     this.players = [];
     this.fetchPlayers().then((players:any) => {
       console.log(players, players.length);

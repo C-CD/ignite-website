@@ -1,4 +1,3 @@
-import { VotingService } from './../../services/votings/voting.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
@@ -6,6 +5,7 @@ import { FirebaseAuthService } from 'src/app/services/firebase-auth/firebase-aut
 import { FlutterwaveService } from 'src/app/services/flutterwave/flutterwave.service';
 import { LoadingService } from 'src/app/services/loader/loading.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
+import { VotingService } from 'src/app/services/votings/voting.service';
 declare let initFwCheckout: any;
 
 interface VoteConfig {
@@ -23,6 +23,7 @@ interface VoteConfig {
 export class VoteModalComponent implements OnInit {
 
   @Input() player: any;
+  @Input() category: string = 'players';
   usr: any;
   formDataGroup!: FormGroup;
   voteConfig: VoteConfig = {
@@ -80,7 +81,7 @@ export class VoteModalComponent implements OnInit {
 
     initFwCheckout(formData, {
       amount: 50 * formData.votes,
-      reference: `player-voting-${generatedRef}`
+      reference: `${this.category}-voting-${generatedRef}`
     }).then((transaction: any) => {
 
       // check transaction status
@@ -93,7 +94,8 @@ export class VoteModalComponent implements OnInit {
               amount: transaction.amount,
               ref: transaction.tx_ref,
               meta_data: response.data,
-              player: this.player.snap_id,
+              votee: this.player.snap_id,
+              category: this.category,
               date: moment().format()
             }).then(() => {
               this.paymentSuccess();

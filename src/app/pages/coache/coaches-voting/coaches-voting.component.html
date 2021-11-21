@@ -18,13 +18,7 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 teams-item">
-              <li class="nav-item touch b-rad-10"  *ngFor="let team of teams">
-                <a class="nav-link fw-bold" [ngClass]="{'active': (selectedTeam.snap_id === team.snap_id)}"
-                  aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
-              </li>
-            </ul>
+          <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
             <form class="d-flex" (ngSubmit)="searchPlayer()">
               <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-danger" type="submit">Search</button>
@@ -69,7 +63,7 @@
                 <div class="">
                   <button class="btn btn-primary me-2 mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
                     data-bs-target="#playerModal">
-                    View Player
+                    View Coach
                   </button>
                   <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
                     data-bs-target="#votingModal" >
@@ -89,9 +83,9 @@
                 <img style="width: 70px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
               </div>
               <div class="mb-3">
-                <b class="h5 fw-bold">Loading Players..</b><br />
+                <b class="h5 fw-bold">Loading Coaches..</b><br />
                 <div>
-                  Kindly wait while we load the player profiles...
+                  Kindly wait while we load the coaches profiles...
                 </div>
               </div>
             </div>
@@ -105,7 +99,7 @@
                 <img style="width: 250px;" class="img-fluid" src="assets/img/gifs/nothing-found.gif">
               </div>
               <div class="mb-3">
-                <b class="h5 fw-bold">No Players Found..</b><br />
+                <b class="h5 fw-bold">No Coaches Found..</b><br />
                 <div>
                   There where no players found yet...
                 </div>

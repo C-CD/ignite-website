@@ -7,6 +7,7 @@ import { FunctionsService } from 'src/app/services/functions/functions.service';
 import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
 import { PlayerService } from 'src/app/services/players/player.service';
+import { StatisticsService } from 'src/app/services/statistics/statistics.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 
@@ -32,7 +33,9 @@ export class PlayersComponent implements OnInit {
     private funcService: FunctionsService,
     private mediaService: MediaService,
     protected teamService: TeamService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private statsService: StatisticsService,
+
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +67,6 @@ export class PlayersComponent implements OnInit {
         });
       });
     })
-
   }
 
   fetchPlayersByTeam(team:any) {
@@ -98,6 +100,20 @@ export class PlayersComponent implements OnInit {
     })
   }
 
+  teamInfoPosition(position:string){
+    if (position.toLowerCase() === "gk"){
+      return "Goal Keeper";
+    } else if (position.toLowerCase() === "df"){
+      return "Defender"
+    } else if (position.toLowerCase() === "mf") {
+      return "Midfielder"
+    } else if (position.toLowerCase() === "fw") {
+      return "Forward"
+    }else{
+      return null;
+    }
+  }
+
   fetchMedia(id: string) {
     return new Promise((resolve) => {
       this.mediaService.getMedia(id).pipe(take(1)).subscribe((data: any) => {
@@ -117,8 +133,13 @@ export class PlayersComponent implements OnInit {
         this.fetchMedia(player.snap_id).then((media) => {
           player.media = media;
           // format date
-          player.date = moment(player.created).calendar();
-          storePlayers.push(player);
+          this.statsService.getPlayerStats(player.snap_id).pipe(take(1)).subscribe((stats) => {
+            player.stats = stats;
+
+            player.date = moment(player.created).calendar();
+            player.position_full = this.teamInfoPosition(player.position);
+            storePlayers.push(player);
+          });
         });
       });
     });

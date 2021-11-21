@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">VOTE PLAYER</h5>
+        <h5 class="modal-title text-capitalize">VOTE {{ category }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="player">
@@ -14,7 +14,7 @@
               <ul>
                 <li>Each vote costs <b>&#8358;50.00</b></li>
                 <li>Each vote gives <b>5(five) points</b> to the selected player.</li>
-                <li>You can vote as much as you want for your favorite players</li>
+                <li>You can vote as much as you want for your favorite player</li>
               </ul>
             </div>
           </div>
@@ -83,8 +83,11 @@
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Verifying Payment..</b><br />
-                <div>
+                <div *ngIf="category === 'players'">
                   Kindly wait while we validate your payment for <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                </div>
+                <div *ngIf="category === 'coaches'">
+                  Kindly wait while we validate your payment for <b>{{ player.name }}</b>.
                 </div>
               </div>
             </div>
@@ -99,8 +102,11 @@
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Payment Successful..</b><br />
-                <div>
+                <div *ngIf="category === 'players'">
                   Thanks for voting <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                </div>
+                <div *ngIf="category === 'coaches'">
+                  Thanks for voting <b>{{ player.name }}</b>.
                 </div>
               </div>
             </div>
