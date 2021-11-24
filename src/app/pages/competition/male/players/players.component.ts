@@ -7,8 +7,10 @@ import { FunctionsService } from 'src/app/services/functions/functions.service';
 import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
 import { PlayerService } from 'src/app/services/players/player.service';
+import { StatisticsService, StatsPlayer } from 'src/app/services/statistics/statistics.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
+import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 
 @Component({
   selector: 'app-players',
@@ -32,7 +34,9 @@ export class PlayersComponent implements OnInit {
     private funcService: FunctionsService,
     private mediaService: MediaService,
     protected teamService: TeamService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private statsService: StatisticsService,
+    private votingService: VotingService
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +68,6 @@ export class PlayersComponent implements OnInit {
         });
       });
     })
-
   }
 
   fetchPlayersByTeam(team:any) {
@@ -98,6 +101,43 @@ export class PlayersComponent implements OnInit {
     })
   }
 
+  teamInfoPosition(position:string){
+    if (position.toLowerCase() === "gk"){
+      return "Goal Keeper";
+    } else if (position.toLowerCase() === "df"){
+      return "Defender"
+    } else if (position.toLowerCase() === "mf") {
+      return "Midfielder"
+    } else if (position.toLowerCase() === "fw") {
+      return "Forward"
+    }else{
+      return null;
+    }
+  }
+
+  fetchVoteDetails(votee: string) {
+    return new Promise((resolve) => {
+      let data = {
+        total: 0,
+        amount: 0,
+        points: 0
+      };
+      this.votingService.collection()
+        .where("votee", "==", votee)
+        .get().then((querySnap) => {
+          let snapshots_data = this.funcService.handleSnapshot(querySnap);
+          if (snapshots_data) {
+            data.total = snapshots_data.reduce((accumulator: any, current: Votes) => accumulator + current.quantity, 0);
+            data.amount = snapshots_data.reduce((accumulator: any, current: Votes) => accumulator + current.amount, 0);
+            data.points = snapshots_data.reduce((accumulator: any, current: Votes) => accumulator + current.points, 0);
+          }
+
+          // console.log(data);
+          resolve(data);
+        })
+    })
+  }
+
   fetchMedia(id: string) {
     return new Promise((resolve) => {
       this.mediaService.getMedia(id).pipe(take(1)).subscribe((data: any) => {
@@ -117,8 +157,16 @@ export class PlayersComponent implements OnInit {
         this.fetchMedia(player.snap_id).then((media) => {
           player.media = media;
           // format date
-          player.date = moment(player.created).calendar();
-          storePlayers.push(player);
+          this.fetchVoteDetails(player.snap_id).then((votes) => {
+            player.votes_data = votes;
+          this.statsService.getPlayerStats(player.snap_id).pipe(take(1)).subscribe((stats: any) => {
+            player.stats = stats;
+
+            player.date = moment(player.created).calendar();
+            player.position_full = this.teamInfoPosition(player.position);
+            storePlayers.push(player);
+          });
+          })
         });
       });
     });
@@ -167,8 +215,8 @@ export class PlayersComponent implements OnInit {
       players.forEach((player: any) => {
         console.log(player);
         let checks = {
-          team: player.team_data.name.includes(this.searchInput),
-          name: (player.fname.includes(this.searchInput) || player.lname.includes(this.searchInput)),
+          team: (player.team_data.name).toLowerCase().includes(this.searchInput),
+          name: ((player.fname).toLowerCase().includes(this.searchInput) || (player.lname).toLowerCase().includes(this.searchInput)),
         };
         console.log(checks);
         if (checks.team || checks.name){

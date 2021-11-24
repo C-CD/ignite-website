@@ -1,0 +1,49 @@
+<div class="modal fade" tabindex="-1" id="coachModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" *ngIf="coach">
+      <div class="modal-body">
+        <div class="container-fluid py-2">
+          <div class="row g-4">
+            <div class="col-sm-6">
+              <div class="coach-col"
+                [style.background-image]="(coach.media) ? 'url(' + coach.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="fw-light text-uppercase">{{ coach.team_data.name }}</div>
+              <div class="fw-bold h2 text-uppercase">{{ coach.name }}</div>
+              <hr>
+              <div>
+                <b>Coach Information</b>
+                <div class="text-uppercase">
+                  <span class="fw-bold">GENDER: </span><span>{{ coach.gender }}</span>
+                </div>
+                <div class="text-uppercase">
+                  <span class="fw-bold">TEAM: </span><span>TEAM {{ coach.team_data.name }}</span>
+                </div>
+                <div class="text-uppercase">
+                  <span class="fw-bold">POSITION: </span><span>({{ coach.position }})</span>
+                </div>
+                <div class="text-uppercase">
+                  <span class="fw-bold">YEARS OF EXPERIENCE: </span><span>({{ coach.years }})</span>
+                </div>
+              </div>
+              <hr>
+              <div class="row g-2">
+                <div class="col-12">
+                  <b class="fw-bold">Qualifications</b>
+                  <p>{{ coach.qualifications }}</p>
+                </div>
+                <div class="col-12">
+                  <b class="fw-bold">Achievements</b>
+                  <p>{{ coach.achieved }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

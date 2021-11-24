@@ -6,7 +6,8 @@ import firebase from 'firebase/app';
 
 export interface Votes {
   ref: string;
-  player: string;
+  coach: string|null;
+  votee: string;
   amount: number;
   quantity: number;
   points: number;

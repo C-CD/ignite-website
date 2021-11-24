@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">VOTE PLAYER</h5>
+        <h5 class="modal-title text-capitalize">VOTE {{ category }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="player">
@@ -14,7 +14,7 @@
               <ul>
                 <li>Each vote costs <b>&#8358;50.00</b></li>
                 <li>Each vote gives <b>5(five) points</b> to the selected player.</li>
-                <li>You can vote as much as you want for your favorite players</li>
+                <li>You can vote as much as you want for your favorite player</li>
               </ul>
             </div>
           </div>
@@ -27,6 +27,28 @@
             <form [formGroup]="formDataGroup" (ngSubmit)="authPayment(formDataGroup.value)" #fd="ngForm"
               [ngxFvControl]="fd">
               <div class="row g-3">
+                <div class="col-12">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" (click)="toggleCoachVote()" type="checkbox">
+                      Click to vote as a Coach.
+                    </label>
+                  </div>
+                </div>
+
+                <div *ngIf="coachVote">
+                   <ngx-fv-validate  class="form-group col-12"
+                     [control]="formDataGroup.controls.coach_id" labelName='Coach Voting ID'>
+                     <label class="form-label">Coach Voting ID</label>
+                     <input class="form-control form-control-lg" type="email" formControlName="coach_id"
+                       placeholder="Enter your Coach Voting ID" #ngxFvFormControl>
+                     <div class="text-danger pt-1">
+                       <ngx-fv-error></ngx-fv-error>
+                     </div>
+                   </ngx-fv-validate>
+                </div>
+
+
                 <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.email"
                   labelName='Email Address'>
                   <label class="form-label">Email Address</label>
@@ -83,8 +105,11 @@
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Verifying Payment..</b><br />
-                <div>
+                <div *ngIf="category === 'players'">
                   Kindly wait while we validate your payment for <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                </div>
+                <div *ngIf="category === 'coaches'">
+                  Kindly wait while we validate your payment for <b>{{ player.name }}</b>.
                 </div>
               </div>
             </div>
@@ -99,8 +124,11 @@
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Payment Successful..</b><br />
-                <div>
+                <div *ngIf="category === 'players'">
                   Thanks for voting <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                </div>
+                <div *ngIf="category === 'coaches'">
+                  Thanks for voting <b>{{ player.name }}</b>.
                 </div>
               </div>
             </div>

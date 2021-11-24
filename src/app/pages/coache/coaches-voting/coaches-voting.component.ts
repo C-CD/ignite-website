@@ -39,8 +39,9 @@ export class CoachesVotingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchTeams();
+    // this.fetchTeams();
     // this.fetchPlayers();
+    this.players = null;
   }
 
   selectPlayer(player: any) {

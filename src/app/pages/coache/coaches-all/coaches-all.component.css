@@ -1,11 +1,11 @@
-.player-txt {
+.coach-txt {
   width: 53%;
   float: right;
   position: relative;
   padding: 20px;
 }
 
-.player-box {
+.coach-box {
   background: #20273f;
   border-radius: 10px;
   width: 100%;
@@ -13,15 +13,15 @@
   margin: 0 0 30px;
 }
 
-.player-thumb {
+.coach-thumb {
   width: 44.5%;
   float: left;
   overflow: hidden;
-  background: url(http://gramotech.net/html/tigers/images/playerbg.jpg) no-repeat;
+  background: url(http://gramotech.net/html/tigers/images/coachbg.jpg) no-repeat;
   background-size: cover;
 }
 
-.player-txt strong.player-desi {
+.coach-txt strong.coach-desi {
   color: #ffcb05;
   font-size: 12px;
   font-weight: 700;
@@ -29,7 +29,8 @@
   text-transform: uppercase;
   margin: 0 0 11px;
 }
-.player-txt a.playerbio {
+
+.coach-txt a.coachbio {
   text-transform: uppercase;
   font-size: 12px;
   color: #fff;
@@ -37,7 +38,7 @@
   position: relative;
 }
 
-.player-txt ul {
+.coach-txt ul {
   margin: 0 0 28px;
   padding: 0px;
   list-style: none;
@@ -45,7 +46,7 @@
   float: left;
 }
 
-.player-img{
+.coach-img {
   height: 250px;
   background-position: center top !important;
   background-repeat: no-repeat !important;
@@ -53,16 +54,16 @@
   border-radius: 10px 10px 0px 0px;
 }
 
-.player-card{
+.coach-card {
   color: #fff;
   border-radius: 0px 0px 10px 10px;
 }
 
-.team-squad{
+.team-squad {
   min-height: 500px;
 }
 
-.teams-item .nav-link{
+.teams-item .nav-link {
   padding-left: 0.6rem;
   padding-right: 0.6rem;
 }
@@ -73,7 +74,7 @@
   color: #fff;
 }
 
-.eviction-status{
+.eviction-status {
   margin-top: -60px;
   position: absolute;
 }

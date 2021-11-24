@@ -1,0 +1,14 @@
+<div class="modal fade" tabindex="-1" id="fixtureModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" *ngIf="fixture && fixture.stream">
+      <div class="modal-body">
+        <div class="container-fluid py-2">
+          <iframe id="youtube-player" [src]="getSanitizedLink(fixture.stream)" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

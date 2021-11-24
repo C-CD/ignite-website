@@ -1,3 +1,4 @@
+import { FixturesModalComponent } from './../../../components/fixtures-modal/fixtures-modal.component';
 import { HighlightsComponent } from './highlights/highlights.component';
 
 import { NgModule } from '@angular/core';
@@ -17,7 +18,6 @@ import { VoteModalComponent } from 'src/app/components/vote-modal/vote-modal.com
 import { NgxFormValidationsModule } from 'ngx-form-validations';
 
 
-
 @NgModule({
   declarations: [
     PlayersComponent,
@@ -26,7 +26,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     AboutComponent,
     HighlightsComponent,
     PlayerModalComponent,
-    VoteModalComponent
+    VoteModalComponent,
+    FixturesModalComponent
   ],
   exports: [
     PlayersComponent,
@@ -35,7 +36,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     AboutComponent,
     HighlightsComponent,
     PlayerModalComponent,
-    VoteModalComponent
+    VoteModalComponent,
+    FixturesModalComponent
   ],
   imports: [
     BrowserModule,

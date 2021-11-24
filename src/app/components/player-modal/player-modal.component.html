@@ -14,58 +14,140 @@
               <div class="fw-bold h2 text-uppercase">{{ player.fname }}&nbsp;{{ player.lname }}</div>
               <hr>
               <div>
-                <b>Personal Information</b>
-                <!-- <div class="text-uppercase">
-                  <span class="fw-bold">GENDER: </span><span>{{ player.gender }}</span>
-                </div> -->
+                <b>Player Information</b>
                 <div class="text-uppercase">
                   <span class="fw-bold">AGE: </span><span>{{ player.age }}</span>
                 </div>
                 <div class="text-uppercase">
-                  <span class="fw-bold">STATE: </span><span>{{ player.state }}</span>
-                </div>
-                <div class="text-uppercase">
-                  <span class="fw-bold">LGA: </span><span>{{ player.local_gov }}</span>
-                </div>
-              </div>
-              <hr>
-              <div>
-                <b>Player Information</b>
-                <div class="text-uppercase">
                   <span class="fw-bold">TEAM: </span><span>TEAM {{ player.team_data.name }}</span>
                 </div>
                 <div class="text-uppercase">
-                  <span class="fw-bold">POSITION: </span><span>{{ player.position }}</span>
+                  <span class="fw-bold">POSITION: </span><span>({{ player.position }}) {{ player.position_full }}</span>
                 </div>
               </div>
               <hr>
               <div class="row g-4">
+                <div class="col-12" *ngIf="player.stats">
+                   <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
+                     [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
+                     Eviction Status: {{ player.stats.eviction }}
+                   </div>
+                </div>
                 <div class="col-12">
                   <div class="player-info-small-box bg-rhythm">
                     <div class="pill-info rounded-pill">
                       <i class="mdi mdi-bullseye-arrow text-light"></i>&nbsp;<span
                         class="fw-light text-light">Statistics</span>
                     </div>
-                    <div class="row g-3  text-center pt-4 pb-5 ">
-                      <div class="col-sm-4">
-                        <div class="display-5 text-light fw-bold">00</div>
-                        <div>
-                          <small class="text-light">Games Played</small>
+                    <div *ngIf="player.stats">
+                      <div class="row g-3  text-center pt-4 pb-3 ">
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.games }}
+                          </div>
+                          <div>
+                            <small class="text-light">Games Played</small>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-sm-4 border-light border-left-1 border-right-1">
-                        <div class="display-5 text-light fw-bold">00</div>
-                        <div>
-                          <small class="text-light">Goals Scored</small>
+                        <div class="col-sm-4 border-light border-left-1 border-right-1"
+                          *ngIf="(player.position).toLowerCase() !== 'gk'">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.goals }}</div>
+                          <div>
+                            <small class="text-light">Goals Scored</small>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="display-5 text-light fw-bold">00</div>
-                        <div>
-                          <small class="text-light">Goals Assist</small>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() !== 'gk'">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.assists }}</div>
+                          <div>
+                            <small class="text-light">Goals Assist</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() === 'gk'">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.saves }}</div>
+                          <div>
+                            <small class="text-light">Goals Saved</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() === 'fw'">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.shots }}</div>
+                          <div>
+                            <small class="text-light">Shots on Target</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() === 'gk'">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.conceded }}</div>
+                          <div>
+                            <small class="text-light">Goals Conceded</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.yellow_card }}</div>
+                          <div>
+                            <small class="text-light">Yellow Cards</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">{{ player.stats.red_card }}</div>
+                          <div>
+                            <small class="text-light">Red Cards</small>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <div *ngIf="!player.stats">
+                      <div class="row g-3  text-center pt-4 pb-3 ">
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Games Played</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4 border-light border-left-1 border-right-1"
+                          *ngIf="(player.position).toLowerCase() !== 'gk'">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Goals Scored</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() !== 'gk'">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Goals Assist</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() === 'gk'">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Goals Saved</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() !== 'fw'">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Shots on Target</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="(player.position).toLowerCase() === 'gk'">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Goals Conceded</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Yellow Cards</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">0</div>
+                          <div>
+                            <small class="text-light">Red Cards</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
@@ -79,7 +161,8 @@
                   </div>
                 </div> -->
 
-                <div class="col-12 d-grid">
+                <div class="col-12 d-grid"
+                  *ngIf="!player.stats || (player.stats && player.stats.eviction !== 'evicted')">
                   <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" data-bs-toggle="modal"
                     data-bs-target="#votingModal">
                     VOTE {{ player.fname }}&nbsp;{{ player.lname }}
