@@ -18,13 +18,14 @@ var initFwCheckout = function (usr, data) {
               console.log(data);
               // if (data.status == 'successful') {}
               response = data;
+              resolve(response);
           },
           onclose: function() {
-            if(response){
-              resolve(response);
-            }else{
-              reject(response);
-            }
+            // if(response){
+            //   resolve(response);
+            // }else{
+            //   reject(response);
+            // }
           },
           customizations: {
               title: 'Ignite Megastars',

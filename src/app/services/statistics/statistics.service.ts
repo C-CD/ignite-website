@@ -9,6 +9,10 @@ export interface StatsPlayer {
   goals: number;
   saves: number;
   assists: number;
+  shots: number;
+  conceded: number;
+  yellow_card: number;
+  red_card: number;
   games: number;
   eviction: string;
   injuries: boolean;

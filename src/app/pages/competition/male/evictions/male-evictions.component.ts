@@ -10,6 +10,7 @@ import { PlayerService } from 'src/app/services/players/player.service';
 import { StatisticsService } from 'src/app/services/statistics/statistics.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
+import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 
 @Component({
   selector: 'app-male-evictions',
@@ -38,6 +39,7 @@ export class MaleEvictionsComponent implements OnInit {
     protected teamService: TeamService,
     private playerService: PlayerService,
     private statsService: StatisticsService,
+    private votingService: VotingService
   ) { }
 
   ngOnInit(): void {
@@ -81,7 +83,8 @@ export class MaleEvictionsComponent implements OnInit {
 
         let snapshots_data = this.funcService.handleSnapshot(snapshots);
         if(snapshots_data){
-          this.organizePlayerData(snapshots_data);
+          let playersOrdered = this.orderPlayers(snapshots_data);
+          this.organizePlayerData(playersOrdered);
           // this.players = null;
         }else{
           this.players = snapshots_data;
@@ -111,32 +114,61 @@ export class MaleEvictionsComponent implements OnInit {
     })
   }
 
-  organizePlayerData(players: any, parse = false) {
+  fetchStats(id: string){
+    return new Promise((resolve) => {
+    this.statsService.getPlayerStats(id).pipe(take(1)).subscribe((stats: any) => {
+     resolve(stats);
+    })
+  });
+  }
+
+  fetchVoteDetails(votee: string) {
+    return new Promise((resolve) => {
+      let data = {
+        total: 0,
+        amount: 0,
+        points: 0
+      };
+      this.votingService.collection()
+        .where("votee", "==", votee)
+        .get().then((querySnap) => {
+          let snapshots_data = this.funcService.handleSnapshot(querySnap);
+          if (snapshots_data) {
+            data.total = snapshots_data.reduce((accumulator: any, current: Votes) => accumulator + current.quantity, 0);
+            data.amount = snapshots_data.reduce((accumulator: any, current: Votes) => accumulator + current.amount, 0);
+            data.points = snapshots_data.reduce((accumulator: any, current: Votes) => accumulator + current.points, 0);
+          }
+
+          // console.log(data);
+          resolve(data);
+        })
+    })
+  }
+
+  async organizePlayerData(players: any, parse = false) {
     let storePlayers: any = [];
-    players.forEach((player: any) => {
+    for(let i = 0; i < players.length; i++) {
+        let player = players[i];
       // team info
-      this.fetchTeam(player.team).then((team_data) => {
-        player.team_data = team_data;
+        player.team_data = await this.fetchTeam(player.team);
         // media
-        this.fetchMedia(player.snap_id).then((media) => {
-          player.media = media;
+        player.media = await this.fetchMedia(player.snap_id);
+        player.stats = await this.fetchStats(player.snap_id);
+      player.votes_data = await this.fetchVoteDetails(player.snap_id);
 
-          this.statsService.getPlayerStats(player.snap_id).pipe(take(1)).subscribe((stats) => {
-            player.stats = stats;
 
-            player.date = moment(player.created).calendar();
-            player.position_full = this.teamInfoPosition(player.position);
+      if (player.stats && (player.stats.eviction === "on-going" || player.stats.eviction === "evicted")){
+        player.date = moment(player.created).calendar();
+        player.position_full = this.teamInfoPosition(player.position);
 
-            if(player.eviction === "on-going"){
-              storePlayers.push(player);
-            }
-          });
-        });
-      });
-    });
+        storePlayers.push(player);
+      }
+    };
+
+    console.log(storePlayers);
 
     if (!parse) {
-      this.players = storePlayers;
+      this.players = (storePlayers.length) ? storePlayers : null;
     }
 
     return storePlayers;
@@ -152,6 +184,23 @@ export class MaleEvictionsComponent implements OnInit {
         this.loadingService.clearLoader();
       });
     });
+  }
+
+  orderPlayers(players: any) {
+    let requiredFormat = ['gk', 'df', 'mf', 'fw'];
+    let formatted: any[] = [];
+
+    requiredFormat.forEach((position) => {
+      let filtered = players.filter((player: any) => {
+        // console.log(player.position, position);
+        return (player.position.toLowerCase() === position);
+      });
+
+      formatted = [...formatted, ...filtered];
+    });
+
+    // console.log(formatted);
+    return formatted;
   }
 
   teamInfoPosition(position: string) {

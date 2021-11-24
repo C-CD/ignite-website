@@ -27,6 +27,28 @@
             <form [formGroup]="formDataGroup" (ngSubmit)="authPayment(formDataGroup.value)" #fd="ngForm"
               [ngxFvControl]="fd">
               <div class="row g-3">
+                <div class="col-12">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" (click)="toggleCoachVote()" type="checkbox">
+                      Click to vote as a Coach.
+                    </label>
+                  </div>
+                </div>
+
+                <div *ngIf="coachVote">
+                   <ngx-fv-validate  class="form-group col-12"
+                     [control]="formDataGroup.controls.coach_id" labelName='Coach Voting ID'>
+                     <label class="form-label">Coach Voting ID</label>
+                     <input class="form-control form-control-lg" type="email" formControlName="coach_id"
+                       placeholder="Enter your Coach Voting ID" #ngxFvFormControl>
+                     <div class="text-danger pt-1">
+                       <ngx-fv-error></ngx-fv-error>
+                     </div>
+                   </ngx-fv-validate>
+                </div>
+
+
                 <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.email"
                   labelName='Email Address'>
                   <label class="form-label">Email Address</label>

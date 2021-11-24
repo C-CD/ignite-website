@@ -5,6 +5,7 @@ import firebase from 'firebase/app';
 
 
 export interface Coaches {
+  cid: string;
   team: string | null;
   name: string;
   gender: string;
@@ -35,6 +36,10 @@ export class CoachesService {
 
   setCoach(coaches: Coaches, id: string | undefined = undefined) {
     return this.afs.collection('coaches').doc(id).set(coaches);
+  }
+
+  updateCoach(id: string, coach: Coaches) {
+    return this.afs.collection('coaches').doc(id).update(coach);
   }
 
   getCoach(id: string) {

@@ -1,1 +1,120 @@
-<p>coaches-all works!</p>
+<div>
+  <div class="position-fixed w-100">
+    <nav class="ignite-soccer-stars-nav-wrapper position-relative">
+      <div class="container-lg">
+        <ul class="ignite-soccer-stars-nav text-white">
+          <li><a routerLink="/coaches/register" class="text-white ">Coaches Register</a></li>
+          <li><a routerLink="/coaches/profiles" class="text-white touch ignite-soccer-stars-nav-active ">
+              Coaches Profile</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <div class="container-fluid">
+          <a class="navbar-brand h2 mb-0 fw-bold" href="#">Coaches Profile</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+            <form class="d-flex" (ngSubmit)="searchCoach()">
+              <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput"
+                placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-danger" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="soccer-star-spacer"></div> -->
+
+<!-- <div class="w-100 position-absolute coming-soon-box">
+  <div class="overlay-container w-100 d-flex justify-content-center">
+    <div class="align-self-center text-center">
+      <h1 class="fw-bold text-white">coaches Profile</h1>
+      <p class="text-muted">Coming soon</p>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid px-0 px-lg-4" [style.padding-top]="'9rem'">
+
+  <div id="c2">
+
+    <div class="team-squad wf100 p80-50">
+      <div class="container-fluid">
+
+        <div class="row g-2 g-lg-3  text-white" *ngIf="coaches && coaches.length">
+          <!--coach Box Start-->
+          <div class="col-6 col-md-3 col-lg-2" *ngFor="let coach of coaches">
+            <div class="coach-box  text-white">
+              <div class="coach-img"
+                [style.background-image]="(coach.media) ? 'url(' + coach.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
+              </div>
+              <div class="bg-dark p-3 text-white coach-card">
+                <div class="text-white fw-light" *ngIf="showTeam && coach.team_data">{{ coach.team_data.name }}</div>
+                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ coach.name }}
+                </div>
+                <div class="fw-bold pb-2 text-white">{{ coach.position }}</div>
+                <div class="">
+                  <button class="btn btn-primary me-2 mt-2" (click)="selectCoach(coach)" data-bs-toggle="modal"
+                    data-bs-target="#coachModal">
+                    View Coach
+                  </button>
+                  <!-- <button class="btn btn-success mt-2" (click)="selectCoach(coach)" data-bs-toggle="modal"
+                    data-bs-target="#votingModal">
+                    Vote
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--coach Box End-->
+        </div>
+
+        <div class="row" *ngIf="coaches && !coaches.length">
+          <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
+            <div class="text-center align-self-center">
+              <div class="p-y mb-3">
+                <img style="width: 70px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
+              </div>
+              <div class="mb-3">
+                <b class="h5 fw-bold">Loading Coaches..</b><br />
+                <div>
+                  Kindly wait while we load the coaches profiles...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!coaches">
+          <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
+            <div class="text-center align-self-center">
+              <div class="p-y mb-3">
+                <img style="width: 250px;" class="img-fluid" src="assets/img/gifs/nothing-found.gif">
+              </div>
+              <div class="mb-3">
+                <b class="h5 fw-bold">No Coaches Found..</b><br />
+                <div>
+                  There where no coaches found yet...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<app-coach-modal [coach]="selected_coach"></app-coach-modal>

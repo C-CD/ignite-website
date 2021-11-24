@@ -72,3 +72,8 @@
   background: var(--red) !important;
   color: #fff;
 }
+
+.eviction-status{
+  margin-top: -60px;
+  position: absolute;
+}

@@ -45,7 +45,7 @@ export class TeamService {
     return firebase.firestore().collection('teams').get();
   }
 
-  deleteTeams(id: string) {
+  deleteTeam(id: string) {
     return this.afs.collection('teams').doc(id).delete();
   }
 

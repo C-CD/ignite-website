@@ -48,6 +48,7 @@ import { CoachesVotingComponent } from './pages/coache/coaches-voting/coaches-vo
 import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-evictions.component';
 import { CoachAgentApplicationComponent } from './pages/coache/coaches-apply/coach-agent-application.component';
 import { CoachesAllComponent } from './pages/coache/coaches-all/coaches-all.component';
+import { CoachModalComponent } from './components/coach-modal/coach-modal.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { CoachesAllComponent } from './pages/coache/coaches-all/coaches-all.comp
     CoachesVotingComponent,
     MaleEvictionsComponent,
     CoachesAllComponent,
+    CoachModalComponent,
   ],
   imports: [
     BrowserModule,

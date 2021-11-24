@@ -31,12 +31,12 @@ export class FlutterwaveService {
         payment_options: 'card, transfer',
         customer:{
           email: data.email,
-          phonenumber: '080****4528',
+          phonenumber: data.phone,
           name: data.name
         },
         customizations:{
-          title: 'Urge2k Coin Purchase',
-          description: 'Purchase urgecoins',
+          title: 'Ignite Megastars Vote',
+          description: 'Player voting ignite megastars',
           logo: 'https://assets.piedpiper.com/logo.png'
         }
     });

@@ -1,3 +1,4 @@
+import { CoachesAllComponent } from './pages/coache/coaches-all/coaches-all.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -57,7 +58,8 @@ const routes: Routes = [
   { path: 'blog/post/ignite-team', component: PostIgniteTeamVisitsRadianceFootballClubComponent },
   { path: 'blog/post/first-of-its-kind', component: PostFirstOfItsKindComponent },
   { path: 'blog/post/post-next-top', component: PostNextTopComponent },
-  {path: 'coaches/voting', component: CoachesVotingComponent},
+  { path: 'coaches/voting', component: CoachesVotingComponent},
+  { path: 'coaches/profiles', component: CoachesAllComponent },
   { path: 'coaches/register', component: CoachAgentApplicationComponent },
 ];
 
