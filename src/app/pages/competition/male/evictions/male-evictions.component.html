@@ -1,19 +1,6 @@
 <div >
-  <div class="position-fixed w-100">
-    <nav class="ignite-soccer-stars-nav-wrapper position-relative">
-      <div class="container-lg">
-        <ul class="ignite-soccer-stars-nav text-white">
-          <li><a routerLink="/competition/male" class="text-white ">About</a></li>
-          <li><a routerLink="/competition/male/register" class="text-white touch">Register</a></li>
-          <li><a routerLink="/competition/male/fixtures"
-              class="text-white touch touch">Fixtures/Results</a></li>
-          <li><a routerLink="/competition/male/highlights" class="text-white touch">Highlights</a></li>
-          <li><a routerLink="/competition/male/players" class="text-white touch">Players
-              Profile</a></li>
-          <li><a routerLink="/competition/male/evictions" class="text-white touch ignite-soccer-stars-nav-active">Evictions</a></li>
-        </ul>
-      </div>
-    </nav>
+  <div class="position-fixed w-100" style="z-index: 101;">
+    <app-male-competition-nav page="evictions"></app-male-competition-nav>
 
     <div class="">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
@@ -65,7 +52,8 @@
           <div class="col-6 col-md-3 col-lg-2" *ngFor="let player of players">
             <div class="row position-absolute col-6 col-md-3 col-lg-2">
               <div class="d-flex py-3 px-4">
-                <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white">
+                <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex">
+                  <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15" height="15"/>
                   <strong>{{ (player.votes_data) ? player.votes_data.points : 0 }}</strong>
                 </div>
               </div>
@@ -90,13 +78,13 @@
                 <div class="eviction-status" *ngIf="player.stats && player.stats.eviction !== 'in-game'">
                   <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
                     [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
-                    Eviction Status: {{ player.stats.eviction }}
+                    <span class="d-none d-md-inline text-white">Eviction&nbsp;</span>Status: {{ player.stats.eviction }}
                   </div>
                 </div>
                 <div class="text-white fw-light" *ngIf="showTeam && player.team_data">{{ player.team_data.name }}</div>
                 <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}
                 </div>
-                <div class="fw-bold text-white">({{ player.position }}) {{ player.position_full }}</div>
+                <div class="fw-bold text-white">{{ player.position_full }}</div>
                 <div class="fw-bold pb-2 text-white">Player ID: {{ (player.stats) ? player.stats.id : '000' }}</div>
                 <div class="">
                   <button class="btn btn-primary me-2 mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"

@@ -1,3 +1,4 @@
+import { MaleCompetitionNavComponent } from './../../../components/navs/male-competition-nav/male-competition-nav.component';
 import { FixturesModalComponent } from './../../../components/fixtures-modal/fixtures-modal.component';
 import { HighlightsComponent } from './highlights/highlights.component';
 
@@ -27,7 +28,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     HighlightsComponent,
     PlayerModalComponent,
     VoteModalComponent,
-    FixturesModalComponent
+    FixturesModalComponent,
+    MaleCompetitionNavComponent
   ],
   exports: [
     PlayersComponent,
@@ -37,7 +39,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     HighlightsComponent,
     PlayerModalComponent,
     VoteModalComponent,
-    FixturesModalComponent
+    FixturesModalComponent,
+    MaleCompetitionNavComponent
   ],
   imports: [
     BrowserModule,

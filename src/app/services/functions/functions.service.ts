@@ -107,4 +107,14 @@ export class FunctionsService {
       return null;
     }
   }
+
+  formatAmount(amount:number){
+    return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  }
+
+  formatNumber(num: number) {
+    let strNum = num.toString();
+    return strNum.replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  }
+
 }

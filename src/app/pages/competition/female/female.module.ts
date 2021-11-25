@@ -1,3 +1,4 @@
+import { FemaleCompetitionNavComponent } from './../../../components/navs/female-competition-nav/female-competition-nav.component';
 import { HighlightsComponent } from './highlights/highlights.component';
 
 import { NgModule } from '@angular/core';
@@ -21,14 +22,16 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     RegisterComponent,
     FixturesComponent,
     AboutComponent,
-    HighlightsComponent
+    HighlightsComponent,
+    FemaleCompetitionNavComponent
   ],
   exports:[
     PlayersComponent,
     RegisterComponent,
     FixturesComponent,
     AboutComponent,
-    HighlightsComponent
+    HighlightsComponent,
+    FemaleCompetitionNavComponent
   ],
   imports: [
     BrowserModule,

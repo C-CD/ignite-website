@@ -1,0 +1,4 @@
+.ignite-soccer-stars-nav-active, .selActive {
+  background-color: var(--white);
+  color: var(--red) !important;
+}

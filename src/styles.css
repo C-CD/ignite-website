@@ -1259,3 +1259,11 @@ body {
 .b-rad-10{
   border-radius: 10px;
 }
+
+.smaller-nav-container{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}

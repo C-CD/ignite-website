@@ -43,8 +43,13 @@ export class MaleEvictionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchTeams();
-    // this.fetchPlayers();
+    // this.fetchTeams();
+    this.fetchPlayers().then((players) => {
+      this.players = players;
+    }).catch((error) => {
+      console.log(error);
+      this.players = null;
+    });
   }
 
   selectPlayer(player: any) {
@@ -57,7 +62,7 @@ export class MaleEvictionsComponent implements OnInit {
       this.showTeam = true;
       this.loadingService.quickLoader().then(() => {
         this.playerService.getPlayers().then((snapshots: any) => {
-          // console.log(snapshots);
+          console.log(snapshots);
 
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           if (snapshots_data) {
@@ -73,7 +78,7 @@ export class MaleEvictionsComponent implements OnInit {
 
   }
 
-  fetchPlayersByTeam(team:any) {
+  fetchPlayersByTeam(team: any) {
     this.showTeam = false;
     this.selectedTeam = team;
     this.players = [];
@@ -82,11 +87,11 @@ export class MaleEvictionsComponent implements OnInit {
         // console.log(snapshots);
 
         let snapshots_data = this.funcService.handleSnapshot(snapshots);
-        if(snapshots_data){
+        if (snapshots_data) {
           let playersOrdered = this.orderPlayers(snapshots_data);
           this.organizePlayerData(playersOrdered);
           // this.players = null;
-        }else{
+        } else {
           this.players = snapshots_data;
         }
         // console.log(this.players);
@@ -97,11 +102,14 @@ export class MaleEvictionsComponent implements OnInit {
 
   fetchTeam(id: string) {
     return new Promise((resolve) => {
-      this.teamService.getTeam(id).pipe(take(1)).subscribe((data: any) => {
-        // console.log(data);
-
-        resolve(data);
-      });
+      if (id && id.length) {
+        this.teamService.getTeam(id).pipe(take(1)).subscribe((data: any) => {
+          // console.log(data);
+          resolve(data);
+        });
+      } else {
+        resolve(null);
+      }
     })
   }
 
@@ -114,12 +122,12 @@ export class MaleEvictionsComponent implements OnInit {
     })
   }
 
-  fetchStats(id: string){
+  fetchStats(id: string) {
     return new Promise((resolve) => {
-    this.statsService.getPlayerStats(id).pipe(take(1)).subscribe((stats: any) => {
-     resolve(stats);
-    })
-  });
+      this.statsService.getPlayerStats(id).pipe(take(1)).subscribe((stats: any) => {
+        resolve(stats);
+      })
+    });
   }
 
   fetchVoteDetails(votee: string) {
@@ -147,21 +155,26 @@ export class MaleEvictionsComponent implements OnInit {
 
   async organizePlayerData(players: any, parse = false) {
     let storePlayers: any = [];
-    for(let i = 0; i < players.length; i++) {
-        let player = players[i];
-      // team info
-        player.team_data = await this.fetchTeam(player.team);
-        // media
-        player.media = await this.fetchMedia(player.snap_id);
-        player.stats = await this.fetchStats(player.snap_id);
-      player.votes_data = await this.fetchVoteDetails(player.snap_id);
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      player.stats = await this.fetchStats(player.snap_id);
+      if (player.stats && (player.stats.eviction === "on-going")) {
+        // team info
+        this.fetchTeam(player.team).then((team_data) => {
+          player.team_data = team_data;
+          // media
+          this.fetchMedia(player.snap_id).then((media) => {
+            player.media = media;
+            // format date
+            this.fetchVoteDetails(player.snap_id).then((votes) => {
+              player.votes_data = votes;
 
-
-      if (player.stats && (player.stats.eviction === "on-going" || player.stats.eviction === "evicted")){
-        player.date = moment(player.created).calendar();
-        player.position_full = this.teamInfoPosition(player.position);
-
-        storePlayers.push(player);
+              player.date = moment(player.created).calendar();
+              player.position_full = this.teamInfoPosition(player.position);
+              storePlayers.push(player);
+            })
+          });
+        });
       }
     };
 
@@ -217,10 +230,10 @@ export class MaleEvictionsComponent implements OnInit {
     }
   }
 
-  searchPlayer(){
+  searchPlayer() {
     // console.log(this.searchInput);
     this.players = [];
-    this.fetchPlayers().then((players:any) => {
+    this.fetchPlayers().then((players: any) => {
       console.log(players, players.length);
       players.forEach((player: any) => {
         console.log(player);
@@ -229,7 +242,7 @@ export class MaleEvictionsComponent implements OnInit {
           name: (player.fname.includes(this.searchInput) || player.lname.includes(this.searchInput)),
         };
         console.log(checks);
-        if (checks.team || checks.name){
+        if (checks.team || checks.name) {
           this.players.push(player);
         }
       });

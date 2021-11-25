@@ -1,0 +1,46 @@
+<nav class="ignite-soccer-stars-nav-wrapper position-relative">
+  <div class="container-lg">
+    <ul class="smaller-nav-container text-white d-sm-none ">
+      <li class="navbar-item">
+        <a routerLink="/competition/female/players" class="nav-link text-white touch"
+          [ngClass]="{selActive: isCurPage('players')}">
+          Players<span class="d-none d-md-inline">&nbsp;Profile</span>
+        </a>
+      </li>
+      <li class="navbar-item">
+        <a routerLink="/competition/female/evictions" [ngClass]="{selActive: isCurPage('evictions')}"
+          class="nav-link text-white touch">Evictions</a>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="nav-link dropdown-toggle text-white"
+          [ngClass]="{selActive: (page === 'about' || page === 'register' || page === 'fixtures' || page === 'highlights')}"
+          role="button" id="moreNav" data-bs-toggle="dropdown">More</a>
+        <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="moreNav">
+          <li><a routerLink="/competition/female" [ngClass]="{selActive: isCurPage('about')}"
+              class="text-white ">About</a></li>
+          <li><a routerLink="/competition/female/register" [ngClass]="{selActive: isCurPage('register')}"
+              class="text-white touch">Register</a></li>
+          <li><a routerLink="/competition/female/fixtures" [ngClass]="{selActive: isCurPage('fixtures')}"
+              class="text-white touch touch">Fixtures/Results</a></li>
+          <li><a routerLink="/competition/female/highlights" [ngClass]="{selActive: isCurPage('highlights')}"
+              class="text-white touch">Highlights</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="ignite-soccer-stars-nav text-white d-none d-sm-block">
+      <li><a routerLink="/competition/female" [ngClass]="{selActive: isCurPage('about')}" class="text-white ">About</a>
+      </li>
+      <li><a routerLink="/competition/female/register" [ngClass]="{selActive: isCurPage('register')}"
+          class="text-white touch">Register</a></li>
+      <li><a routerLink="/competition/female/fixtures" [ngClass]="{selActive: isCurPage('fixtures')}"
+          class="text-white touch touch">Fixtures/Results</a></li>
+      <li><a routerLink="/competition/female/highlights" [ngClass]="{selActive: isCurPage('highlights')}"
+          class="text-white touch">Highlights</a></li>
+      <li><a routerLink="/competition/female/players" [ngClass]="{selActive: isCurPage('players')}"
+          class="text-white touch">Players
+          Profile</a></li>
+      <li><a routerLink="/competition/female/evictions" [ngClass]="{selActive: isCurPage('evictions')}"
+          class="text-white touch">Evictions</a></li>
+    </ul>
+  </div>
+</nav>
