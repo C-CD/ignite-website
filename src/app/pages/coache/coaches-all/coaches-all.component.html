@@ -59,11 +59,10 @@
                 [style.background-image]="(coach.media) ? 'url(' + coach.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
               </div>
               <div class="bg-dark p-3 text-white coach-card">
-                <div class="fw-bold text-white">{{ coach.position }}</div>
-                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ coach.name }}
-                  <div class="text-white fw-bold pb-2" *ngIf="showTeam && coach.team_data">
-                    Team - {{ coach.team_data.name }}
-                  </div>
+                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ coach.name }}</div>
+                <div class="fw-bold text-white text-capitalize">{{ coach.position }}</div>
+                <div class="text-white fw-bold pb-2 text-capitalize" *ngIf="showTeam && coach.team_data">
+                  Team : {{ coach.team_data.name }}
                 </div>
                 <div class="">
                   <button class="btn btn-primary me-2 mt-2" (click)="selectCoach(coach)" data-bs-toggle="modal"
