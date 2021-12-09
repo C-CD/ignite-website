@@ -1,3 +1,5 @@
+<app-point-indicator></app-point-indicator>
+
 <div >
   <div class="position-fixed w-100" style="z-index: 101;">
     <app-male-competition-nav page="players"></app-male-competition-nav>
@@ -53,10 +55,11 @@
           <div class="col-6 col-md-3 col-lg-2" *ngFor="let player of players">
             <div class="row position-absolute col-6 col-md-3 col-lg-2">
               <div class="d-flex py-3 px-4">
-                <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex">
+                <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="Player's Point">
                   <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15"
-                    height="15" />
-                  <strong>{{ (player.votes_data) ? player.votes_data.points : 0 }}</strong>
+                    height="15"/>
+                  <strong>{{ (player.votes_data) ? funcService.formatNumber(player.votes_data.points) : 0 }}</strong>
                 </div>
               </div>
             </div>

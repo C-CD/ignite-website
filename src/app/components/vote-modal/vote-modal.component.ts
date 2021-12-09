@@ -9,6 +9,8 @@ import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { VotingService } from 'src/app/services/votings/voting.service';
 import { take } from 'rxjs/operators';
 import { FunctionsService } from 'src/app/services/functions/functions.service';
+
+
 declare let initFwCheckout: any;
 
 interface VoteConfig {
@@ -48,16 +50,27 @@ export class VoteModalComponent implements OnInit {
     private coachesService: CoachesService,
     private funcService: FunctionsService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.validateFormData();
-
   }
 
   toggleCoachVote(){
     this.coachVote = (this.coachVote) ? false : true;
     this.cdr.detectChanges();
+    if (this.coachVote){
+      this.formDataGroup.controls.votes.disable();
+      this.formDataGroup.controls.votes.setValue(1);
+      this.voteConfig = {
+        points: 5,
+        amount: 50
+      }
+    }else{
+      this.formDataGroup.controls.votes.enable();
+    }
   }
 
   setVoteConfig(formData: any) {
@@ -86,6 +99,7 @@ export class VoteModalComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
         ])
       ),
     });
@@ -103,20 +117,43 @@ export class VoteModalComponent implements OnInit {
     return coach_snapId;
   }
 
+  async hasCoachVotedPlayer(coach: string, player:string){
+    const snapShots = await this.votingService.collection()
+    .where("coach", "==", coach)
+    .where("votee", "==", player).get();
+    const votes = this.funcService.handleSnapshot(snapShots);
+    console.log(votes);
+    return (votes) ? true : false;
+  }
+
   async authPayment(formData: any) {
     this.paymentLoading(true);
-
     const generatedRef = this.fwService.generateReference();
+
     let coach_snapId: string|null = null;
     // check valid coach id
-    if(formData.coach_id) {
+    if (this.coachVote && formData.coach_id) {
       coach_snapId = await this.fetchCoachID(formData.coach_id);
-      if (!coach_snapId) return this.paymentFailed("Invalid Coach ID for voting, try again");
+      if (!coach_snapId) {
+        return this.paymentFailed("Invalid Coach ID for voting, try again");
+      }else{
+        const coachesVotes = await this.hasCoachVotedPlayer(coach_snapId, this.player.snap_id)
+        if (coachesVotes) return this.paymentFailed("You can only vote once for this player.");
+      }
     }
     // initialize payment
+    if (!coach_snapId){
+      this.initPurchaseVote(formData, generatedRef);
+    }else{
+      this.initCoachVotePlayer(formData, generatedRef, coach_snapId);
+    }
+  }
+
+  initPurchaseVote(formData: any, ref: string){
+    // init flutterwave
     initFwCheckout(formData, {
       amount: 50 * formData.votes,
-      reference: `${this.category}-voting-${generatedRef}`
+      reference: `${this.category}-voting-${ref}`
     }).then((transaction: any) => {
 
       // check transaction status
@@ -130,7 +167,7 @@ export class VoteModalComponent implements OnInit {
               ref: transaction.tx_ref,
               meta_data: response.data,
               votee: this.player.snap_id,
-              coach: coach_snapId,
+              coach: null,
               date: moment().format()
             }).then(() => {
               this.paymentSuccess();
@@ -138,7 +175,7 @@ export class VoteModalComponent implements OnInit {
               console.log(error);
               this.paymentLoading(false);
               this.paymentFailed();
-             });
+            });
           } else {
             this.paymentLoading(false);
             this.paymentFailed();
@@ -152,11 +189,30 @@ export class VoteModalComponent implements OnInit {
         this.paymentLoading(false);
         this.paymentFailed();
       }
-    }).catch((error:any) => {
+    }).catch((error: any) => {
+      console.log(error);
+      // this.paymentLoading(false);
+      this.paymentFailed();
+    })
+  }
+
+  initCoachVotePlayer(formData:any, reference:string, coach:string) {
+    this.votingService.addVote({
+      quantity: formData.votes,
+      points: this.voteConfig.points,
+      amount: 50 * formData.votes,
+      ref: reference,
+      meta_data: null,
+      votee: this.player.snap_id,
+      coach: coach,
+      date: moment().format()
+    }).then(() => {
+      this.paymentSuccess();
+    }).catch((error) => {
       console.log(error);
       this.paymentLoading(false);
       this.paymentFailed();
-    })
+    });
   }
 
   paymentLoading(status = true) {
@@ -185,4 +241,13 @@ export class VoteModalComponent implements OnInit {
     }, 5000);
   }
 
+  clearInputOnClose(){
+    this.coachVote = false;
+    this.formDataGroup.controls.votes.setValue(1);
+    this.formDataGroup.controls.coach_id.setValue(null);
+    this.voteConfig = {
+      points: 5,
+      amount: 50
+    }
+  }
 }

@@ -5,12 +5,19 @@
         <div class="container-fluid py-2">
           <div class="row g-4">
             <div class="col-sm-6">
+              <div class="position-absolute p-2">
+                <div class="d-flex justify-content-center bg-white rounded rounded-circle shadow"
+                  style="height:45px;width:45px;">
+                  <button type="button" class="btn-close align-self-center" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                </div>
+              </div>
               <div class="coach-col"
                 [style.background-image]="(coach.media) ? 'url(' + coach.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="fw-light text-uppercase">{{ coach.team_data.name }}</div>
+              <div class="fw-light text-uppercase">Team - {{ coach.team_data.name }}</div>
               <div class="fw-bold h2 text-uppercase">{{ coach.name }}</div>
               <hr>
               <div>
@@ -19,7 +26,7 @@
                   <span class="fw-bold">GENDER: </span><span>{{ coach.gender }}</span>
                 </div>
                 <div class="text-uppercase">
-                  <span class="fw-bold">TEAM: </span><span>TEAM {{ coach.team_data.name }}</span>
+                  <span class="fw-bold">TEAM: </span><span>{{ coach.team_data.name }}</span>
                 </div>
                 <div class="text-uppercase">
                   <span class="fw-bold">POSITION: </span><span>({{ coach.position }})</span>

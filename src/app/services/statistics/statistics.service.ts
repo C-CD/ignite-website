@@ -14,6 +14,7 @@ export interface StatsPlayer {
   yellow_card: number;
   red_card: number;
   games: number;
+  sheets: number;
   eviction: string;
   injuries: boolean;
   player: string;

@@ -31,7 +31,7 @@ export class PlayersComponent implements OnInit {
     private toaster: ToastrService,
     public loadingService: LoadingService,
     public auth: AuthenticationService,
-    private funcService: FunctionsService,
+    public funcService: FunctionsService,
     private mediaService: MediaService,
     protected teamService: TeamService,
     private playerService: PlayerService,

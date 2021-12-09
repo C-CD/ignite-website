@@ -15,17 +15,13 @@ var initFwCheckout = function (usr, data) {
               name: 'Ignite Player Voting'
           },
           callback: function(data) {
-              console.log(data);
+              // console.log(data);
               // if (data.status == 'successful') {}
               response = data;
               resolve(response);
           },
           onclose: function() {
-            // if(response){
-            //   resolve(response);
-            // }else{
-            //   reject(response);
-            // }
+            if(!response) reject(response);
           },
           customizations: {
               title: 'Ignite Megastars',

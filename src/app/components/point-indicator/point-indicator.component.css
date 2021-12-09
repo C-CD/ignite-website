@@ -1,0 +1,10 @@
+#player-point-indicator{
+  position: fixed;
+  bottom: 6rem;
+  right: 0;
+  z-index: 9999;
+}
+
+.left-pill{
+  border-radius: 3rem 0 0 3rem;
+}

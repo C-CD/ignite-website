@@ -49,6 +49,7 @@ import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-
 import { CoachAgentApplicationComponent } from './pages/coache/coaches-apply/coach-agent-application.component';
 import { CoachesAllComponent } from './pages/coache/coaches-all/coaches-all.component';
 import { CoachModalComponent } from './components/coach-modal/coach-modal.component';
+import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { CoachModalComponent } from './components/coach-modal/coach-modal.compon
     NgxFormValidationsModule,
     MaleModule,
     FemaleModule,
-    NgxFormValidationsModule
+    NgxFormValidationsModule,
+    IntlTelInputNgModule.forRoot()
   ],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

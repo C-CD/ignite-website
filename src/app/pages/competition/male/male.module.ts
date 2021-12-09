@@ -17,7 +17,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { PlayerModalComponent } from 'src/app/components/player-modal/player-modal.component';
 import { VoteModalComponent } from 'src/app/components/vote-modal/vote-modal.component';
 import { NgxFormValidationsModule } from 'ngx-form-validations';
-
+import { PointIndicatorComponent } from 'src/app/components/point-indicator/point-indicator.component';
+import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     PlayerModalComponent,
     VoteModalComponent,
     FixturesModalComponent,
-    MaleCompetitionNavComponent
+    MaleCompetitionNavComponent,
+    PointIndicatorComponent
   ],
   exports: [
     PlayersComponent,
@@ -40,7 +42,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     PlayerModalComponent,
     VoteModalComponent,
     FixturesModalComponent,
-    MaleCompetitionNavComponent
+    MaleCompetitionNavComponent,
+    PointIndicatorComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxFormValidationsModule
+    NgxFormValidationsModule,
+    InternationalPhoneNumberModule
   ]
 })
 export class MaleModule { }

@@ -1,0 +1,13 @@
+:host ::ng-deep .phoneInput>.input-group>span.input-group-addon {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-radius: 0.3rem;
+  border: 1px solid #ced4da;
+}
+
+:host ::ng-deep .phoneInput>.input-group>input.form-control {
+  min-height: calc(1.5em + 1rem + 2px);
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+}

@@ -12,80 +12,82 @@
   </div>
 </div> -->
 
-<div class="container">
-  <div class="pt-5 pb-4 text-center">
+<div class="container-fluid">
+
+  <div class="pt-5 pb-4">
     <h1 class="fw-bold">Fixtures & Results</h1>
   </div>
 
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-5 mx-auto">
+  <div class="col-lg-7">
+    <div class="row">
+      <div class="col-12 ">
 
-      <div class="row g-4" *ngIf="fixtures && objectKeys().length">
-        <div class="col-12 " *ngFor="let match_day of objectKeys()">
-          <div class="form-group fw-bold text-center mb-2">{{ match_day }}</div>
-          <div class="">
-            <div class="row g-3" *ngIf="fixtures[match_day]">
-              <div class="col-12" *ngFor="let games of fixtures[match_day]">
-                <div class="text-center fw-bold small">
-                  <div class="bg-dark text-white" *ngIf="games.status === 'awaiting'">Pending</div>
-                  <div class="bg-warning text-dark" *ngIf="games.status === 'on-going'">Match Ongoing</div>
-                  <div class="bg-success text-white" *ngIf="games.status === 'played'">Match Played</div>
-                  <div class="bg-danger text-white" *ngIf="games.status === 'cancelled'">Match Cancelled</div>
-                </div>
-                <div class="d-flex justify-content-between px-4 py-2 shadow">
-                  <div class="text-left">
-                    <div class="fw-light small">HOME</div>
-                    <div class="fw-bold text-uppercase h5 mb-0">Team {{ games.home_team_data.name }}</div>
+        <div class="row g-4" *ngIf="fixtures && objectKeys().length">
+          <div class="col-12 " *ngFor="let match_day of objectKeys()">
+            <div class="form-group fw-bold text-center mb-2">{{ match_day }}</div>
+            <div class="">
+              <div class="row g-3" *ngIf="fixtures[match_day]">
+                <div class="col-12" *ngFor="let games of fixtures[match_day]">
+                  <div class="text-center fw-bold small">
+                    <div class="bg-dark text-white" *ngIf="games.status === 'awaiting'">Pending</div>
+                    <div class="bg-warning text-dark" *ngIf="games.status === 'on-going'">Match Ongoing</div>
+                    <div class="bg-success text-white" *ngIf="games.status === 'played'">Match Played</div>
+                    <div class="bg-danger text-white" *ngIf="games.status === 'cancelled'">Match Cancelled</div>
                   </div>
-                  <div class="text-center">
-                    <div class="fw-light small">GMT {{ ((games.match_time) ? games.match_time : '00:00') }}</div>
-                    <div class="fw-bold">{{ games.scores.home + ' - ' + games.scores.away}}</div>
-                    <div *ngIf="games.stream && games.status === 'on-going'">
-                      <a class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
-                        data-bs-target="#fixtureModal"
-                        (click)="selectFixture(games)" data-bs-toggle="modal">
-                        Click to Watch Live
-                      </a>
+                  <div class="d-flex justify-content-between px-4 py-2 shadow">
+                    <div class="text-left">
+                      <div class="fw-light small">HOME</div>
+                      <div class="fw-bold text-uppercase h5 mb-0">Team {{ games.home_team_data.name }}</div>
+                    </div>
+                    <div class="text-center">
+                      <div class="fw-light small">GMT {{ ((games.match_time) ? games.match_time : '00:00') }}</div>
+                      <div class="fw-bold">{{ games.scores.home + ' - ' + games.scores.away}}</div>
+                      <div *ngIf="games.stream && games.status === 'on-going'">
+                        <a class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
+                          data-bs-target="#fixtureModal" (click)="selectFixture(games)" data-bs-toggle="modal">
+                          Click to Watch Live
+                        </a>
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fw-light small text-end">AWAY</div>
+                      <div class="fw-bold text-right text-uppercase h5 mb-0">Team {{ games.away_team_data.name }}</div>
                     </div>
                   </div>
-                  <div class="text-end">
-                    <div class="fw-light small text-end">AWAY</div>
-                    <div class="fw-bold text-right text-uppercase h5 mb-0">Team {{ games.away_team_data.name }}</div>
-                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="fixtures && !objectKeys().length">
+          <div class="col-lg-12 col-md-10 mx-auto d-flex justify-content-center" [style.height]="'350px'">
+            <div class="text-center align-self-center">
+              <div class="p-y mb-3">
+                <img style="width: 70px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
+              </div>
+              <div class="mb-3">
+                <b class="h5 fw-bold">Loading Fixtures..</b><br />
+                <div>
+                  Kindly wait while we load the fixture and result...
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-      </div>
 
-      <div class="row" *ngIf="fixtures && !objectKeys().length">
-        <div class="col-lg-12 col-md-10 mx-auto d-flex justify-content-center" [style.height]="'350px'">
-          <div class="text-center align-self-center">
-            <div class="p-y mb-3">
-              <img style="width: 70px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
-            </div>
-            <div class="mb-3">
-              <b class="h5 fw-bold">Loading Fixtures..</b><br />
-              <div>
-                Kindly wait while we load the fixture and result...
+        <div class="row" *ngIf="!fixtures">
+          <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
+            <div class="text-center align-self-center">
+              <div class="p-y mb-3">
+                <img style="width: 250px;" class="img-fluid" src="assets/img/gifs/nothing-found.gif">
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row" *ngIf="!fixtures">
-        <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
-          <div class="text-center align-self-center">
-            <div class="p-y mb-3">
-              <img style="width: 250px;" class="img-fluid" src="assets/img/gifs/nothing-found.gif">
-            </div>
-            <div class="mb-3">
-              <b class="h5 fw-bold">No Fixtures Found..</b><br />
-              <div>
-                There where no fixtures found yet...
+              <div class="mb-3">
+                <b class="h5 fw-bold">No Fixtures Found..</b><br />
+                <div>
+                  There where no fixtures found yet...
+                </div>
               </div>
             </div>
           </div>
@@ -93,6 +95,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 <app-fixtures-modal [fixture]="selected_fixture"></app-fixtures-modal>
