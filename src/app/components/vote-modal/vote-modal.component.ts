@@ -198,10 +198,10 @@ export class VoteModalComponent implements OnInit {
 
   initCoachVotePlayer(formData:any, reference:string, coach:string) {
     this.votingService.addVote({
-      quantity: formData.votes,
+      quantity: 1,
       points: this.voteConfig.points,
-      amount: 50 * formData.votes,
-      ref: reference,
+      amount: 0,
+      ref: `coaches-voting-${reference}`,
       meta_data: null,
       votee: this.player.snap_id,
       coach: coach,
@@ -243,6 +243,7 @@ export class VoteModalComponent implements OnInit {
 
   clearInputOnClose(){
     this.coachVote = false;
+    this.formDataGroup.controls.votes.enable();
     this.formDataGroup.controls.votes.setValue(1);
     this.formDataGroup.controls.coach_id.setValue(null);
     this.voteConfig = {
