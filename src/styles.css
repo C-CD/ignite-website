@@ -234,14 +234,17 @@ button:active {
 
 .main-nav li a:hover {
   color: var(--red) !important;
+  background-color: var(--white) !important;
 }
 
 .main-nav li a:active {
   color: var(--red) !important;
+  background-color: var(--white) !important;
 }
 
 .main-nav li a:focus {
   color: var(--red) !important;
+  background-color: var(--white) !important;
 }
 
 .nav-link {
@@ -256,6 +259,7 @@ button:active {
 .navbar-item:focus {
   background-color: var(--white);
 }
+
 
 .nav-active,
 .main-nav li a.nav-active,
