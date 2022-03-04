@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import * as $ from 'jquery';
 
 @Component({
@@ -8,7 +9,19 @@ import * as $ from 'jquery';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  curUrl:string = '';
+
+
+
+  constructor(
+    private router: Router
+  ) {
+    router.events.subscribe((val) => {
+      this.curUrl = this.router.url
+      console.log(this.router.url);
+    });
+
+  }
 
   ngOnInit(): void {
     $(function() {
@@ -20,8 +33,10 @@ export class NavComponent implements OnInit {
       }
       hidePreloader();
     })
-    
+
   }
 
-
+  isCurPage(page: string) {
+    return (this.curUrl === page);
+  }
 }

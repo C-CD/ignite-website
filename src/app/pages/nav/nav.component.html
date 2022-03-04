@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <a class="nav-brand" routerLink="https://ignitemegastars.ng"><img src="../assets/img/logo.png" alt="Logo" class="img-fluid" width="100"/></a>
         <ul class="navbar-nav main-nav">
-            <li class="navbar-item active">
+            <li class="navbar-item" >
                 <a class="nav-link" routerLink="/">Home</a>
             </li>
             <li class="navbar-item">
@@ -18,10 +18,13 @@
             </li>
             <li class="navbar-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" id="competitionNav" data-bs-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">Competition</a>
+                  aria-haspopup="true" aria-expanded="false" [ngClass]="{active:
+                  (isCurPage('/competition/male') || isCurPage('/competition/female')) }">Competition</a>
                 <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="competitionNav">
                     <li class="dropdown-submenu dropdown">
-                        <a class="dropdown-item" data-bs-toggle="dropdown" routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
+                        <a class="dropdown-item" [ngClass]="{active: isCurPage('players')}" data-bs-toggle="dropdown"
+                          routerLink="/competition/male" [ngClass]="{active: isCurPage('/competition/male')}">Ignite
+                          Soccer Stars (Male)</a>
                         <ul class="dropdown-menu main-nav-dropdown d-none">
                             <li><a routerLink="/ignite-soccer-stars-male">About</a></li>
                             <li><a routerLink="/ignite-soccer-stars-male/register">Register</a></li>
@@ -31,16 +34,19 @@
                         </ul>
                     </li>
                     <li>
-                      <a class="dropdown-item" routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
+                      <a class="dropdown-item" [ngClass]="{active: isCurPage('/competition/female')}"
+                        routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
                     </li>
                 </ul>
             </li>
 
             <li class="navbar-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" id="coachesNav" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Coaches</a>
+                <a class="nav-link dropdown-toggle" role="button" id="coachesNav" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                [ngClass]="{active: (isCurPage('/coaches/register') || isCurPage('/coaches/profiles')) }">Coaches</a>
                     <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="coachesNav">
-                        <li><a class="dropdown-item" routerLink="coaches/register">Apply</a></li>
-                        <li><a class="dropdown-item" routerLink="/coaches/profiles">Coaches Profile</a></li>
+                        <li><a class="dropdown-item" [ngClass]="{active: isCurPage('/coaches/register')}" routerLink="coaches/register">Apply</a></li>
+                        <li><a class="dropdown-item" [ngClass]="{active: isCurPage('/coaches/profiles')}"
+                            routerLink="/coaches/profiles">Coaches Profile</a></li>
                       </ul>
             </li>
             <li class="navbar-item">
@@ -74,7 +80,8 @@
                     aria-haspopup="true" aria-expanded="false">Competition</a>
                   <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="smCompetitionNav">
                       <li class="dropdown-submenu dropdown">
-                          <a class="dropdown-item" data-bs-toggle="dropdown" routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
+                          <a class="dropdown-item" data-bs-toggle="dropdown" class="nav-link"
+                             routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
                           <ul class="dropdown-menu main-nav-dropdown d-none">
                               <li><a routerLink="/ignite-soccer-stars-male">About</a></li>
                               <li><a routerLink="/ignite-soccer-stars-male/register">Register</a></li>

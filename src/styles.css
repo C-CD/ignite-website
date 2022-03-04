@@ -237,7 +237,8 @@ button:active {
   background-color: var(--white) !important;
 }
 
-.main-nav li a:active {
+.main-nav li a:active,
+.main-nav li a.active {
   color: var(--red) !important;
   background-color: var(--white) !important;
 }
