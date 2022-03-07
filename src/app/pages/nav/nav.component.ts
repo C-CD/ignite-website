@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
   ) {
     router.events.subscribe((val) => {
       this.curUrl = this.router.url
-      console.log(this.router.url);
+      // console.log(this.router.url.trim().split('/'));
     });
 
   }
@@ -38,5 +38,10 @@ export class NavComponent implements OnInit {
 
   isCurPage(page: string) {
     return (this.curUrl === page);
+  }
+
+  isParentPage(page: string) {
+    const routes =this.curUrl.trim().split('/');
+    return (routes[1] === page);
   }
 }

@@ -18,8 +18,7 @@
             </li>
             <li class="navbar-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" id="competitionNav" data-bs-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" [ngClass]="{active:
-                  (isCurPage('/competition/male') || isCurPage('/competition/female')) }">Competition</a>
+                  aria-haspopup="true" aria-expanded="false" [ngClass]="{active: isParentPage('competition') }">Competition</a>
                 <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="competitionNav">
                     <li class="dropdown-submenu dropdown">
                         <a class="dropdown-item" [ngClass]="{active: isCurPage('players')}" data-bs-toggle="dropdown"
@@ -42,7 +41,7 @@
 
             <li class="navbar-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" id="coachesNav" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                [ngClass]="{active: (isCurPage('/coaches/register') || isCurPage('/coaches/profiles')) }">Coaches</a>
+                [ngClass]="{active: isParentPage('coaches') }">Coaches</a>
                     <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="coachesNav">
                         <li><a class="dropdown-item" [ngClass]="{active: isCurPage('/coaches/register')}" routerLink="coaches/register">Apply</a></li>
                         <li><a class="dropdown-item" [ngClass]="{active: isCurPage('/coaches/profiles')}"

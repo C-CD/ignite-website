@@ -8,7 +8,7 @@ var initFwCheckout = function (usr, data) {
           tx_ref: data.reference,
           amount: data.amount,
           currency: "NGN",
-          payment_options: 'card, transfer, ussd',
+          payment_options: 'card, banktransfer, ussd',
           customer: {
               email: usr.email,
               phonenumber: usr.phone,
@@ -24,7 +24,7 @@ var initFwCheckout = function (usr, data) {
             if(!response) reject(response);
           },
           customizations: {
-              title: 'Ignite Megastars',
+              title: 'Ignite Megastars Votings',
               description: "Player Voting.",
               // logo: me().photo
           }
