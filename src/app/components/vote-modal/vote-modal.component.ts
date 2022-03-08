@@ -29,6 +29,7 @@ export class VoteModalComponent implements OnInit {
 
   @Input() player: any;
   @Input() category: string = 'players';
+  @Input() onSuccess?: () => void;
   usr: any;
   formDataGroup!: FormGroup;
   voteConfig: VoteConfig = {
@@ -155,7 +156,7 @@ export class VoteModalComponent implements OnInit {
       amount: 50 * formData.votes,
       reference: `${this.category}-voting-${ref}`
     }).then((transaction: any) => {
-
+      // console.log(transaction);
       // check transaction status
       if (transaction.status === 'successful') {
         this.fwService.verifyTransaction(transaction).then((response: any) => {
@@ -170,6 +171,7 @@ export class VoteModalComponent implements OnInit {
               coach: null,
               date: moment().format('YYYY-MM-DD HH:ii:ss')
             }).then(() => {
+              console.log("Payment Successful");
               this.paymentSuccess();
             }).catch((error) => {
               console.log(error);
@@ -227,9 +229,10 @@ export class VoteModalComponent implements OnInit {
     this.error = false;
     this.loading = false;
     this.success = true;
+    this.onSuccess && this.onSuccess();
     setTimeout(() => {
       this.success = false;
-    }, 10000);
+    }, 13000);
   }
 
   paymentFailed(msg: any = false) {

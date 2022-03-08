@@ -150,4 +150,4 @@
 </div>
 
 <app-player-modal [player]="selected_player"></app-player-modal>
-<app-vote-modal [player]="selected_player" category="players"></app-vote-modal>
+<app-vote-modal [player]="selected_player" category="players" [onSuccess]="refreshPlayers"></app-vote-modal>

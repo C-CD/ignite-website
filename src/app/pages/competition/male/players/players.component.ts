@@ -44,6 +44,13 @@ export class PlayersComponent implements OnInit {
     // this.fetchPlayers();
   }
 
+  refreshPlayers( ){
+    this.loadingService.quickLoader().then(() => {
+      this.fetchPlayersByTeam(this.selectedTeam);
+      this.loadingService.clearLoader();
+    });
+  }
+
   selectPlayer(player: any) {
     console.log(player);
     this.selected_player = player;
