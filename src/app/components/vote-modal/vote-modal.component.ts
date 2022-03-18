@@ -222,7 +222,7 @@ export class VoteModalComponent implements OnInit {
       this.error = false;
       this.loading = status;
       this.success = false;
-    }, (status) ? 0 : 3000);
+    }, (status) ? 0 : 5000);
   }
 
   paymentSuccess() {
@@ -241,7 +241,7 @@ export class VoteModalComponent implements OnInit {
     this.error = (msg) ? msg : "Oop's payment failed.. try again!";
     setTimeout(() => {
       this.error = false;
-    }, 5000);
+    }, 13000);
   }
 
   clearInputOnClose(){
