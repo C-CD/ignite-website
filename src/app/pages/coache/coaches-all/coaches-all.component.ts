@@ -103,7 +103,7 @@ export class CoachesAllComponent implements OnInit {
     }
 
     if (!parse) {
-      this.coaches = storeCoaches;
+      this.coaches = storeCoaches.sort((a: any, b: any) => (a.cid > b.cid) ? 1 : ((b.cid > a.cid) ? -1 : 0));
     }
 
     return storeCoaches;

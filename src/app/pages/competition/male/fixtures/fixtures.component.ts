@@ -34,7 +34,7 @@ export class FixturesComponent implements OnInit {
   ngOnInit(): void {
     this.fetchFixtures().then((fixtures: any) => {
       this.fixtures = this.groupByDate(fixtures);
-      console.log(this.fixtures);
+      // console.log(this.fixtures);
     }).catch((error) => {
       this.fixtures = null;
       console.log(error);
@@ -108,12 +108,41 @@ export class FixturesComponent implements OnInit {
     let storeFixtures: FixturesData[] = [];
     for (let i = 0; i < fixtures.length; i++) {
       let fixture = fixtures[i];
+
       // team info
       fixture.home_team_data = await this.fetchTeam(fixture.home);
       fixture.away_team_data = await this.fetchTeam(fixture.away);
 
       // format date
       fixture.date = moment(fixture.match_day).calendar();
+
+
+      // update game states
+      const matchStart = fixture.match_day + ' ' + (fixture.match_time ?? '00:00');
+      const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
+      const curTime = moment().format("YYYY-MM-DD hh:mm");
+
+      // console.log(curTime, matchStart, matchEnd);
+      // console.log((curTime > matchStart && curTime < matchEnd), (curTime > matchEnd));
+
+       // if match start time has finished update fixture time
+      if (curTime > matchStart && curTime < matchEnd) {
+        this.fixturesService.updateFixture(fixture.snap_id, {
+          ...fixture, status: 'on-going', updated: moment().format()
+        }).then(() => {
+          fixture.status = 'on-going';
+        });
+      }
+      // if match end time has finished update fixture time
+      if (curTime > matchEnd){
+        this.fixturesService.updateFixture(fixture.snap_id, {
+          ...fixture, status: 'played', updated: moment().format()
+        }).then(() => {
+          fixture.status = 'played';
+        });
+      }
+
+
       storeFixtures.push(fixture);
     }
 
@@ -123,5 +152,6 @@ export class FixturesComponent implements OnInit {
 
     return storeFixtures;
   }
+
 
 }

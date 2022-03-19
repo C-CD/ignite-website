@@ -1,0 +1,15 @@
+.vertical-divider{
+  background: #ccc;
+  height: 85%;
+  width: 2px;
+}
+
+.fixture-header div{
+  padding: 1rem 0;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.fixture-body{
+  border: 1px solid #ccc;
+  border-radius: 0px 0px 20px 20px;
+}

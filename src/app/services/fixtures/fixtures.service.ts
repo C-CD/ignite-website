@@ -6,6 +6,7 @@ import firebase from 'firebase/app';
 
 
 export interface Fixtures {
+  id: string;
   home: string;
   away: string;
   scores: null | {
@@ -13,6 +14,8 @@ export interface Fixtures {
     away: number
   };
   match_day: string;
+  match_time: string;
+  match_end_time: string;
   status: string;
   stream: string;
   updated: string;

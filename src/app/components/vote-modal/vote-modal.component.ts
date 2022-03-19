@@ -169,7 +169,7 @@ export class VoteModalComponent implements OnInit {
               meta_data: response.data,
               votee: this.player.snap_id,
               coach: null,
-              date: moment().format('YYYY-MM-DD HH:ii:ss')
+              date: moment().format('YYYY-MM-DD hh:mm:ss')
             }).then(() => {
               console.log("Payment Successful");
               this.paymentSuccess();
