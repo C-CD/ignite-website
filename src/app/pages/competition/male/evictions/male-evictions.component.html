@@ -7,7 +7,7 @@
     <div class="">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <div class="container-fluid">
-          <a class="navbar-brand h2 mb-0 fw-bold" href="#">Players Evictions</a>
+          <a class="navbar-brand h2 mb-0 fw-bold" href="#">Players Substitutions</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -81,7 +81,7 @@
                 <div class="eviction-status" *ngIf="player.stats && player.stats.eviction !== 'in-game'">
                   <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
                     [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
-                    <span class="d-none text-white">Eviction&nbsp;</span>
+                    <span class="d-none text-white">Subs&nbsp;</span>
                     Status: {{ player.stats.eviction }}
                   </div>
                 </div>
@@ -118,7 +118,7 @@
                 <img style="width: 70px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
               </div>
               <div class="mb-3">
-                <b class="h5 fw-bold">Loading Evictions..</b><br />
+                <b class="h5 fw-bold">Loading Substitutions..</b><br />
                 <div>
                   Kindly wait while we load the player profiles...
                 </div>
@@ -134,9 +134,9 @@
                 <img style="width: 250px;" class="img-fluid" src="assets/img/gifs/nothing-found.gif">
               </div>
               <div class="mb-3">
-                <b class="h5 fw-bold">No Evictions Found..</b><br />
+                <b class="h5 fw-bold">No Substitutions Found..</b><br />
                 <div>
-                  There where no evictions found yet...
+                  There where no Substitutions found yet...
                 </div>
               </div>
             </div>
