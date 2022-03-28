@@ -52,7 +52,7 @@ export class PlayersComponent implements OnInit {
   }
 
   selectPlayer(player: any) {
-    console.log(player);
+    // console.log(player);
     this.selected_player = player;
   }
 

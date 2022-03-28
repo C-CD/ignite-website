@@ -158,7 +158,7 @@ export class VoteModalComponent implements OnInit {
     }).then((transaction: any) => {
       // console.log(transaction);
       // check transaction status
-      if (transaction.status === 'successful') {
+      if ((['successful', 'completed']).includes(transaction.status)) {
         this.fwService.verifyTransaction(transaction).then((response: any) => {
           if (response.data && response.data.status === 'successful') {
             this.votingService.addVote({
