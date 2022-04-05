@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
 import { PlayerService } from 'src/app/services/players/player.service';
 import { StatisticsService, StatsPlayer } from 'src/app/services/statistics/statistics.service';
-import { TeamService } from 'src/app/services/team/team.service';
+import { Teams, TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 
@@ -36,11 +36,12 @@ export class PlayersComponent implements OnInit {
     protected teamService: TeamService,
     private playerService: PlayerService,
     private statsService: StatisticsService,
-    private votingService: VotingService
+    private votingService: VotingService,
   ) { }
 
   ngOnInit(): void {
     this.fetchTeams();
+
     // this.fetchPlayers();
   }
 
@@ -81,6 +82,7 @@ export class PlayersComponent implements OnInit {
     this.showTeam = false;
     this.selectedTeam = team;
     this.players = [];
+    localStorage.setItem('selectedTeam', team.snap_id);
     this.loadingService.quickLoader().then(() => {
       this.playerService.collection().where("team", "==", team.snap_id).get().then((snapshots: any) => {
         // console.log(snapshots);
@@ -205,10 +207,22 @@ export class PlayersComponent implements OnInit {
   fetchTeams() {
     this.loadingService.quickLoader().then(() => {
       this.teamService.collection().get().then((snapshots: any) => {
-        console.log(snapshots);
+        // console.log(snapshots);
         this.teams = this.funcService.handleSnapshot(snapshots);
-        this.selectedTeam = this.teams[0];
-        this.fetchPlayersByTeam(this.selectedTeam);
+        const storedTeam = localStorage.getItem('selectedTeam');
+        if (storedTeam) {
+          this.fetchTeam(storedTeam).then((team: any) => {
+            if (team){
+              const teamData = { snap_id: storedTeam, ...team };
+              this.fetchPlayersByTeam(teamData);
+              this.selectedTeam = teamData;
+            }
+          })
+        }else{
+          this.fetchPlayersByTeam(this.teams[0]);
+          this.selectedTeam = this.teams[0];
+        }
+
         this.loadingService.clearLoader();
       });
     });

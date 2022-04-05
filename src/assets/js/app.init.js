@@ -1,4 +1,4 @@
-var initFwCheckout = function (usr, data) {
+var initFwCheckout = function (usr, data, meta = null) {
     var response = null;
 
     return new Promise( function (resolve, reject) {
@@ -9,6 +9,7 @@ var initFwCheckout = function (usr, data) {
           amount: data.amount,
           currency: "NGN",
           payment_options: 'card, banktransfer, ussd',
+          meta: meta,
           customer: {
               email: usr.email,
               phonenumber: usr.phone,

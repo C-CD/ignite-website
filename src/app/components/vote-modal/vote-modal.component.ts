@@ -151,10 +151,15 @@ export class VoteModalComponent implements OnInit {
   }
 
   initPurchaseVote(formData: any, ref: string){
-    // init flutterwave
-    initFwCheckout(formData, {
+    const voteData = {
       amount: 50 * formData.votes,
       reference: `${this.category}-voting-${ref}`
+    };
+    // init flutterwave
+    initFwCheckout(formData, voteData, {
+      ...voteData,
+      ...formData,
+      voteConfig: this.voteConfig
     }).then((transaction: any) => {
       // console.log(transaction);
       // check transaction status
