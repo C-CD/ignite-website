@@ -1,4 +1,6 @@
-<app-male-competition-nav page="fixtures"></app-male-competition-nav>
+<div class="position-fixed w-100" style="z-index: 101;">
+  <app-male-competition-nav page="fixtures"></app-male-competition-nav>
+</div>
 
 <div class="soccer-star-spacer"></div>
 
@@ -12,9 +14,9 @@
   </div>
 </div> -->
 
-<div class="container">
+<div class="container pt-4">
 
-  <div class="pb-4">
+  <div class="pb-4 pt-5">
     <h1 class="fw-bold">Fixtures & Results</h1>
   </div>
 
@@ -29,17 +31,17 @@
             <div class="row g-3" *ngIf="fixtures[match_day]">
               <div class="col-12" *ngFor="let games of fixtures[match_day]">
                 <div class="text-center fw-bold small fixture-header">
-                  <div class="bg-dark text-white" *ngIf="games.status === 'awaiting'">
-                    Pending&nbsp;&nbsp;(No:{{ games.id ?? 0 }})
+                  <div class="bg-danger text-white" *ngIf="games.status === 'awaiting'">
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Not Started
                   </div>
                   <div class="bg-warning text-dark" *ngIf="games.status === 'on-going'">
-                    Match Ongoing&nbsp;&nbsp;(No:{{ games.id ?? 0 }})
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Ongoing
                   </div>
-                  <div class="bg-success text-white" *ngIf="games.status === 'played'">
-                    Match Played&nbsp;&nbsp;(No:{{ games.id ?? 0 }})
+                  <div class="bg-dark text-white" *ngIf="games.status === 'played'">
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Played
                   </div>
                   <div class="bg-danger text-white" *ngIf="games.status === 'cancelled'">
-                    Match Cancelled&nbsp;&nbsp;(No:{{ games.id ?? 0 }})
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Cancelled
                   </div>
                 </div>
                 <div class="d-flex justify-content-between px-4 pt-2 pb-3 fixture-body">

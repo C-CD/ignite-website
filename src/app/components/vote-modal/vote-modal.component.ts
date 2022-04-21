@@ -9,6 +9,7 @@ import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { VotingService } from 'src/app/services/votings/voting.service';
 import { take } from 'rxjs/operators';
 import { FunctionsService } from 'src/app/services/functions/functions.service';
+import { PayResolutionService } from 'src/app/services/pay-resolution/pay-resolution.service';
 
 
 declare let initFwCheckout: any;
@@ -40,6 +41,7 @@ export class VoteModalComponent implements OnInit {
   success: boolean = false;
   loading: boolean = false;
   coachVote: boolean = false;
+  fwSuccess: any = null;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -50,7 +52,8 @@ export class VoteModalComponent implements OnInit {
     private votingService: VotingService,
     private coachesService: CoachesService,
     private funcService: FunctionsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private payResolver: PayResolutionService
   ) {
 
   }
@@ -164,6 +167,7 @@ export class VoteModalComponent implements OnInit {
       // console.log(transaction);
       // check transaction status
       if ((['successful', 'completed']).includes(transaction.status)) {
+        this.fwSuccess = transaction;
         this.fwService.verifyTransaction(transaction).then((response: any) => {
           if (response.data && response.data.status === 'successful') {
             this.votingService.addVote({
@@ -181,23 +185,23 @@ export class VoteModalComponent implements OnInit {
             }).catch((error) => {
               console.log(error);
               this.paymentLoading(false);
-              this.paymentFailed();
+              this.paymentFailed(false, this.fwSuccess);
             });
           } else {
             this.paymentLoading(false);
-            this.paymentFailed();
+            this.paymentFailed(false, transaction);
           }
         }).catch((error) => {
           console.log(error);
           this.paymentLoading(false);
-          this.paymentFailed();
+          this.paymentFailed(false, transaction);
         })
       } else {
         this.paymentLoading(false);
-        this.paymentFailed();
+        this.paymentFailed(false, transaction);
       }
     }).catch((error: any) => {
-      console.log(error);
+      // console.log(error);
       // this.paymentLoading(false);
       this.paymentFailed();
     })
@@ -240,13 +244,23 @@ export class VoteModalComponent implements OnInit {
     }, 13000);
   }
 
-  paymentFailed(msg: any = false) {
+  paymentFailed(msg: any = false, fw:any = null) {
     this.loading = false;
     this.success = false;
     this.error = (msg) ? msg : "Oop's payment failed.. try again!";
-    setTimeout(() => {
-      this.error = false;
-    }, 13000);
+    if(fw){
+      this.payResolver.addPayResolution({
+        meta: fw,
+        status: 0,
+        created: moment().format('YYYY-MM-DD hh:mm:ss'),
+        updated: moment().format('YYYY-MM-DD hh:mm:ss')
+      })
+    }
+    // if(!fw){
+    //   setTimeout(() => {
+    //     this.error = false;
+    //   }, 13000);
+    // }
   }
 
   clearInputOnClose(){
@@ -259,4 +273,9 @@ export class VoteModalComponent implements OnInit {
       amount: 50
     }
   }
+
+  closeErrorModal(){
+    this.error = false;
+  }
+
 }

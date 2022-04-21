@@ -70,8 +70,8 @@ export class FixturesComponent implements OnInit {
       this.loadingService.quickLoader().then(() => {
         this.fixturesService.getFixtures().then((snapshots: any) => {
           // console.log(snapshots);
-
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
+          // console.log(snapshots_data);
           if (snapshots_data) {
             resolve(this.organizeFixturesData(snapshots_data, true));
           } else {

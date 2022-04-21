@@ -5,8 +5,8 @@ import firebase from 'firebase/app';
 
 
 export interface PayResolution {
-  meta: string;
-  status: string;
+  meta: any;
+  status: number;
   updated: string;
   created: string;
 }
