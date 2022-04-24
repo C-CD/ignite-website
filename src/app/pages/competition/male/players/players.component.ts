@@ -25,6 +25,7 @@ export class PlayersComponent implements OnInit {
   showTeam = false;
   selectedTeam: any;
   searchInput: string = '';
+  public theBoundCallback!: () => void;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,15 +42,18 @@ export class PlayersComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTeams();
-
+    this.theBoundCallback = this.refreshPlayers.bind(this);
     // this.fetchPlayers();
   }
 
-  refreshPlayers( ){
-    this.loadingService.quickLoader().then(() => {
-      this.fetchPlayersByTeam(this.selectedTeam);
-      this.loadingService.clearLoader();
-    });
+  refreshPlayers(){
+    // console.log('call back returned'); return;
+    this.teams = [];
+    this.fetchTeams();
+    // this.loadingService.quickLoader().then(() => {
+    //   this.fetchPlayersByTeam(this.selectedTeam);
+    //   this.loadingService.clearLoader();
+    // });
   }
 
   selectPlayer(player: any) {

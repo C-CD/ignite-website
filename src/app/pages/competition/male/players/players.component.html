@@ -1,6 +1,6 @@
 <app-point-indicator></app-point-indicator>
 
-<div >
+<div>
   <div class="position-fixed w-100" style="z-index: 101;">
     <app-male-competition-nav page="players"></app-male-competition-nav>
 
@@ -9,19 +9,22 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <div class="container-fluid">
           <a class="navbar-brand h2 mb-0 fw-bold" href="#">Players Profile</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 teams-item">
-              <li class="nav-item touch b-rad-10"  *ngFor="let team of teams">
-                <a class="nav-link fw-bold" [ngClass]="{'active': (selectedTeam.snap_id === team.snap_id)}"
+              <li class="nav-item touch b-rad-10" *ngFor="let team of teams">
+                <a class="nav-link fw-bold" *ngIf="team.snap_id ?? null"
+                  [ngClass]="{'active': (selectedTeam.snap_id === (team?.snap_id ?? ''))}"
                   aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
               </li>
             </ul>
             <form class="d-flex" (ngSubmit)="searchPlayer()">
-              <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput" placeholder="Search" aria-label="Search">
+              <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput"
+                placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-danger" type="submit">Search</button>
             </form>
           </div>
@@ -58,7 +61,7 @@
                 <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex" data-bs-toggle="tooltip"
                   data-bs-placement="top" title="Player's Point">
                   <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15"
-                    height="15"/>
+                    height="15" />
                   <strong>{{ (player.votes_data) ? funcService.formatNumber(player.votes_data.points) : 0 }}</strong>
                 </div>
               </div>
@@ -87,7 +90,8 @@
                   </div>
                 </div>
                 <div class="text-white fw-light" *ngIf="showTeam && player.team_data">{{ player.team_data.name }}</div>
-                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}</div>
+                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}
+                </div>
                 <div class="fw-bold text-white">{{ player.position_full }}</div>
                 <div class="fw-bold pb-2 text-white">Player ID: {{ (player.stats) ? player.stats.id : '000' }}</div>
                 <div class="">
@@ -96,12 +100,12 @@
                     View Profile
                   </button>
                   <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#votingModal" *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')">
+                    data-bs-target="#votingModal"
+                    *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')">
                     Vote
                   </button>
                   <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#votingModal"
-                    *ngIf="player.stats && player.stats.eviction === 'on-going'">
+                    data-bs-target="#votingModal" *ngIf="player.stats && player.stats.eviction === 'on-going'">
                     Save
                   </button>
                 </div>
@@ -150,4 +154,5 @@
 </div>
 
 <app-player-modal [player]="selected_player"></app-player-modal>
-<app-vote-modal [player]="selected_player" category="players" [onSuccess]="refreshPlayers"></app-vote-modal>
+<app-vote-modal [player]="selected_player" category="players" [onSuccess]="theBoundCallback">
+</app-vote-modal>

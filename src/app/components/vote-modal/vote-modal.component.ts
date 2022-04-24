@@ -1,5 +1,5 @@
 import { CoachesService } from './../../services/coaches/coaches.service';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth/firebase-auth.service';
@@ -31,7 +31,10 @@ export class VoteModalComponent implements OnInit {
 
   @Input() player: any;
   @Input() category: string = 'players';
-  @Input() onSuccess?: () => void;
+  @Input() public onSuccess: () => void = () => console.log('hhhh');
+  // @Output() onSuccess: EventEmitter<any> = new EventEmitter();
+
+
   usr: any;
   formDataGroup!: FormGroup;
   voteConfig: VoteConfig = {
@@ -61,6 +64,7 @@ export class VoteModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onSuccess();
     this.validateFormData();
   }
 
@@ -240,7 +244,7 @@ export class VoteModalComponent implements OnInit {
     this.error = false;
     this.loading = false;
     this.success = true;
-    this.onSuccess && this.onSuccess();
+    this.onSuccess();
     setTimeout(() => {
       this.success = false;
     }, 13000);

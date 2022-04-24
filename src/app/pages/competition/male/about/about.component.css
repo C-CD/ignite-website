@@ -1,0 +1,4 @@
+.page-header img {
+  min-height: 200px;
+  object-fit: cover;
+}
