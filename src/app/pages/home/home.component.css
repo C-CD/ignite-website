@@ -2,3 +2,8 @@
     font-size: 6rem !important;
     color: #fff;
 }
+
+.carousel-item img {
+  object-fit: cover;
+  min-height: 280px;
+}
