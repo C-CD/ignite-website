@@ -10,6 +10,7 @@ import { VotingService } from 'src/app/services/votings/voting.service';
 import { take } from 'rxjs/operators';
 import { FunctionsService } from 'src/app/services/functions/functions.service';
 import { PayResolutionService } from 'src/app/services/pay-resolution/pay-resolution.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 
 declare let initFwCheckout: any;
@@ -53,7 +54,8 @@ export class VoteModalComponent implements OnInit {
     private coachesService: CoachesService,
     private funcService: FunctionsService,
     private cdr: ChangeDetectorRef,
-    private payResolver: PayResolutionService
+    private payResolver: PayResolutionService,
+    private clipboard: Clipboard
   ) {
 
   }
@@ -276,6 +278,11 @@ export class VoteModalComponent implements OnInit {
 
   closeErrorModal(){
     this.error = false;
+  }
+
+  copyText(textToCopy: string) {
+    this.clipboard.copy(textToCopy);
+    alert("Copied text to clipboard");
   }
 
 }

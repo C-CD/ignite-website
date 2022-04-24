@@ -4,12 +4,12 @@ var initFwCheckout = function (usr, data, meta = null) {
     return new Promise( function (resolve, reject) {
       const fwModal = FlutterwaveCheckout({
           // public_key: 'FLWPUBK_TEST-4f3ea2e6ca5f9ec98fa29686de92786e-X',
-          public_key: 'FLWPUBK-39a42c2e75f6ad587b73b7c7e51717e6-X',
+          public_key: 'FLWPUBK-44473b3533fa0550acd7ae72861b74f2-X',
           tx_ref: data.reference,
           amount: data.amount,
           currency: "NGN",
           payment_options: 'card, banktransfer, ussd',
-          meta: meta,
+          // meta: meta,
           customer: {
               email: usr.email,
               phonenumber: usr.phone,

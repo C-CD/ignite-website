@@ -168,7 +168,7 @@
                   <hr>
                   <h5>Note.</h5>
                    <p>
-                     Note if you are experiencing issues with payment kindly send a mail to the below email address.
+                     Note if you are experiencing issues with payment kindly send a mail with a proof of payment to the below email address.
                    </p>
                   <br/>
                   <div class="px-3">
@@ -179,10 +179,14 @@
                         </button>
                       </div>
                       <div class="col-md">
-                        <a class="email-to d-flex w-100 mb-2" href="mailto: support@ignitemegastars.ng">
+                        <button class="email-to d-flex w-100 mb-2" >
                           <i class="mdi mdi-email align-self-center"></i>
-                          <span class="align-self-center">&nbsp;&nbsp;support@ignitemegastars.ng</span>
-                        </a>
+                          <a class="align-self-center" href="mailto: support@ignitemegastars.ng">
+                            &nbsp;&nbsp;support@ignitemegastars.ng&nbsp;&nbsp;
+                          </a>
+                          <i class="mdi mdi-content-copy align-self-center"
+                            (click)="copyText('support@ignitemegastars.ng')"></i>
+                        </button>
                       </div>
                     </div>
 
