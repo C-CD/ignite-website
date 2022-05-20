@@ -37,6 +37,8 @@
     "jquery": "^3.6.0",
     "libphonenumber-js": "^1.9.44",
     "moment": "^2.29.1",
+    "ngx-bootstrap": "^8.0.0",
+    "ngx-clipboard": "^15.1.0",
     "ngx-form-validations": "^12.2.1",
     "ngx-image-compress": "^11.0.3",
     "ngx-international-phone-number": "^1.0.6",

@@ -3,7 +3,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-capitalize">VOTE {{ category }}</h5>
-        <button type="button" class="btn-close" (click)="clearInputOnClose()" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" id="closeModalButton" class="btn-close" (click)="clearInputOnClose()"
+          data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="player">
         <div *ngIf="!loading && !success && !error">
@@ -179,14 +180,15 @@
                         </button>
                       </div>
                       <div class="col-md">
-                        <button class="email-to d-flex w-100 mb-2" >
+                        <div class="email-to d-flex w-100 mb-2" >
                           <i class="mdi mdi-email align-self-center"></i>
-                          <a class="align-self-center" href="mailto: support@ignitemegastars.ng">
-                            &nbsp;&nbsp;support@ignitemegastars.ng&nbsp;&nbsp;
+                          <a class="align-self-center" href="mailto: support@ignitemegastars.ng" #supportEmail>
+                            &nbsp;&nbsp;support@ignitemegastars.ng&nbsp;&nbsp;&nbsp;&nbsp;
                           </a>
-                          <i class="mdi mdi-content-copy align-self-center"
-                            (click)="copyText('support@ignitemegastars.ng')"></i>
-                        </button>
+                          <button class="border-0 transparent" (click)="copyToClipboard('support@ignitemegastars.ng')">
+                            <i class="mdi mdi-content-copy align-self-center kikk"></i>
+                          </button>
+                        </div>
                       </div>
                     </div>
 
@@ -200,3 +202,4 @@
     </div>
   </div>
 </div>
+                            <!-- (click)="copyText('support@ignitemegastars.ng')" -->

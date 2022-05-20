@@ -50,6 +50,8 @@ import { CoachAgentApplicationComponent } from './pages/coache/coaches-apply/coa
 import { CoachesAllComponent } from './pages/coache/coaches-all/coaches-all.component';
 import { CoachModalComponent } from './components/coach-modal/coach-modal.component';
 import { IntlTelInputNgModule } from 'intl-tel-input-ng';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 @NgModule({
   declarations: [
@@ -109,6 +111,7 @@ import { IntlTelInputNgModule } from 'intl-tel-input-ng';
     NgxFormValidationsModule,
     MaleModule,
     FemaleModule,
+    ClipboardModule,
     NgxFormValidationsModule,
     IntlTelInputNgModule.forRoot()
   ],

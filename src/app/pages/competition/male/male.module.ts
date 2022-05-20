@@ -19,6 +19,8 @@ import { VoteModalComponent } from 'src/app/components/vote-modal/vote-modal.com
 import { NgxFormValidationsModule } from 'ngx-form-validations';
 import { PointIndicatorComponent } from 'src/app/components/point-indicator/point-indicator.component';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
     ReactiveFormsModule,
     FormsModule,
     NgxFormValidationsModule,
+    ClipboardModule,
     InternationalPhoneNumberModule
   ]
 })

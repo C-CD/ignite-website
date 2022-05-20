@@ -107,6 +107,7 @@ export class FixturesComponent implements OnInit {
   async organizeFixturesData(fixtures: any, parse = false){
     let storeFixtures: FixturesData[] = [];
     for (let i = 0; i < fixtures.length; i++) {
+      const fixedFixture = fixtures[i];
       let fixture = fixtures[i];
 
       // team info
@@ -114,8 +115,9 @@ export class FixturesComponent implements OnInit {
       fixture.away_team_data = await this.fetchTeam(fixture.away);
 
       // format date
+      // console.log(fixture.match_day + " " +fixture.match_time);
       fixture.date = moment(fixture.match_day).calendar();
-
+      fixture.match_time_fmt = moment(fixture.match_day + " " +fixture.match_time).format('h:mm a');
 
       // update game states
       const matchStart = fixture.match_day + ' ' + (fixture.match_time ?? '00:00');
@@ -128,7 +130,7 @@ export class FixturesComponent implements OnInit {
        // if match start time has finished update fixture time
       if (curTime > matchStart && curTime < matchEnd) {
         this.fixturesService.updateFixture(fixture.snap_id, {
-          ...fixture, status: 'on-going', updated: moment().format()
+          ...fixedFixture, status: 'on-going', updated: moment().format()
         }).then(() => {
           fixture.status = 'on-going';
         });
@@ -136,7 +138,7 @@ export class FixturesComponent implements OnInit {
       // if match end time has finished update fixture time
       if (curTime > matchEnd){
         this.fixturesService.updateFixture(fixture.snap_id, {
-          ...fixture, status: 'played', updated: moment().format()
+          ...fixedFixture, status: 'played', updated: moment().format()
         }).then(() => {
           fixture.status = 'played';
         });
