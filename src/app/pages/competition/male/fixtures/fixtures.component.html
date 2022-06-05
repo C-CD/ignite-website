@@ -32,16 +32,16 @@
               <div class="col-12" *ngFor="let games of fixtures[match_day]">
                 <div class="text-center fw-bold small fixture-header">
                   <div class="bg-danger text-white" *ngIf="games.status === 'awaiting'">
-                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Not Started
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;/&nbsp;Not Started
                   </div>
                   <div class="bg-warning text-dark" *ngIf="games.status === 'on-going'">
-                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Ongoing
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;/&nbsp;Ongoing
                   </div>
                   <div class="bg-dark text-white" *ngIf="games.status === 'played'">
-                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Played
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;/&nbsp;Played
                   </div>
                   <div class="bg-danger text-white" *ngIf="games.status === 'cancelled'">
-                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;&nbsp;Cancelled
+                    Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;/&nbsp;Cancelled
                   </div>
                 </div>
                 <div class="d-flex justify-content-between px-4 pt-2 pb-3 fixture-body">
@@ -52,10 +52,10 @@
                   <div class="text-center">
                     <div class="fw-light small">WAT {{ ((games.match_time) ? games.match_time_fmt : '00:00') }}</div>
                     <div class="fw-bold">{{ games.scores.home + ' - ' + games.scores.away}}</div>
-                    <div *ngIf="games.stream && games.status === 'on-going'">
+                    <div *ngIf="games.stream && ['on-going', 'played'].includes(games.status)">
                       <a class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
                         data-bs-target="#fixtureModal" (click)="selectFixture(games)" data-bs-toggle="modal">
-                        Click to Watch Live
+                        {{ (games.status === 'played') ? 'Match Highlights' : 'Click to Watch Live'}}
                       </a>
                     </div>
                   </div>
