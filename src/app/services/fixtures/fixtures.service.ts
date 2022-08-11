@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 
+type PlayersList = { id: string | number, text: string, data?: string };
 
 export interface Fixtures {
   id: string;
@@ -11,8 +12,12 @@ export interface Fixtures {
   away: string;
   scores: null | {
     home: number;
-    away: number
+    away: number;
+    home_scorers: PlayersList[];
+    away_scorers: PlayersList[];
   };
+  home_subs: PlayersList[];
+  away_subs: PlayersList[];
   match_day: string;
   match_time: string;
   match_end_time: string;

@@ -117,4 +117,9 @@ export class FunctionsService {
     return strNum.replace(/\d(?=(\d{3})+\.)/g, '$&,');
   }
 
+  getAge(date: Date|string){
+    return moment().diff(moment(date, "DD MMM YYYY"), 'years');
+  }
+
+
 }

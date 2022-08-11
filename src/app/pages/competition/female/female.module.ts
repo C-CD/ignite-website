@@ -13,6 +13,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { PlayerRegisterationComponent } from 'src/app/components/player-registeration/player-registeration.component';
+import { PlayerRegisterationModule } from 'src/app/components/player-registeration/player-registeration.module';
 
 
 
@@ -23,7 +25,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     FixturesComponent,
     AboutComponent,
     HighlightsComponent,
-    FemaleCompetitionNavComponent
+    FemaleCompetitionNavComponent,
   ],
   exports:[
     PlayersComponent,
@@ -31,7 +33,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     FixturesComponent,
     AboutComponent,
     HighlightsComponent,
-    FemaleCompetitionNavComponent
+    FemaleCompetitionNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
+    PlayerRegisterationModule
   ]
 })
 export class FemaleModule { }

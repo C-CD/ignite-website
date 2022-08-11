@@ -1,0 +1,32 @@
+ <div class="table-responsive">
+   <table class="table table-striped">
+     <thead>
+       <th>Teams</th>
+       <th title="Played">PL</th>
+       <th title="Won">W</th>
+       <th title="Draw">D</th>
+       <th title="Lost">L</th>
+       <th title="Goals For">F</th>
+       <th title="Goals Against">A</th>
+       <th title="Goal Difference (No. of goals for - No. of goals against)">GD</th>
+       <th title="Points">PTS</th>
+     </thead>
+    <tbody *ngIf="standings">
+      <tr *ngFor="let standing of standings">
+        <td>
+          <strong *ngIf="standing.team">
+            {{ standing?.name  + ' Team'}}
+          </strong>
+        </td>
+        <td class="fw-bold">{{ standing.played }}</td>
+        <td>{{ standing.won }}</td>
+        <td>{{ standing.draw }}</td>
+        <td>{{ standing.lost }}</td>
+        <td>{{ standing.goals_for }}</td>
+        <td>{{ standing.goals_against }}</td>
+        <td>{{ standing.goal_diff }}</td>
+        <td class="fw-bold">{{ standing.points }}</td>
+       </tr>
+     </tbody>
+   </table>
+ </div>

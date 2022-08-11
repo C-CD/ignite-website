@@ -1,0 +1,663 @@
+<app-success-modal [data]="successData"></app-success-modal>
+<div>
+  <form id="form-app" enctype="multipart/form-data" role="form" autocomplete="on" novalidate="novalidate"
+    [formGroup]="formDataGroup" (ngSubmit)="register(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd">
+    <fieldset class="row g-2">
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Name &amp; Contact Information of Participant</h4>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.surname"
+          labelName='Surname'>
+          <label class="control-label" for="text_2">Surname</label>
+          <input formControlName="surname" #ngxFvFormControl type="text" id="text_2" name="text_2" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.first_name"
+          labelName='First Name'>
+          <label class="control-label" for="text_3">First Name</label>
+          <input formControlName="first_name" #ngxFvFormControl type="text" id="text_3" name="text_3" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.middle_name"
+          labelName='Other Names'>
+          <label class="control-label" for="text_1">Other Names</label>
+          <input formControlName="middle_name" #ngxFvFormControl type="text" id="text_1" name="text_1"
+            class="form-control">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.state_of_origin"
+          labelName='State of Origin'>
+          <label class="control-label" for="text_5">State of Origin</label>
+          <input formControlName="state_of_origin" #ngxFvFormControl type="text" id="text_5" name="text_5"
+            class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+       <!-- Date -->
+       <div class="col-xs-12 col-sm-4">
+         <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.gender"
+           labelName='Gender'>
+           <label class="control-label" for="date_1">Gender</label>
+            <select formControlName="gender" #ngxFvFormControl id="selectlist_19" name="gender" class="form-control form-select" readonly>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+           <!-- display form errors -->
+           <div class="text-danger pt-1">
+             <ngx-fv-error></ngx-fv-error>
+           </div>
+         </ngx-fv-validate>
+       </div>
+
+      <!-- Date -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.dob"
+          labelName='Date of Birth'>
+          <label class="control-label" for="date_1">Date of Birth</label>
+          <input formControlName="dob" #ngxFvFormControl type="date" id="date_1" name="date_1" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Number -->
+      <div class="col-xs-12 col-sm-4">
+        <div class="form-group required-control" >
+          <label class="control-label" for="number_1">Age</label>
+          <input type="number" id="number_1" name="number_1" class="form-control" readonly=""
+            [value]="((form('dob').value && form('dob').value.length) ? funcService.getAge(form('dob').value) : '0')">
+        </div>
+      </div>
+
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Residential Information</h4>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.home_address"
+          labelName='Home Address'>
+          <label class="control-label" for="text_7">Home Address</label>
+          <input formControlName="home_address" #ngxFvFormControl type="text" id="text_7" name="text_7"
+            class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.state"
+          labelName='State'>
+          <label class="control-label" for="selectlist_9">State</label>
+          <select formControlName="state" #ngxFvFormControl id="selectlist_9" name="selectlist_9[]" data-alias="" class="form-control form-select">
+            <option value="Lagos" selected="selected">Lagos</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.lga"
+          labelName='Local Govt Area'>
+          <label class="control-label" for="selectlist_2">Local Govt Area</label>
+          <select formControlName="lga" #ngxFvFormControl id="selectlist_2" name="selectlist_2[]" data-alias="" class="form-control form-select" required="">
+            <option value="Alimosho" selected="selected">Alimosho</option>
+            <option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option>
+            <option value="Kosofe">Kosofe</option>
+            <option value="Mushin">Mushin</option>
+            <option value="Oshodi-Isolo">Oshodi-Isolo</option>
+            <option value="Ojo">Ojo</option>
+            <option value="Ikorodu">Ikorodu</option>
+            <option value="Surulere">Surulere</option>
+            <option value="Agege">Agege</option>
+            <option value="Ifako-Ijaiye">Ifako-Ijaiye</option>
+            <option value="Somolu">Somolu</option>
+            <option value="Amuwo-Odofin">Amuwo-Odofin</option>
+            <option value="Lagos Mainland">Lagos Mainland</option>
+            <option value="Ikeja">Ikeja</option>
+            <option value="Eti-Osa">Eti-Osa</option>
+            <option value="Badagry">Badagry</option>
+            <option value="Apapa">Apapa</option>
+            <option value="Lagos Island">Lagos Island</option>
+            <option value="Epe">Epe</option>
+            <option value="Ibeju-Lekki">Ibeju-Lekki</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.city"
+          labelName='City/Town'>
+          <label class="control-label" for="text_8">City/Town</label>
+          <input formControlName="city" #ngxFvFormControl type="text" id="text_8" name="text_8" class="form-control form-select" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Educational Information</h4>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.primary_name"
+          labelName='Name of primary school attended'>
+          <label class="control-label" for="text_594098">Name of primary school attended</label>
+          <input formControlName="primary_name" #ngxFvFormControl type="text" id="text_594098" name="text_594098" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.primary_cert_no"
+          labelName='Primary school certificate number'>
+          <label class="control-label" for="text_137607">Primary school certificate number</label>
+          <input formControlName="primary_cert_no" #ngxFvFormControl type="text" id="text_137607" name="text_137607" class="form-control" required="" data-unique="true">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- File -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.primary_cert_file"
+          labelName='Upload proof of primary school attendance'>
+          <label class="control-label" for="file_5">Upload proof of primary school attendance (Certificate,
+            testimonial, affidavit, etc)</label>
+          <input formControlName="primary_cert_file" #ngxFvFormControl type="file"
+            (change)="setFile($event, 'cert')" accept=".gif, .jpg, .png, .pdf, .jpeg"
+            data-max-size="3200000">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+
+      <!-- Text -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.primary_address"
+          labelName='Address of primary school'>
+          <label class="control-label" for="text_383771">Address of primary school</label>
+          <input formControlName="primary_address" #ngxFvFormControl type="text" id="text_383771" name="text_383771" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Activities &amp; Interest</h4>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.sport_interested"
+          labelName='Sport of Interest'>
+          <label class="control-label" for="selectlist_1">Sport of Interest</label>
+          <select formControlName="sport_interested" #ngxFvFormControl id="selectlist_1" name="selectlist_1[]" data-alias="" class="form-control  form-select" required="">
+            <option value="Football" selected="">Football</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.sport_position"
+          labelName='What position do you play?'>
+          <label class="control-label" for="selectlist_11">What position do you play?</label>
+          <select formControlName="sport_position" #ngxFvFormControl id="selectlist_11" name="selectlist_11[]" data-alias="" class="form-control  form-select" required="">
+            <option value="Goalkeeper" selected="">Goalkeeper</option>
+            <option value="Defender">Defender</option>
+            <option value="Midfielder">Midfielder</option>
+            <option value="Attacker">Attacker</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.health_challenge"
+          labelName='Any Health Challenge'>
+          <label class="control-label" for="selectlist_3">Do you have health challenges that may impact your
+            participation in the competition</label>
+          <select formControlName="health_challenge" #ngxFvFormControl  class="form-control  form-select" required="">
+            <option value="Yes">Yes</option>
+            <option value="No" [selected]="true">No</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.health_challenge_desc"
+          labelName='State the health challenge'>
+          <label class="control-label" for="text_191539">State the health challenge</label>
+          <input formControlName="health_challenge_desc" #ngxFvFormControl type="text" id="text_191539"
+            name="text_191539" class="form-control" [readonly]="formDataGroup.controls.health_challenge.value?.toLowerCase() === 'no'">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.current_play"
+          labelName='Current Play'>
+          <label class="control-label" for="selectlist_4">Do you currently play for a team?</label>
+          <select formControlName="current_play" #ngxFvFormControl data-alias="" class="form-control  form-select">
+            <option value="Yes">Yes</option>
+            <option value="No" selected="">No</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.current_team"
+          labelName='Current Team'>
+          <label class="control-label" for="text_12">Enter the name of the team you are currently playing
+            for</label>
+          <input formControlName="current_team" #ngxFvFormControl type="text" class="form-control"
+            [readonly]="formDataGroup.controls.current_play.value?.toLowerCase() === 'no'">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Guardian Information</h4>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_surname"
+          labelName='Surname'>
+          <label class="control-label" for="text_18">Surname</label>
+          <input formControlName="guardian_surname" #ngxFvFormControl type="text" id="text_18" name="text_18" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_fname"
+          labelName='First Name'>
+          <label class="control-label" for="text_19">First Name</label>
+          <input formControlName="guardian_fname" #ngxFvFormControl type="text" id="text_19" name="text_19" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_relationship"
+          labelName='Relationship'>
+          <label class="control-label" for="text_17">Relationship</label>
+          <input formControlName="guardian_relationship" #ngxFvFormControl type="text" id="text_17" name="text_17" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_address"
+          labelName='Home Address'>
+          <label class="control-label" for="text_20">Home Address</label>
+          <input formControlName="guardian_address" #ngxFvFormControl type="text" id="text_20" name="text_20" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_state"
+          labelName='State'>
+          <label class="control-label" for="selectlist_8">State</label>
+          <select formControlName="guardian_state" #ngxFvFormControl id="selectlist_8" name="selectlist_8[]" data-alias="" class="form-control">
+            <option value="Lagos" selected="">Lagos</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_lga"
+          labelName='Local Govt Area'>
+          <label class="control-label" for="selectlist_10">Local Govt Area</label>
+          <select formControlName="guardian_lga" #ngxFvFormControl id="selectlist_10" name="selectlist_10[]" data-alias="" class="form-control  form-select" required="">
+            <option value="Alimosho" selected="">Alimosho</option>
+            <option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option>
+            <option value="Kosofe">Kosofe</option>
+            <option value="Mushin">Mushin</option>
+            <option value="Oshodi-Isolo">Oshodi-Isolo</option>
+            <option value="Ojo">Ojo</option>
+            <option value="Ikorodu">Ikorodu</option>
+            <option value="Surulere">Surulere</option>
+            <option value="Agege">Agege</option>
+            <option value="Ifako-Ijaiye">Ifako-Ijaiye</option>
+            <option value="Somolu">Somolu</option>
+            <option value="Amuwo-Odofin">Amuwo-Odofin</option>
+            <option value="Lagos Mainland">Lagos Mainland</option>
+            <option value="Ikeja">Ikeja</option>
+            <option value="Eti-Osa">Eti-Osa</option>
+            <option value="Badagry">Badagry</option>
+            <option value="Apapa">Apapa</option>
+            <option value="Lagos Island">Lagos Island</option>
+            <option value="Epe">Epe</option>
+            <option value="Ibeju-Lekki">Ibeju-Lekki</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_city"
+          labelName='City/Town'>
+          <label class="control-label" for="text_22">City/Town</label>
+          <input formControlName="guardian_city" #ngxFvFormControl type="text" id="text_22" name="text_22" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Email -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_email"
+          labelName='Guardian Email Address'>
+          <label class="control-label" for="email_1">Guardian Email Address</label>
+          <input formControlName="guardian_email" #ngxFvFormControl type="email" id="email_1" name="email_1" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Number -->
+      <div class="col-xs-12 col-sm-6">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.guardian_phone"
+          labelName='Phone Number'>
+          <label class="control-label" for="number_2">Phone Number</label>
+          <input formControlName="guardian_phone" #ngxFvFormControl type="number" id="number_2" name="number_2" class="form-control" required="">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Identification</h4>
+      </div>
+
+      <!-- Select List -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.identification_type"
+          labelName='Select an identification type'>
+          <label class="control-label" for="selectlist_5">Select an identification type</label>
+          <select formControlName="identification_type" #ngxFvFormControl id="selectlist_5" name="selectlist_5[]" data-alias="" class="form-control  form-select" required="">
+            <option value="Birth Certificate" selected="">Birth Certificate</option>
+          </select>
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Text -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.identification_number"
+          labelName='Certificate Number'>
+          <label class="control-label" for="text_4">Certificate Number</label>
+          <input formControlName="identification_number" #ngxFvFormControl type="text" id="text_4" name="text_4" class="form-control" required="" data-unique="true">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- File -->
+      <div class="col-xs-12 col-sm-4">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.identification_file"
+          labelName='Upload valid identification'>
+          <label class="control-label" for="file_4">Upload valid identification (supported format are: gif, jpg,
+            png, pdf, jpeg)</label>
+          <input formControlName="identification_file" #ngxFvFormControl type="file"  accept=".jpg, .png, .pdf, .jpeg"
+            data-max-size="3200000" (change)="setFile($event, 'identification')">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Participant Consent</h4>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.consent_terms"
+          labelName='Terms Consent'>
+          <div class="checkbox ">
+            <input formControlName="consent_terms" #ngxFvFormControl type="checkbox" name="checkbox_2[]" id="checkbox_2_0"
+              value="I agree to the Terms and Conditions of Ignite Megastars" data-alias="" data-required="true"><label
+              for="checkbox_2_0" class="checkbox-inline">&nbsp;&nbsp;
+              I agree to the <a href="https://ignitemegastars.com/ignite-soccer-stars-terms-and-condition"
+                target="_blank">Terms and Conditions</a> of Ignite Megastars </label>
+          </div>
+          <span id="checkbox_2"></span>
+
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.consent_guardian"
+          labelName='Guardians Consent'>
+          <div class="checkbox ">
+            <input formControlName="consent_guardian" #ngxFvFormControl type="checkbox" name="checkbox_4[]" id="checkbox_4_0"
+              value="I confirm that I have obtained consent from my Parent(s)/ Guardian(s) to register for the Ignite megastars competition"
+              data-alias="" data-required="true"><label for="checkbox_4_0" class="checkbox-inline">&nbsp;&nbsp;
+              I confirm that I have obtained consent from my Parent(s)/ Guardian(s) to register for the Ignite
+              megastars competition </label>
+          </div>
+          <span id="checkbox_4"></span>
+
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.consent_ccd"
+          labelName='C&CD Permission'>
+          <div class="checkbox ">
+            <input formControlName="consent_ccd" #ngxFvFormControl type="checkbox" name="checkbox_1[]" id="checkbox_1_0"
+              value="I hereby grant C&amp;CD Consulting Limited the permission to verify information provided above, with relevant authorities"
+              data-alias="" data-required="true"><label for="checkbox_1_0" class="checkbox-inline">&nbsp;&nbsp;
+              I hereby grant C&amp;CD Consulting Limited the permission to verify information provided above, with
+              relevant authorities </label>
+          </div>
+          <span id="checkbox_1"></span>
+
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
+
+      <!-- reCAPTCHA -->
+      <div class="form-group col-xs-12">
+        <div id="recaptcha_1" class="" data-sitekey="6LdTzyAbAAAAAL1qaBnl9hIV1_Awju58RcEFeNWf" data-theme="light"
+          data-type="image" data-size="normal"></div>
+      </div>
+
+      <!-- Paragraph Text -->
+      <div class="col-xs-12">
+        <p><strong>For more updates, follow us on our social media platforms: <a
+              href="https://www.instagram.com/ignite_megastars" target="_blank">Instagram</a>, <a
+              href="https://twitter.com/ignitemegastars" target="_blank">Twitter</a>, <a
+              href="https://facebook.com/ignitemegastars" target="_blank">Facebook</a></strong></p>
+      </div>
+
+      <!-- Button -->
+      <div class="col-xs-12">
+        <div class="form-action">
+          <button type="submit" id="button_1" name="button_1" class="btn btn-primary" type="submit"
+            [disabled]="!formDataGroup.valid">
+            {{ (loadingService.load) ? 'Submitting' : 'Submit Registration'}}
+          </button>
+          <a class="btn btn-primary" (click)="test()">click</a>
+        </div>
+      </div>
+    </fieldset>
+
+  </form>
+</div>
+

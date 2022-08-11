@@ -1,3 +1,4 @@
+import { MatchStandingsComponent } from './../../../components/match-standings/match-standings.component';
 import { MaleCompetitionNavComponent } from './../../../components/navs/male-competition-nav/male-competition-nav.component';
 import { FixturesModalComponent } from './../../../components/fixtures-modal/fixtures-modal.component';
 import { HighlightsComponent } from './highlights/highlights.component';
@@ -20,6 +21,7 @@ import { NgxFormValidationsModule } from 'ngx-form-validations';
 import { PointIndicatorComponent } from 'src/app/components/point-indicator/point-indicator.component';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { ClipboardModule } from 'ngx-clipboard';
+import { PlayerRegisterationModule } from 'src/app/components/player-registeration/player-registeration.module';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     VoteModalComponent,
     FixturesModalComponent,
     MaleCompetitionNavComponent,
-    PointIndicatorComponent
+    PointIndicatorComponent,
+    MatchStandingsComponent,
   ],
   exports: [
     PlayersComponent,
@@ -45,7 +48,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     VoteModalComponent,
     FixturesModalComponent,
     MaleCompetitionNavComponent,
-    PointIndicatorComponent
+    PointIndicatorComponent,
+    MatchStandingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     FormsModule,
     NgxFormValidationsModule,
     ClipboardModule,
-    InternationalPhoneNumberModule
+    InternationalPhoneNumberModule,
+    PlayerRegisterationModule
   ]
 })
 export class MaleModule { }

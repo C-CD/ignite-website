@@ -14,15 +14,13 @@
   </div>
 </div> -->
 
-<div class="container pt-4">
+<div class="container-fluid pt-4 px-lg-5 px-3">
 
-  <div class="pb-4 pt-5">
-    <h1 class="fw-bold">Fixtures & Results</h1>
-  </div>
-
-
-  <div class="row">
+  <div class="row g-5">
     <div class="col-md-6">
+      <div class="pb-4 pt-5">
+        <h1 class="fw-bold">Fixtures & Results</h1>
+      </div>
 
       <div class="row g-4" *ngIf="fixtures && objectKeys().length">
         <div class="col-12 " *ngFor="let match_day of objectKeys()">
@@ -48,6 +46,11 @@
                   <div class="text-left">
                     <div class="fw-light small">FIRST TEAM</div>
                     <div class="fw-bold text-uppercase h5 mb-0">Team {{ games.home_team_data.name }}</div>
+                    <div class="w-100">
+                      <div *ngFor="let scorers of games.home_scorers">
+                        <div class="text-end pb-1">{{ scorers.text }}</div>
+                      </div>
+                    </div>
                   </div>
                   <div class="text-center">
                     <div class="fw-light small">WAT {{ ((games.match_time) ? games.match_time_fmt : '00:00') }}</div>
@@ -62,8 +65,14 @@
                   <div class="text-end">
                     <div class="fw-light small text-end">SECOND TEAM</div>
                     <div class="fw-bold text-right text-uppercase h5 mb-0">Team {{ games.away_team_data.name }}</div>
+                    <div class="w-100">
+                      <div *ngFor="let scorers of games.away_scorers">
+                        <div class="text-start pb-1">{{ scorers.text }}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -103,11 +112,13 @@
         </div>
       </div>
     </div>
-    <div class="col-1 col-1 justify-content-center d-flex">
-      <div class="vertical-divider align-self-center d-sm-none"></div>
-    </div>
-    <div class="col-md-5">
 
+    <div class="col-md-6">
+      <div class="pb-4 pt-5">
+        <h3 class="fw-bold">Match Standings</h3>
+      </div>
+
+      <app-match-standings></app-match-standings>
     </div>
   </div>
 

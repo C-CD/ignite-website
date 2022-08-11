@@ -7,6 +7,7 @@ import { FunctionsService } from 'src/app/services/functions/functions.service';
 import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
 import { Teams, TeamService } from 'src/app/services/team/team.service';
+import { Players, PlayerService } from 'src/app/services/players/player.service';
 
 interface FixturesData extends Fixtures{
   date: string;
@@ -28,7 +29,8 @@ export class FixturesComponent implements OnInit {
     private funcService: FunctionsService,
     private mediaService: MediaService,
     protected teamService: TeamService,
-    private fixturesService: FixturesService
+    private fixturesService: FixturesService,
+    private playerService: PlayerService,
   ) { }
 
   ngOnInit(): void {
@@ -124,6 +126,9 @@ export class FixturesComponent implements OnInit {
       const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
       const curTime = moment().format("YYYY-MM-DD hh:mm");
 
+      fixture.home_scorers = fixture.scores.home_scorers ? fixture.scores.home_scorers : [];
+      fixture.away_scorers = fixture.scores.home_scorers ? fixture.scores.away_scorers : [];
+
       // console.log(curTime, matchStart, matchEnd);
       // console.log((curTime > matchStart && curTime < matchEnd), (curTime > matchEnd));
 
@@ -154,6 +159,8 @@ export class FixturesComponent implements OnInit {
 
     return storeFixtures;
   }
+
+
 
 
 }

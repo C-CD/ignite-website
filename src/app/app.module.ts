@@ -51,6 +51,8 @@ import { CoachesAllComponent } from './pages/coache/coaches-all/coaches-all.comp
 import { CoachModalComponent } from './components/coach-modal/coach-modal.component';
 import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 import { ClipboardModule } from 'ngx-clipboard';
+import { PlayerRegisterationModule } from './components/player-registeration/player-registeration.module';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 
 @NgModule({
@@ -85,7 +87,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     CoachesVotingComponent,
     MaleEvictionsComponent,
     CoachesAllComponent,
-    CoachModalComponent,
+    CoachModalComponent
   ],
   imports: [
     BrowserModule,
@@ -111,11 +113,12 @@ import { ClipboardModule } from 'ngx-clipboard';
     NgxFormValidationsModule,
     MaleModule,
     FemaleModule,
+    PlayerRegisterationModule,
     ClipboardModule,
     NgxFormValidationsModule,
     IntlTelInputNgModule.forRoot()
   ],
-  // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
