@@ -22,6 +22,9 @@ import { PointIndicatorComponent } from 'src/app/components/point-indicator/poin
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PlayerRegisterationModule } from 'src/app/components/player-registeration/player-registeration.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -62,7 +65,10 @@ import { PlayerRegisterationModule } from 'src/app/components/player-registerati
     NgxFormValidationsModule,
     ClipboardModule,
     InternationalPhoneNumberModule,
-    PlayerRegisterationModule
+    PlayerRegisterationModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class MaleModule { }

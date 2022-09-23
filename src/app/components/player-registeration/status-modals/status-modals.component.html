@@ -1,0 +1,5 @@
+<h1 mat-dialog-title [ngClass]="data.success ? 'text-dark' : 'text-danger'">{{ data.title }}</h1>
+<div mat-dialog-content class="pb-4">{{ data.body }}</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()"  tabindex="-1"  class="btn btn-primary">Continue</button>
+</div>

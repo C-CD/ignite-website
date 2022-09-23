@@ -13,10 +13,10 @@ export interface PlayersRegistration {
   state: string;
   lga: string;
   city: string;
-  primary_name: string;
-  primary_cert_no: string;
-  primary_cert_file: string;
-  primary_address: string;
+  edu_level: string;
+  school_name: string;
+  school_cert_file: string;
+  school_address: string;
   sport_interested: string;
   sport_position: string;
   health_challenge: string;
@@ -27,9 +27,6 @@ export interface PlayersRegistration {
   guardian_fname: string;
   guardian_relationship: string;
   guardian_address: string;
-  guardian_state: string;
-  guardian_lga: string;
-  guardian_city: string;
   guardian_email: string;
   guardian_phone: string;
   identification_type: string;

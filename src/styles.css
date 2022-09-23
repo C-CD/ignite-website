@@ -1230,6 +1230,13 @@ a.nav-active {
   }
 }
 
+@media screen and (min-width: 550px) {
+  .full-width-dialog  {
+    max-width: 500px !important;
+  }
+}
+
+
 html,
 body {
   height: 100%;

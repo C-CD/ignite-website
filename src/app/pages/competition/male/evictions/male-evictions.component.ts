@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { take } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { Fixtures, FixturesService } from 'src/app/services/fixtures/fixtures.service';
 import { FunctionsService } from 'src/app/services/functions/functions.service';
 import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
@@ -12,6 +13,11 @@ import { TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 
+
+interface SnapExtendFixture extends Fixtures {
+  snap_id: string
+  date: string;
+}
 @Component({
   selector: 'app-male-evictions',
   templateUrl: './male-evictions.component.html',
@@ -22,6 +28,7 @@ import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 })
 export class MaleEvictionsComponent implements OnInit {
 
+  games: any = [];
   players: any = [];
   selected_player: any = null;
   teams: any[] = [];
@@ -39,17 +46,92 @@ export class MaleEvictionsComponent implements OnInit {
     protected teamService: TeamService,
     private playerService: PlayerService,
     private statsService: StatisticsService,
-    private votingService: VotingService
+    private votingService: VotingService,
+    private fixturesService: FixturesService,
+
   ) { }
 
   ngOnInit(): void {
-    // this.fetchTeams();
+    this.fetchTeams();
     this.fetchPlayers().then((players) => {
       this.players = players;
+      this.fetchFixtures().then((games: any) => {
+        console.log(games)
+        this.games = games
+      }).catch((error) => {
+        console.log(error)
+        this.toaster.globalErrorToast()
+        this.games = null
+      })
     }).catch((error) => {
       console.log(error);
       this.players = null;
     });
+
+
+  }
+
+  fetchFixtures() {
+    return new Promise((resolve, reject) => {
+      this.loadingService.quickLoader().then(() => {
+        this.fixturesService.getFixtures().then((snapshots: any) => {
+          // console.log(snapshots);
+          let snapshots_data = this.funcService.handleSnapshot(snapshots);
+          // console.log(snapshots_data);
+          if (snapshots_data) {
+            resolve(this.organizeFixturesData(snapshots_data));
+          } else {
+            reject(snapshots_data);
+          }
+          // console.log(this.fixtures);
+          this.loadingService.clearLoader();
+        });
+      });
+    })
+
+  }
+
+  async organizeFixturesData(fixtures: SnapExtendFixture[]) {
+    const curTime = moment().format("YYYY-MM-DD hh:mm");
+
+    let storeFixtures: any[] = fixtures.map((fixture) => {
+      // this.fetchTeam(fixture.home).then((team_data) => (fixture.home_team_data = team_data));
+      // this.fetchTeam(fixture.away).then((team_data) => (fixture.away_team_data = team_data));
+
+      fixture.date = moment(fixture.match_day).calendar();
+      const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
+
+      fixture.substitutions = (fixture.substitutions ?? []).map((sub, index: number) => {
+        let subExt = sub;
+        subExt.player_data = this.players.find((p: any) => p.snap_id === sub.player)
+        return subExt
+      })
+
+      // fixture.substitutions = (fixture.substitutions).map((sub, index: number) => {
+      //   let subExt = sub;
+      //   subExt.player_data = this.players.find((p: any) => p.snap_id === sub.player)
+      //   return subExt
+      // })
+
+      return fixture;
+    })
+
+    return storeFixtures
+  }
+
+  fetchPlayer(id: string) {
+    return new Promise((resolve) => {
+      if (id && id.length) {
+        this.loadingService.quickLoader().then(() => {
+          this.playerService.getPlayer(id).pipe(take(1)).subscribe((data: any) => {
+            // console.log(data);
+            resolve(data);
+          });
+        })
+      } else {
+        resolve(null);
+      }
+    })
   }
 
   selectPlayer(player: any) {
@@ -62,8 +144,7 @@ export class MaleEvictionsComponent implements OnInit {
       this.showTeam = true;
       this.loadingService.quickLoader().then(() => {
         this.playerService.getPlayers().then((snapshots: any) => {
-          console.log(snapshots);
-
+          // console.log(snapshots);
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           if (snapshots_data) {
             resolve(this.organizePlayerData(snapshots_data, true));
@@ -153,36 +234,27 @@ export class MaleEvictionsComponent implements OnInit {
     })
   }
 
-  async organizePlayerData(players: any, parse = false) {
-    let storePlayers: any = [];
-    for (let i = 0; i < players.length; i++) {
-      let player = players[i];
-      player.stats = await this.fetchStats(player.snap_id);
-      if (player.stats && (player.stats.eviction === "on-going")) {
-        // team info
-        this.fetchTeam(player.team).then((team_data) => {
-          player.team_data = team_data;
-          // media
-          this.fetchMedia(player.snap_id).then((media) => {
-            player.media = media;
-            // format date
-            this.fetchVoteDetails(player.snap_id).then((votes) => {
-              player.votes_data = votes;
+  async organizePlayerData(players: any[], parse = false) {
+    let storePlayers: any[]|null = players.map((player) =>  {
+      let playerExt = player;
 
-              player.date = moment(player.created).calendar();
-              player.position_full = this.teamInfoPosition(player.position);
-              storePlayers.push(player);
-            })
-          });
-        });
-      }
-    };
+      playerExt.date = moment(player.created).calendar();
+      playerExt.position_full = this.teamInfoPosition(player.position);
 
-    console.log(storePlayers);
+      this.fetchStats(player.snap_id).then((stats) => (playerExt.stats = stats));
+      // team info
+      playerExt.team_data = this.teams.find((team) => (team.snap_id === player.team));
+        // media info
+      this.fetchMedia(player.snap_id).then((media) => (playerExt.media = media));
+            // vote details
+      this.fetchVoteDetails(player.snap_id).then((votes) => (playerExt.media = votes));
 
-    if (!parse) {
-      this.players = (storePlayers.length) ? storePlayers : null;
-    }
+      return playerExt;
+    });
+
+    // console.log(storePlayers);
+
+    if (!parse) storePlayers = (storePlayers.length) ? storePlayers : null;
 
     return storePlayers;
   }
@@ -190,10 +262,10 @@ export class MaleEvictionsComponent implements OnInit {
   fetchTeams() {
     this.loadingService.quickLoader().then(() => {
       this.teamService.collection().get().then((snapshots: any) => {
-        console.log(snapshots);
+        // console.log(snapshots);
         this.teams = this.funcService.handleSnapshot(snapshots);
-        this.selectedTeam = this.teams[0];
-        this.fetchPlayersByTeam(this.selectedTeam);
+        // this.selectedTeam = this.teams[0];
+        // this.fetchPlayersByTeam(this.selectedTeam);
         this.loadingService.clearLoader();
       });
     });

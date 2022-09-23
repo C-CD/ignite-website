@@ -53,6 +53,7 @@ import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PlayerRegisterationModule } from './components/player-registeration/player-registeration.module';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     MatSnackBarModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatButtonModule,
     MatChipsModule,
     MatAutocompleteModule,
     NgxFormValidationsModule,
@@ -116,7 +118,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     PlayerRegisterationModule,
     ClipboardModule,
     NgxFormValidationsModule,
-    IntlTelInputNgModule.forRoot()
+    IntlTelInputNgModule.forRoot(),
   ],
   providers: [NgxImageCompressService],
   bootstrap: [AppComponent]
