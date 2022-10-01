@@ -51,216 +51,53 @@
     <div class="team-squad wf100 p80-50">
       <div class="container-fluid">
 
-        <!-- <div class="row g-2 g-md-3 text-white" *ngIf="players && players.length && players.length == 1">
-          <div class="col-6 col-md-3 col-lg-2" *ngFor="let player of players">
-            <div class="row position-absolute col-6 col-md-3 col-lg-2">
-              <div class="d-flex py-3 px-4">
-                <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="Player's Point">
-                  <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15"
-                    height="15" />
-                  <strong>{{ (player.votes_data) ? player.votes_data.points : 0 }}</strong>
-                </div>
-              </div>
-            </div>
-            <div class="player-box  text-white">
-
-              <div class="player-img" *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')"
-                [style.background-image]="(player.media) ? 'url(' + player.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
-              </div>
-              <div class="player-img" *ngIf="player.stats && player.stats.eviction === 'on-going'"
-                [style.background-image]="(player.media) ? 'linear-gradient(to
-                bottom, rgba(255, 193, 7, 0.4), rgba(255, 193, 7, 0.4)), url(' + player.media.avatar + ')' :
-                'url(../../../../../../../assets/avatar/male.jpeg)'">
-              </div>
-              <div class="player-img" *ngIf="player.stats && player.stats.eviction === 'evicted'"
-                [style.background-image]="(player.media) ? 'linear-gradient(to
-                bottom, rgba(220, 53, 69, 0.5), rgba(220, 53, 69, 0.5)), url(' + player.media.avatar + ')' :
-                'url(../../../../../../../assets/avatar/male.jpeg)'">
-              </div>
-
-              <div class="bg-dark p-3 text-white player-card">
-                <div class="eviction-status" *ngIf="player.stats && player.stats.eviction !== 'in-game'">
-                  <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
-                    [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
-                    <span class="d-none text-white">Subs&nbsp;</span>
-                    Status: {{ player.stats.eviction }}
-                  </div>
-                </div>
-                <div class="text-white fw-light" *ngIf="showTeam && player.team_data">{{ player.team_data.name }}</div>
-                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}
-                </div>
-                <div class="fw-bold text-white">{{ player.position_full }}</div>
-                <div class="fw-bold pb-2 text-white">Player ID: {{ (player.stats) ? player.stats.id : '000' }}</div>
-                <div class="">
-                  <button class="btn btn-primary me-2 mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#playerModal">
-                    View Profile
-                  </button>
-                  <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#votingModal"
-                    *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')">
-                    Vote
-                  </button>
-                  <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#votingModal" *ngIf="player.stats && player.stats.eviction === 'on-going'">
-                    Save
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-        <div class="row g-2 g-md-3 text-white" *ngIf="games && games.length">
+        <div class="row  g-md-3 text-white" *ngIf="games && games.length">
           <!--Player Box Start-->
           <div class="col-12" *ngFor="let game of games">
-            <div class="p-3 bg-dark rounded">
-              <h4 class="text-light mb-0">Match #:&nbsp;{{ game.id ?? 0 }}&nbsp;/&nbsp;Played</h4>
+            <div class="py-2 px-3 bg-dark rounded">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-none d-md-block">
+                  <h5 class="mb-0 text-light">{{ game.home_team.name }} Team</h5>
+                </div>
+                <div class="text-left text-md-center">
+                  <h5 class="mb-0 text-light">Match #:&nbsp;{{ game.id ?? 0 }}</h5>
+                  <small class="text-light">Played - {{ game.date }}</small>
+                </div>
+                <div class="d-none d-md-block text-right">
+                  <h5 class="mb-0 text-light">{{ game.away_team.name }} Team</h5>
+                </div>
+              </div>
             </div>
             <div class="">
               <div class="row">
+
                 <div class="col-6 pt-3">
+                  <div class="py-2 px-3 bg-dark rounded mb-2 d-block d-md-none">
+                    <h5 class="mb-0 text-light">{{ game.home_team.name }} Team</h5>
+                  </div>
                   <div class="row">
-                    <div class="col-12 col-md-4" *ngFor="let player of game.substitutions" [ngClass]="player.team !== game.away ? 'd-none' : ''">
-                      <div class="row position-absolute col-6 col-md-3 col-lg-2">
-                        <div class="d-flex py-3 px-4">
-                          <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Player's Point">
-                            <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15" height="15" />
-                            <strong>{{ (player.player_data.votes_data) ? player.player_data.votes_data.points : 0 }}</strong>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="player-box  text-white">
-
-                        <div class="player-img"
-                          *ngIf="!player.player_data.stats || (player.player_data.stats && player.player_data.stats.eviction === 'in-game')"
-                          [style.background-image]="(player.player_data.media) ? 'url(' + player.player_data.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
-                        </div>
-
-                        <div class="player-img" *ngIf="player.player_data.stats && player.player_data.stats.eviction === 'on-going'"
-                          [style.background-image]="(player.player_data.media) ? 'linear-gradient(to
-                                                    bottom, rgba(255, 193, 7, 0.4), rgba(255, 193, 7, 0.4)), url(' + player.player_data.media.avatar + ')' :
-                                                    'url(../../../../../../../assets/avatar/male.jpeg)'">
-                        </div>
-                        <div class="player-img" *ngIf="player.player_data.stats && player.player_data.stats.eviction === 'evicted'"
-                          [style.background-image]="(player.player_data.media) ? 'linear-gradient(to
-                                                    bottom, rgba(220, 53, 69, 0.5), rgba(220, 53, 69, 0.5)), url(' + player.player_data.media.avatar + ')' :
-                                                    'url(../../../../../../../assets/avatar/male.jpeg)'">
-                        </div>
-
-                        <div class="bg-dark p-3 text-white player-card">
-                          <div class="eviction-status" *ngIf="player.player_data.stats && player.player_data.stats.eviction !== 'in-game'">
-                            <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
-                              [ngClass]="{'bg-danger': (player.player_data.stats.eviction === 'evicted'), 'bg-success': (player.player_data.stats.eviction === 'in-game'), 'bg-warning': (player.player_data.stats.eviction === 'on-going')}">
-                              <span class="d-none text-white">Subs&nbsp;</span>
-                              Status: {{ player.player_data.stats.eviction }}
-                            </div>
-                          </div>
-                          <div class="text-white fw-light" *ngIf="showTeam && player.player_data.team_data">
-                            {{ player.player_data.team_data.name }}</div>
-                          <div class="fw-bolder text-capitalize h5 mb-0 text-white">
-                            {{ player.player_data.fname }}&nbsp;{{ player.player_data.lname }}
-                          </div>
-                          <div class="fw-bold text-white">{{ player.player_data.position_full }}</div>
-                          <div class="fw-bold pb-2 text-white">Player ID:
-                            {{ (player.player_data.stats) ? player.player_data.stats.id : '000' }}
-                          </div>
-                          <div class="">
-                            <button class="btn btn-primary me-2 mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                              data-bs-target="#playerModal">
-                              View Profile
-                            </button>
-                            <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                              data-bs-target="#votingModal"
-                              *ngIf="!player.player_data.stats || (player.player_data.stats && player.player_data.stats.eviction === 'in-game')">
-                              Vote
-                            </button>
-                            <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                              data-bs-target="#votingModal"
-                              *ngIf="player.player_data.stats && player.player_data.stats.eviction === 'on-going'">
-                              Save
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="col-12 col-md-4" *ngFor="let player of game.substitutions"
+                      [ngClass]="player.team === game.home ? '' : 'd-none'">
+                      <app-player-card [player]="player.player_data" (onSelect)="selectPlayer($event)">
+                      </app-player-card>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-6">
-                  <div class="col-12 col-md-4" *ngFor="let player of game.substitutions" [ngClass]="player.team !== game.home ? 'd-none' : ''">
-                    <div class="row position-absolute col-6 col-md-3 col-lg-2">
-                      <div class="d-flex py-3 px-4">
-                        <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex" data-bs-toggle="tooltip"
-                          data-bs-placement="top" title="Player's Point">
-                          <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15"
-                            height="15" />
-                          <strong>{{ (player.votes_data) ? player.votes_data.points : 0 }}</strong>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="player-box  text-white">
-
-                      <div class="player-img"
-                        *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')"
-                        [style.background-image]="(player.media) ? 'url(' + player.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
-                      </div>
-                      <div class="player-img" *ngIf="player.stats && player.stats.eviction === 'on-going'"
-                        [style.background-image]="(player.media) ? 'linear-gradient(to
-                                bottom, rgba(255, 193, 7, 0.4), rgba(255, 193, 7, 0.4)), url(' + player.media.avatar + ')' :
-                                'url(../../../../../../../assets/avatar/male.jpeg)'">
-                      </div>
-                      <div class="player-img" *ngIf="player.stats && player.stats.eviction === 'evicted'"
-                        [style.background-image]="(player.media) ? 'linear-gradient(to
-                                bottom, rgba(220, 53, 69, 0.5), rgba(220, 53, 69, 0.5)), url(' + player.media.avatar + ')' :
-                                'url(../../../../../../../assets/avatar/male.jpeg)'">
-                      </div>
-
-                      <div class="bg-dark p-3 text-white player-card">
-                        <div class="eviction-status" *ngIf="player.stats && player.stats.eviction !== 'in-game'">
-                          <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
-                            [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
-                            <span class="d-none text-white">Subs&nbsp;</span>
-                            Status: {{ player.stats.eviction }}
-                          </div>
-                        </div>
-                        <div class="eviction-status" *ngIf="game.status && game.status !== 'in-game'">
-                          <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
-                            [ngClass]="{'bg-danger': (game.status === 'evicted'), 'bg-success': (game.status === 'in-game'), 'bg-warning': (game.status === 'on-going')}">
-                            <span class="d-none text-white">Subs&nbsp;</span>
-                            Status: {{ game.status }}
-                          </div>
-                        </div>
-                        <div class="text-white fw-light" *ngIf="showTeam && player.team_data">
-                          {{ player.team_data.name }}</div>
-                        <div class="fw-bolder text-capitalize h5 mb-0 text-white">
-                          {{ player.fname }}&nbsp;{{ player.lname }}
-                        </div>
-                        <div class="fw-bold text-white">{{ player.position_full }}</div>
-                        <div class="fw-bold pb-2 text-white">Player ID: {{ (player.stats) ? player.stats.id : '000' }}
-                        </div>
-                        <div class="">
-                          <button class="btn btn-primary me-2 mt-2" (click)="selectPlayer(player)"
-                            data-bs-toggle="modal" data-bs-target="#playerModal">
-                            View Profile
-                          </button>
-                          <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                            data-bs-target="#votingModal"
-                            *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')">
-                            Vote
-                          </button>
-                          <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)"
-                            data-bs-toggle="modal" data-bs-target="#votingModal"
-                            *ngIf="player.stats && player.stats.eviction === 'on-going'">
-                            Save
-                          </button>
-                        </div>
-                      </div>
+                <div class="col-6 pt-3">
+                  <div class="py-2 px-3 bg-dark rounded mb-2 d-block d-md-none">
+                    <h5 class="mb-0 text-light">{{ game.away_team.name }} Team</h5>
+                  </div>
+                  <div class="row justify-content-end">
+                    <div class="col-12 col-md-4" *ngFor="let player of game.substitutions"
+                      [ngClass]="player.team === game.away ? '' : 'd-none'">
+                      <app-player-card [player]="player.player_data" (onSelect)="selectPlayer($event)">
+                      </app-player-card>
                     </div>
                   </div>
                 </div>
+
+
               </div>
             </div>
           </div>

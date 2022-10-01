@@ -55,7 +55,11 @@ export class PlayerRegisterationComponent implements OnInit {
   }
 
   openModal(data: SuccessDialogData) {
-    this.dialog.open(StatusModalsComponent, { panelClass: 'full-width-dialog', data: data});
+    let dialogRef = this.dialog.open(StatusModalsComponent, { panelClass: 'full-width-dialog', data: data});
+
+    dialogRef.afterClosed().subscribe((data) => {
+      window.location.reload();
+    });
   }
 
   validateFormData() {
@@ -181,7 +185,7 @@ export class PlayerRegisterationComponent implements OnInit {
 
       if (formData.school_cert_file.length && this.uploads && this.uploads.cert) {
         const school_cert_file: any = await this.uploadService.startFileUpload(this.uploads.cert, 'schoolCertificateImage', 0, 'file');
-        if (school_cert_file) formData.school_file = school_cert_file.filepath;
+        if (school_cert_file) formData.school_cert_file = school_cert_file.filepath;
       }
     }
     catch (error) {

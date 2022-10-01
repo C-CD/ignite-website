@@ -54,6 +54,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { PlayerRegisterationModule } from './components/player-registeration/player-registeration.module';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
+import { PlayerCardComponent } from './components/player-card/player-card.component';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { MatButtonModule } from '@angular/material/button';
     CoachesVotingComponent,
     MaleEvictionsComponent,
     CoachesAllComponent,
-    CoachModalComponent
+    CoachModalComponent,
+    PlayerCardComponent
   ],
   imports: [
     BrowserModule,

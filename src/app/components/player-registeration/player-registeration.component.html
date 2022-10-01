@@ -70,9 +70,9 @@
           labelName='Gender'>
           <label class="control-label" for="date_1">Gender</label>
           <select formControlName="gender" #ngxFvFormControl id="selectlist_19" name="gender"
-            class="form-control form-select" readonly>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            class="form-control form-select text-capitalize"  [disabled]="true" >
+            <option [value]="gender" >{{ gender }}</option>
+            <!-- <option value="female">Female</option> -->
           </select>
           <!-- display form errors -->
           <div class="text-danger pt-1">

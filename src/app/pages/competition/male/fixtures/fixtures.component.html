@@ -42,37 +42,47 @@
                     Match #:&nbsp;{{ games.id ?? 0 }}&nbsp;/&nbsp;Cancelled
                   </div>
                 </div>
-                <div class="d-flex justify-content-between px-4 pt-2 pb-3 fixture-body">
-                  <div class="text-left">
-                    <div class="fw-light small">FIRST TEAM</div>
-                    <div class="fw-bold text-uppercase h5 mb-0">Team {{ games.home_team_data.name }}</div>
-                    <div class="w-100">
-                      <div *ngFor="let scorers of games.home_scorers">
-                        <div class="text-end pb-1">{{ scorers.text }}</div>
+                <div class="px-4 pt-2 pb-3 fixture-body">
+                  <div class="d-flex justify-content-between ">
+                    <div class="text-left">
+                      <div class="fw-light small">FIRST TEAM</div>
+                      <div class="fw-bold text-uppercase mb-0 fs-5">Team {{ games.home_team_data.name }}</div>
+                    </div>
+                    <div class="text-center">
+                      <div class="fw-light small">WAT {{ ((games.match_time) ? games.match_time_fmt : '00:00') }}</div>
+                      <div class="fw-bold">{{ games.scores.home + ' - ' + games.scores.away}}</div>
+                      <div *ngIf="games.stream && ['on-going', 'played'].includes(games.status)">
+                        <a class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
+                          data-bs-target="#fixtureModal" (click)="selectFixture(games)" data-bs-toggle="modal">
+                          {{ (games.status === 'played') ? 'Match Highlights' : 'Click to Watch Live'}}
+                        </a>
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fw-light small text-end">SECOND TEAM</div>
+                      <div class="fw-bold text-right text-uppercase fs-5 mb-0">Team {{ games.away_team_data.name }}
                       </div>
                     </div>
                   </div>
-                  <div class="text-center">
-                    <div class="fw-light small">WAT {{ ((games.match_time) ? games.match_time_fmt : '00:00') }}</div>
-                    <div class="fw-bold">{{ games.scores.home + ' - ' + games.scores.away}}</div>
-                    <div *ngIf="games.stream && ['on-going', 'played'].includes(games.status)">
-                      <a class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
-                        data-bs-target="#fixtureModal" (click)="selectFixture(games)" data-bs-toggle="modal">
-                        {{ (games.status === 'played') ? 'Match Highlights' : 'Click to Watch Live'}}
-                      </a>
-                    </div>
-                  </div>
-                  <div class="text-end">
-                    <div class="fw-light small text-end">SECOND TEAM</div>
-                    <div class="fw-bold text-right text-uppercase h5 mb-0">Team {{ games.away_team_data.name }}</div>
-                    <div class="w-100">
-                      <div *ngFor="let scorers of games.away_scorers">
-                        <div class="text-start pb-1">{{ scorers.text }}</div>
+                  <div class="w-100" *ngIf="games.scorers && games.scorers.length">
+                    <div class="text-center py-1"><small>Scores</small></div>
+                    <div class="row justify-content-center pb-1" *ngFor="let scorer of games.scorers">
+                      <div class="col-5 text-end">
+                        <small class="fw-bold"  *ngIf="(scorer.team === games.home)">
+                          {{ scorer.player_data.position}} - {{ scorer.player_data.fname}} {{ scorer.player_data.lname}}
+                        </small>
+                      </div>
+                      <div class="col-2  text-center">
+                        <small>({{ scorer.time }})</small>
+                      </div>
+                      <div class="col-5  text-start">
+                        <small class="fw-bold" *ngIf="(scorer.team === games.away)">
+                          {{ scorer.player_data.position}} - {{ scorer.player_data.fname}} {{ scorer.player_data.lname}}
+                        </small>
                       </div>
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
 

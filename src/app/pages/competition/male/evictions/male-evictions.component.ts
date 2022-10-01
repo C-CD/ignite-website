@@ -9,13 +9,15 @@ import { LoadingService } from 'src/app/services/loader/loading.service';
 import { MediaService } from 'src/app/services/media/media.service';
 import { PlayerService } from 'src/app/services/players/player.service';
 import { StatisticsService } from 'src/app/services/statistics/statistics.service';
-import { TeamService } from 'src/app/services/team/team.service';
+import { Teams, TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 
 
 interface SnapExtendFixture extends Fixtures {
-  snap_id: string
+  snap_id: string;
+  home_team?: Teams,
+  away_team?: Teams,
   date: string;
 }
 @Component({
@@ -56,15 +58,15 @@ export class MaleEvictionsComponent implements OnInit {
     this.fetchPlayers().then((players) => {
       this.players = players;
       this.fetchFixtures().then((games: any) => {
-        console.log(games)
+        // console.log(games)
         this.games = games
       }).catch((error) => {
-        console.log(error)
+        // console.log(error)
         this.toaster.globalErrorToast()
         this.games = null
       })
     }).catch((error) => {
-      console.log(error);
+      // console.log(error);
       this.players = null;
     });
 
@@ -74,7 +76,7 @@ export class MaleEvictionsComponent implements OnInit {
   fetchFixtures() {
     return new Promise((resolve, reject) => {
       this.loadingService.quickLoader().then(() => {
-        this.fixturesService.getFixtures().then((snapshots: any) => {
+        this.fixturesService.collection().where('substitutions', '!=', []).get().then((snapshots: any) => {
           // console.log(snapshots);
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           // console.log(snapshots_data);
@@ -93,10 +95,12 @@ export class MaleEvictionsComponent implements OnInit {
 
   async organizeFixturesData(fixtures: SnapExtendFixture[]) {
     const curTime = moment().format("YYYY-MM-DD hh:mm");
-
+    fixtures.sort((a, b) => (Number(b.id) - Number(a.id)));
     let storeFixtures: any[] = fixtures.map((fixture) => {
-      // this.fetchTeam(fixture.home).then((team_data) => (fixture.home_team_data = team_data));
-      // this.fetchTeam(fixture.away).then((team_data) => (fixture.away_team_data = team_data));
+      // fetch teams info
+      fixture.home_team = this.teams.find((t: any) => t.snap_id === fixture.home)
+      fixture.away_team = this.teams.find((t: any) => t.snap_id === fixture.away)
+
 
       fixture.date = moment(fixture.match_day).calendar();
       const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
@@ -135,7 +139,7 @@ export class MaleEvictionsComponent implements OnInit {
   }
 
   selectPlayer(player: any) {
-    console.log(player);
+    // console.log(player);
     this.selected_player = player;
   }
 
@@ -306,14 +310,14 @@ export class MaleEvictionsComponent implements OnInit {
     // console.log(this.searchInput);
     this.players = [];
     this.fetchPlayers().then((players: any) => {
-      console.log(players, players.length);
+      // console.log(players, players.length);
       players.forEach((player: any) => {
-        console.log(player);
+        // console.log(player);
         let checks = {
           team: player.team_data.name.includes(this.searchInput),
           name: (player.fname.includes(this.searchInput) || player.lname.includes(this.searchInput)),
         };
-        console.log(checks);
+        // console.log(checks);
         if (checks.team || checks.name) {
           this.players.push(player);
         }
@@ -323,7 +327,7 @@ export class MaleEvictionsComponent implements OnInit {
       this.players = (this.players.length) ? this.players : null;
 
     }).catch((error) => {
-      console.log(error);
+      // console.log(error);
       this.players = error;
     })
   }
