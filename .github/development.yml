@@ -1,0 +1,45 @@
+name: 🚀 Deploy updates to server
+on:
+  push:
+    branches:
+      - develop
+env:
+    CI: false
+    NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  web-deploy:
+    name: 🎉 Code deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Set up node environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: 🔨 Build App
+        run: npm build --noUnusedLocals --noUnusedParameters --noErrorOnTypeScriptWarnings
+
+      - name: 📂 Upload files to the cpanel
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./build/
+          server-dir: ./tests_dir/ # Specify the remote directory here
