@@ -43,3 +43,4 @@ jobs:
           port: 21
           local-dir: ./dist/ignite-website/
           server-dir: ./tests_dir/ # Specify the remote directory here
+          dry-run: true
