@@ -3,14 +3,25 @@
 
 <div class="soccer-star-spacer"></div>
 
-<div class="w-100 coming-soon-box">
-  <div class="overlay-container w-100 d-flex justify-content-center">
-    <div class="align-self-center text-center">
-      <h1 class="fw-bold text-white">Highlights</h1>
-      <p class="text-muted">Coming soon</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 d-lg-block mb-2"  *ngFor="let highlight of highlights; index as i">
+      <div class="card">
+        <iframe class="w-100 card-img-top" height="500" [src]="highlight.highlight_video_id | safe: 'resourceUrl'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <div class="card-body">
+          <h5 class="card-title">{{highlight.highlight_title}}</h5>
+          <p class="card-text">
+          {{highlight.highlight_date}}
+          </p>
+          <a href={{highlight.highlight_url}} _target="blank" class="btn btn-primary">Watch Highlight</a>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+    
+    <!-- <video src="{{highlight?.highlight_url}}" ></video> -->
+    <!-- <youtube-player videoId="QIZ9aZD6vs0"> </youtube-player> -->
+  </div>
 
 <!-- <div class="container">
   <div class="pt-5 pb-4">

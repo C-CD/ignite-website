@@ -56,7 +56,6 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { PlayerCardComponent } from './components/player-card/player-card.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +89,7 @@ import { PlayerCardComponent } from './components/player-card/player-card.compon
     MaleEvictionsComponent,
     CoachesAllComponent,
     CoachModalComponent,
-    PlayerCardComponent
+    PlayerCardComponent,    
   ],
   imports: [
     BrowserModule,
