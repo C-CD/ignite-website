@@ -25,8 +25,7 @@ import { PlayerRegisterationModule } from 'src/app/components/player-registerati
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
-
+import { SharedModule} from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     PlayersComponent,
@@ -68,7 +67,8 @@ import { MatButtonModule } from '@angular/material/button';
     PlayerRegisterationModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    SharedModule,
   ]
 })
 export class MaleModule { }

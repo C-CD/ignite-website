@@ -15,7 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { PlayerRegisterationComponent } from 'src/app/components/player-registeration/player-registeration.component';
 import { PlayerRegisterationModule } from 'src/app/components/player-registeration/player-registeration.module';
-
+import { SharedModule} from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { PlayerRegisterationModule } from 'src/app/components/player-registerati
     FixturesComponent,
     AboutComponent,
     HighlightsComponent,
-    FemaleCompetitionNavComponent,
+    FemaleCompetitionNavComponent
   ],
   exports:[
     PlayersComponent,
@@ -43,7 +43,8 @@ import { PlayerRegisterationModule } from 'src/app/components/player-registerati
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
-    PlayerRegisterationModule
+    PlayerRegisterationModule,
+    SharedModule
   ]
 })
 export class FemaleModule { }
