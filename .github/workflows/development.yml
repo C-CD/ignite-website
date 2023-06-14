@@ -41,5 +41,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
-          local-dir: ./build/
+          local-dir: ./dist/ignite-website/
           server-dir: ./tests_dir/ # Specify the remote directory here
