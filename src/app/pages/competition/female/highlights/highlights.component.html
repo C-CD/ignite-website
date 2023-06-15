@@ -4,8 +4,8 @@
 <div class="soccer-star-spacer"></div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-lg-4 d-lg-block mb-2"  *ngFor="let highlight of highlights; index as i">
+  <div class="row gx-5">
+    <div class="col-lg-4  d-lg-block mb-2"  *ngFor="let highlight of highlights; index as i">
       <div class="card">
         <iframe class="w-100 card-img-top" height="500" [src]="highlight.highlight_video_id | safe: 'resourceUrl'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         <div class="card-body">
