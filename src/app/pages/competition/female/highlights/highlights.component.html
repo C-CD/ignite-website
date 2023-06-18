@@ -3,11 +3,11 @@
 
 <div class="soccer-star-spacer"></div>
 
-<div class="container overflow-hidden">
-  <div class="row gx-5">
-    <div class="col-lg-4  d-lg-block mb-2"  *ngFor="let highlight of highlights; index as i">
+<div class="container overflow-hidden ">
+  <div class="row py-2">
+    <div class="col-lg-3  d-lg-block mb-3"  *ngFor="let highlight of highlights; index as i">
       <div class="card">
-        <iframe class="w-100 card-img-top" height="500" [src]="highlight.highlight_video_id | safe: 'resourceUrl'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <iframe class="w-100 card-img-top" height="250" [src]="highlight.highlight_video_id | safe: 'resourceUrl'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="card-body">
           <h5 class="card-title">{{highlight.highlight_title}}</h5>
           <p class="card-text">
