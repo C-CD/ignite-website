@@ -27,6 +27,6 @@ export class PlayerModalComponent implements OnInit {
       document.removeEventListener('copy', null);
     });
     document.execCommand('copy');
-    alert('Copied text to clipboard');
+    alert('Copied player link to clipboard');
   }
 }
