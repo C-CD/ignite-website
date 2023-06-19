@@ -4,8 +4,8 @@ on:
     branches:
       - develop
 env:
-    CI: false
-    NODE_OPTIONS: --max-old-space-size=4096
+  CI: false
+  NODE_OPTIONS: --max-old-space-size=4096
 
 jobs:
   web-deploy:
@@ -18,7 +18,7 @@ jobs:
       - name: Set up node environment
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -39,7 +39,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ftp
           port: 21
           local-dir: ./dist/ignite-website/
           server-dir: ./tests_dir/ # Specify the remote directory here
