@@ -33,6 +33,9 @@ jobs:
       - name: 🔨 Build App
         run: npm run build --noUnusedLocals --noUnusedParameters --noErrorOnTypeScriptWarnings
 
+      - name: Copy .htaccess
+        run: cp ./public/.htaccess ./dist/ignite-website
+
       - name: 📂 Upload files to the cpanel
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
