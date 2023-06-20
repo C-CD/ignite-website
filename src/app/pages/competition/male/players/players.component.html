@@ -17,7 +17,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 teams-item">
               <li class="nav-item touch b-rad-10" *ngFor="let team of teams">
-                <a class="nav-link fw-bold" *ngIf="team.snap_id ?? null"
+                <a class="nav-link fw-bold" href="/competition/male/players/#{{team.name}}" *ngIf="team.snap_id ?? null"
                   [ngClass]="{'active': (selectedTeam.snap_id === (team?.snap_id ?? ''))}"
                   aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
               </li>
