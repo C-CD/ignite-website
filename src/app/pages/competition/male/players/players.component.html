@@ -24,7 +24,6 @@
               <li class="nav-item touch b-rad-10" *ngFor="let team of teams">
                 <a
                   class="nav-link fw-bold"
-                  href="/competition/male/players/#{{team.name}}"
                   *ngIf="team.snap_id ?? null"
                   [ngClass]="{
                     active: selectedTeam?.snap_id === (team?.snap_id ?? '')
