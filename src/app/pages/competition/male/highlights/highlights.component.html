@@ -1,41 +1,60 @@
-<div class="position-fixed w-100" style="z-index: 101;">
+<div class="position-fixed w-100" style="z-index: 101">
   <app-male-competition-nav page="highlights"></app-male-competition-nav>
 </div>
 
 <div class="soccer-star-spacer"></div>
-<div>
+<div class="py-3 py-md-5">
   <div class="container overflow-hidden">
-<div class="row py-2">
-  <div class="col-lg-3 d-lg-block mb-2"  *ngFor="let highlight of highlights; index as i">
-    <div class="card">
-      <iframe class="w-100 card-img-top"  height="250"  [src]="highlight.highlight_video_id | safe: 'resourceUrl'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
-      <div class="card-body">
-        <h5 class="card-title">{{highlight.highlight_title}}</h5>
-        <p class="card-text">
-        {{highlight.highlight_date}}
-        </p>
-        <a href={{highlight.highlight_url}} target="_blank" class="btn btn-primary">Watch Highlight</a>
+    <div class="row gx-4">
+      <div
+        class="col-md-3 col-12"
+        *ngFor="let highlight of highlights; index as i"
+      >
+        <div class="card">
+          <iframe
+            class="w-100 card-img-top"
+            height="200"
+            [src]="highlight.highlight_video_id | safe : 'resourceUrl'"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          ></iframe>
+          <div class="card-body">
+            <div class="" style="height: 120px">
+              <h5 class="card-title" title="{{ highlight.highlight_title }}">
+                {{ highlight.truncated_title }}
+              </h5>
+              <p class="card-text">
+                {{ highlight.highlight_date_fmt }}
+              </p>
+            </div>
+
+            <a
+              href="{{ highlight.highlight_url }}"
+              _target="blank"
+              class="btn btn-primary"
+              >Watch Highlight</a
+            >
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-  
-  <!-- <video src="{{highlight?.highlight_url}}" ></video> -->
-  <!-- <youtube-player videoId="QIZ9aZD6vs0"> </youtube-player> -->
-</div>
 
-<!-- <div class="w-100 coming-soon-box">
- 
+    <!-- <video src="{{highlight?.highlight_url}}" ></video> -->
+    <!-- <youtube-player videoId="QIZ9aZD6vs0"> </youtube-player> -->
+  </div>
+
+  <!-- <div class="w-100 coming-soon-box">
+
   <div class="overlay-container w-100 d-flex justify-content-center">
     <div class="align-self-center text-center">
       <h1 class="fw-bold text-white">Highlights</h1>
       <p class="text-muted">Coming soon</p>
-     
+
     </div>
   </div>
 </div> -->
 
-<!-- <div class="container">
+  <!-- <div class="container">
   <div class="pt-5 pb-4">
     <h1 class="fw-bold">Highlights</h1>
   </div>
@@ -43,3 +62,4 @@
   <div id="c2">
   </div>
 </div> -->
+</div>

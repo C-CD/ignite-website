@@ -4,8 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 
-
 export interface Teams {
+  index?: number;
   ref: string;
   name: string;
   gender: string;
@@ -15,17 +15,16 @@ export interface Teams {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeamService {
-
   constructor(private auth: AngularFireAuth, private afs: AngularFirestore) {
     this.auth.onAuthStateChanged((user) => {
       // this.usr = user;
     });
   }
 
-  collection(){
+  collection() {
     return firebase.firestore().collection('teams');
   }
 
@@ -48,5 +47,4 @@ export class TeamService {
   deleteTeam(id: string) {
     return this.afs.collection('teams').doc(id).delete();
   }
-
 }
