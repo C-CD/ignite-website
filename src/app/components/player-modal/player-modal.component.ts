@@ -17,7 +17,9 @@ export class PlayerModalComponent implements OnInit {
     private _clipboardService: ClipboardService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log(this.player)
+  }
 
   copyToClipboard(item: string) {
     document.addEventListener('copy', (e: ClipboardEvent) => {

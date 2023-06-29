@@ -29,9 +29,9 @@
                       copyToClipboard(
                         location.host +
                           '/competition/male/' +
-                          player?.team +
+                          player?.team_data?.ref +
                           '/players/' +
-                          player?.snap_id
+                          player?.snap_id + '?q=' + player?.fname + ' ' + player?.lname
                       )
                     "
                   >

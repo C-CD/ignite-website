@@ -44,7 +44,7 @@ export class PlayersComponent implements OnInit {
     private playerService: PlayerService,
     private statsService: StatisticsService,
     private votingService: VotingService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchTeams();
@@ -56,19 +56,19 @@ export class PlayersComponent implements OnInit {
 
       if (team_id) {
         this.loadingService.quickLoader().then(() => {
-          this.fetchTeam(team_id)
-            .then((team) => {
-              if (team) {
-                // this.fetchPlayersByTeam({ ...team, snap_id: team_id });
-                this.selectedTeam = { ...team, snap_id: team_id };
-              }
-            })
-            .catch(() => {
-              console.log('team not found');
-            })
-            .finally(() => {
-              this.loadingService.clearLoader();
-            });
+          this.teamService.collection().where('ref', '==', team_id).get().then((snapshots: any) => {
+            let snapshots_data = this.funcService.handleSnapshot(snapshots);
+            // console.log(snapshots_data)
+            if (snapshots_data) {
+              const team = snapshots_data[0];
+              // this.fetchPlayersByTeam({ ...team, snap_id: team.snap_id });
+              this.selectedTeam = { ...team, snap_id: team.snap_id };
+            }
+          }).catch(() => {
+            console.log('team not found');
+          }).finally(() => {
+            this.loadingService.clearLoader();
+          });
         });
       }
 
@@ -155,11 +155,14 @@ export class PlayersComponent implements OnInit {
 
   fetchPlayersByTeam(team: any) {
     this.showTeam = false;
-    this.selectedTeam = team;
-    this.players = [];
-    localStorage.setItem('selectedTeam', team.snap_id);
+    // if (team !== this.selectedTeam) {
+      this.selectedTeam = team;
+      // console.log(team)
+      this.router.navigate([`/competition/male/${team.ref}/players`], { queryParams: { q: team.name } });
+      localStorage.setItem('selectedTeam', team.snap_id);
+    // }
 
-    this.router.navigate([`/competition/male/${team.snap_id}/players`]);
+    this.players = [];
 
     this.loadingService.quickLoader().then(() => {
       this.playerService
