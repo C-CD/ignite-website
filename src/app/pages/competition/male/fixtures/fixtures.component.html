@@ -52,7 +52,8 @@
                       <div class="fw-light small">WAT {{ ((games.match_time) ? games.match_time_fmt : '00:00') }}</div>
                       <div class="fw-bold">{{ games.scores.home + ' - ' + games.scores.away}}</div>
                       <div *ngIf="games.stream && ['on-going', 'played'].includes(games.status)">
-                        <a routerLink="/competition/male/highlights" class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
+                        <!-- routerLink="/competition/male/highlights" -->
+                        <a  class="bg-danger text-white px-3 py-1 small fw-bold rounded-pill touch"
                           data-bs-target="#fixtureModal" (click)="selectFixture(games)" >
                           {{ (games.status === 'played') ? 'Match Highlights' : 'Click to Watch Live'}}
                         </a>
@@ -115,7 +116,7 @@
             <div class="mb-3">
               <b class="h5 fw-bold">No Fixtures Found..</b><br />
               <div>
-                There where no fixtures found yet...
+                No fixtures found yet...
               </div>
             </div>
           </div>
