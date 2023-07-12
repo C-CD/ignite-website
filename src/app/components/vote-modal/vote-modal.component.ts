@@ -34,7 +34,7 @@ export class VoteModalComponent implements OnInit {
 
   @Input() player: any;
   @Input() category: string = 'players';
-  @Input() public onSuccess: () => void = () => console.log('hhhh');
+  @Input() public onSuccess: () => void = () => {};
 
 
   usr: any;
