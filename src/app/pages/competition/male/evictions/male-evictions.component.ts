@@ -54,22 +54,26 @@ export class MaleEvictionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchTeams();
-    this.fetchPlayers().then((players) => {
-      this.players = players;
+    this.fetchTeams().then(() => {
       this.fetchFixtures().then((games: any) => {
         // console.log(games)
         this.games = games
+        this.loadingService.clearLoader();
       }).catch((error) => {
         // console.log(error)
         this.toaster.globalErrorToast()
         this.games = null
       })
-    }).catch((error) => {
-      // console.log(error);
-      this.players = null;
-    });
 
+      this.fetchPlayers().then((players) => {
+        this.players = players;
+        // console.log(players)
+        this.loadingService.clearLoader();
+      }).catch((error) => {
+        // console.log(error);
+        this.players = null;
+      });
+    });
 
   }
 
@@ -81,7 +85,9 @@ export class MaleEvictionsComponent implements OnInit {
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           // console.log(snapshots_data);
           if (snapshots_data) {
-            resolve(this.organizeFixturesData(snapshots_data));
+            this.organizeFixturesData(snapshots_data).then((data) => {
+              resolve(data);
+            })
           } else {
             reject(snapshots_data);
           }
@@ -96,29 +102,45 @@ export class MaleEvictionsComponent implements OnInit {
   async organizeFixturesData(fixtures: SnapExtendFixture[]) {
     const curTime = moment().format("YYYY-MM-DD hh:mm");
     fixtures.sort((a, b) => (Number(b.id) - Number(a.id)));
-    let storeFixtures: any[] = fixtures.map((fixture) => {
+    let storeFixtures: any[] | null = [];
+
+    for(let i = 0; i < fixtures.length; i ++) {
+      const fixedFixture = fixtures[i];
+      let fixture = fixtures[i];
+
       // fetch teams info
-      fixture.home_team = this.teams.find((t: any) => t.snap_id === fixture.home)
-      fixture.away_team = this.teams.find((t: any) => t.snap_id === fixture.away)
+      fixture.home_team = this.teams.find((t: any) => (t.snap_id === fixture.home))
+      fixture.away_team = this.teams.find((t: any) => (t.snap_id === fixture.away))
 
 
-      fixture.date = moment(fixture.match_day).calendar();
-      const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
+      if (fixture?.home_team && fixture?.away_team) {
+        fixture.date = moment(fixture.match_day).calendar();
+        const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
 
-      fixture.substitutions = (fixture.substitutions ?? []).map((sub, index: number) => {
-        let subExt = sub;
-        subExt.player_data = this.players.find((p: any) => p.snap_id === sub.player)
-        return subExt
-      })
+        const fixturesSubs: any[] = (fixture.substitutions ?? []);
+        let substitutions:any[] = [];
 
-      // fixture.substitutions = (fixture.substitutions).map((sub, index: number) => {
-      //   let subExt = sub;
-      //   subExt.player_data = this.players.find((p: any) => p.snap_id === sub.player)
-      //   return subExt
-      // })
+        // console.log(fixture);
 
-      return fixture;
-    })
+        for(let i = 0; i < fixturesSubs.length; i ++) {
+          let subExt = fixturesSubs[i];
+          // subExt.player_data = this.players.find((p: any) => p.snap_id === sub.player)
+          subExt.player_data = await this.fetchPlayer(subExt.player)
+          if(subExt.player_data){
+            substitutions.push(subExt)
+          }
+        }
+
+        if(substitutions.length){
+          fixture.substitutions = substitutions;
+
+          storeFixtures.push(fixture);
+        }
+      }
+    }
+
+    // console.log(storeFixtures);
+    storeFixtures = (storeFixtures.length) ? storeFixtures : null;
 
     return storeFixtures
   }
@@ -151,7 +173,9 @@ export class MaleEvictionsComponent implements OnInit {
           // console.log(snapshots);
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           if (snapshots_data) {
-            resolve(this.organizePlayerData(snapshots_data, true));
+            this.organizePlayerData(snapshots_data, true).then((data) => {
+              resolve(data);
+            })
           } else {
             reject(snapshots_data);
           }
@@ -174,7 +198,9 @@ export class MaleEvictionsComponent implements OnInit {
         let snapshots_data = this.funcService.handleSnapshot(snapshots);
         if (snapshots_data) {
           let playersOrdered = this.orderPlayers(snapshots_data);
-          this.organizePlayerData(playersOrdered);
+          this.organizePlayerData(playersOrdered).then(() => {
+
+          });
           // this.players = null;
         } else {
           this.players = snapshots_data;
@@ -239,38 +265,47 @@ export class MaleEvictionsComponent implements OnInit {
   }
 
   async organizePlayerData(players: any[], parse = false) {
-    let storePlayers: any[]|null = players.map((player) =>  {
-      let playerExt = player;
+    let storePlayers: any[] | null = [];
+    for(let i = 0; i < players.length; i ++) {
+      let playerExt = players[i];
 
-      playerExt.date = moment(player.created).calendar();
-      playerExt.position_full = this.teamInfoPosition(player.position);
+      if(playerExt){
 
-      this.fetchStats(player.snap_id).then((stats) => (playerExt.stats = stats));
-      // team info
-      playerExt.team_data = this.teams.find((team) => (team.snap_id === player.team));
+        playerExt.date = moment(playerExt.created).calendar();
+        playerExt.position_full = this.teamInfoPosition(playerExt.position);
+
+        playerExt.stats =  await this.fetchStats(playerExt.snap_id);
+        // team info
+        playerExt.team_data = this.teams.find((team) => (team.snap_id === playerExt.team));
         // media info
-      this.fetchMedia(player.snap_id).then((media) => (playerExt.media = media));
-            // vote details
-      this.fetchVoteDetails(player.snap_id).then((votes) => (playerExt.media = votes));
+        playerExt.media =  await this.fetchMedia(playerExt.snap_id);
+        // vote details
+        playerExt.votes_data = await this.fetchVoteDetails(playerExt.snap_id);
 
-      return playerExt;
-    });
+        storePlayers.push(playerExt);
+
+      }
+    };
 
     // console.log(storePlayers);
-
     if (!parse) storePlayers = (storePlayers.length) ? storePlayers : null;
 
     return storePlayers;
   }
 
   fetchTeams() {
-    this.loadingService.quickLoader().then(() => {
-      this.teamService.collection().get().then((snapshots: any) => {
-        // console.log(snapshots);
-        this.teams = this.funcService.handleSnapshot(snapshots);
-        // this.selectedTeam = this.teams[0];
-        // this.fetchPlayersByTeam(this.selectedTeam);
-        this.loadingService.clearLoader();
+    return new Promise((resolve) => {
+      this.loadingService.quickLoader().then(() => {
+        this.teamService.collection().get().then((snapshots: any) => {
+          // console.log(snapshots);
+          let teams = this.funcService.handleSnapshot(snapshots);
+          // this.selectedTeam = this.teams[0];
+          // this.fetchPlayersByTeam(this.selectedTeam);
+          this.teams = teams;
+          this.loadingService.clearLoader();
+          resolve(teams)
+
+        });
       });
     });
   }

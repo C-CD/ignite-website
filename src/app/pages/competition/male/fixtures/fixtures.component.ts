@@ -117,7 +117,7 @@ export class FixturesComponent implements OnInit {
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           // console.log('fixtures', snapshots_data);
           if (snapshots_data) {
-            const organizedData = this.organizeFixturesData(snapshots_data, true)
+            let organizedData = this.organizeFixturesData(snapshots_data, true)
             console.log('fixtures', organizedData);
             resolve(organizedData);
           } else {
@@ -147,10 +147,14 @@ export class FixturesComponent implements OnInit {
       let fixture = f;
 
       // team info
-      fixture.home_team_data = this.teams.find((t: any) => t.snap_id === fixture.home)
-      fixture.away_team_data = this.teams.find((t: any) => t.snap_id === fixture.away)
+      fixture.home_team_data = this.teams.find((t: any) => (t.snap_id === fixture.home))
+      fixture.away_team_data = this.teams.find((t: any) => (t.snap_id === fixture.away))
+      // this check was added if teams had been deleted earlier
 
-      // format date
+      // console.log("home_team: ", fixture?.home_team_data, "away_team: ", fixture?.away_team_data)
+      if (fixture?.home_team_data && fixture?.away_team_data) {
+
+        // format date
       // console.log(fixture.match_day + " " +fixture.match_time);
       fixture.date = moment(fixture.match_day).calendar();
       fixture.match_time_fmt = moment(fixture.match_day + " " + fixture.match_time).format('h:mm a');
@@ -162,7 +166,7 @@ export class FixturesComponent implements OnInit {
 
       fixture.scorers = (fixture.scorers ?? []).map((score: any, index: number) => {
         let subExt = score;
-        subExt.player_data = this.players.find((p: any) => p.snap_id === score.player)
+        subExt.player_data = this.players.find((p: any) =>( p.snap_id === score.player))
         return subExt
       })
 
@@ -186,7 +190,8 @@ export class FixturesComponent implements OnInit {
         });
       }
 
-      storeFixtures.push(fixture);
+        storeFixtures.push(fixture);
+      }
     });
 
     return storeFixtures;
