@@ -305,4 +305,10 @@ export class VoteModalComponent implements OnInit {
     document.execCommand('copy');
     alert("Copied text to clipboard");
   }
+
+  
 }
+
+
+
+
