@@ -5,6 +5,7 @@ import { Players } from 'src/app/services/players/player.service';
 import { StatsPlayer } from 'src/app/services/statistics/statistics.service';
 import { Teams } from 'src/app/services/team/team.service';
 import { Votes } from 'src/app/services/votings/voting.service';
+import { CAN_VOTE } from 'src/environments/environment';
 
 export interface  PlayerSnapExtend extends Players{
   snap_id: string;
@@ -29,7 +30,7 @@ export class PlayerCardComponent implements OnInit {
   @Input() fetchMedia?: boolean = false;
   @Input() fetchStats?: boolean = false;
   @Output() onSelect: EventEmitter<any> = new EventEmitter();
-
+  canVote = CAN_VOTE;
 
 
   constructor(

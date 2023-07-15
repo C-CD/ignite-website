@@ -1,4 +1,4 @@
-import { Fixtures, FixturesService } from './../../../../services/fixtures/fixtures.service';
+import { Fixtures, FixturesService, PlayersList } from './../../../../services/fixtures/fixtures.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { take } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { forEach } from 'lodash';
 interface FixturesData extends Fixtures {
   snap_id: string;
   date: string;
+  scorers: any[];
   match_time_fmt: string;
   home_team_data: Teams;
   away_team_data: Teams;
@@ -117,9 +118,10 @@ export class FixturesComponent implements OnInit {
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           // console.log('fixtures', snapshots_data);
           if (snapshots_data) {
-            let organizedData = this.organizeFixturesData(snapshots_data, true)
-            console.log('fixtures', organizedData);
-            resolve(organizedData);
+            this.organizeFixturesData(snapshots_data, true).then((organizedData) => {
+              console.log('fixtures', organizedData);
+              resolve(organizedData);
+            })
           } else {
             reject(snapshots_data);
           }
@@ -129,6 +131,21 @@ export class FixturesComponent implements OnInit {
       });
     })
 
+  }
+
+  fetchPlayer(id: string) {
+    return new Promise((resolve) => {
+      if (id && id.length) {
+        this.loadingService.quickLoader().then(() => {
+          this.playerService.getPlayer(id).pipe(take(1)).subscribe((data: any) => {
+            // console.log(data);
+            resolve(data);
+          });
+        })
+      } else {
+        resolve(null);
+      }
+    })
   }
 
   fetchMedia(id: string) {
@@ -155,40 +172,50 @@ export class FixturesComponent implements OnInit {
       if (fixture?.home_team_data && fixture?.away_team_data) {
 
         // format date
-      // console.log(fixture.match_day + " " +fixture.match_time);
-      fixture.date = moment(fixture.match_day).calendar();
-      fixture.match_time_fmt = moment(fixture.match_day + " " + fixture.match_time).format('h:mm a');
+        // console.log(fixture.match_day + " " +fixture.match_time);
+        fixture.date = moment(fixture.match_day).calendar();
+        fixture.match_time_fmt = moment(fixture.match_day + " " + fixture.match_time).format('h:mm a');
 
-      // update game states
-      const matchStart = fixture.match_day + ' ' + (fixture.match_time ?? '00:00');
-      const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
-      const curTime = moment().format("YYYY-MM-DD hh:mm");
+        // update game states
+        const matchStart = fixture.match_day + ' ' + (fixture.match_time ?? '00:00');
+        const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
+        const curTime = moment().format("YYYY-MM-DD hh:mm");
 
-      fixture.scorers = (fixture.scorers ?? []).map((score: any, index: number) => {
-        let subExt = score;
-        subExt.player_data = this.players.find((p: any) =>( p.snap_id === score.player))
-        return subExt
-      })
+        const homeScorers = (fixture.scores?.home_scorers ?? []);
+        const awayScorers = (fixture.scores?.away_scorers ?? []);
+        let fixtureScorers: any[] = [];
 
-      // console.log(curTime, matchStart, matchEnd);
-      // console.log((curTime > matchStart && curTime < matchEnd), (curTime > matchEnd));
 
-      // if match start time has finished update fixture time
-      if (curTime > matchStart && curTime < matchEnd) {
-        this.fixturesService.updateFixture(fixture.snap_id, {
-          ...fixedFixture, status: 'on-going', updated: moment().format()
-        }).then(() => {
-          fixture.status = 'on-going';
+        homeScorers.forEach((score: PlayersList) => {
+          let player_id = String(score.id).split('_').pop();
+          fixtureScorers.push({ ...score, player: player_id, team: fixture.home });
         });
-      }
-      // if match end time has finished update fixture time
-      if (curTime > matchEnd) {
-        this.fixturesService.updateFixture(fixture.snap_id, {
-          ...fixedFixture, status: 'played', updated: moment().format()
-        }).then(() => {
-          fixture.status = 'played';
+
+        awayScorers.forEach((score: PlayersList, index: number) => {
+          let player_id = String(score.id).split('_').pop();
+          fixtureScorers.push({ ...score, player: player_id, team: fixture.away });
         });
-      }
+
+        fixture.scorers = fixtureScorers;
+        // console.log(curTime, matchStart, matchEnd);
+        // console.log((curTime > matchStart && curTime < matchEnd), (curTime > matchEnd));
+
+        // if match start time has finished update fixture time
+        if (curTime > matchStart && curTime < matchEnd) {
+          this.fixturesService.updateFixture(fixture.snap_id, {
+            ...fixedFixture, status: 'on-going', updated: moment().format()
+          }).then(() => {
+            fixture.status = 'on-going';
+          });
+        }
+        // if match end time has finished update fixture time
+        if (curTime > matchEnd) {
+          this.fixturesService.updateFixture(fixture.snap_id, {
+            ...fixedFixture, status: 'played', updated: moment().format()
+          }).then(() => {
+            fixture.status = 'played';
+          });
+        }
 
         storeFixtures.push(fixture);
       }

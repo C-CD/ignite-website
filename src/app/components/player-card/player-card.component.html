@@ -41,11 +41,15 @@
         View Profile
       </button>
       <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-        data-bs-target="#votingModal" *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')">
+        data-bs-target="#votingModal" *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')"
+        disabled="{{canVote ? '' :'disabled'}}"
+        >
         Vote
       </button>
       <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-        data-bs-target="#votingModal" *ngIf="player.stats && player.stats.eviction === 'on-going'">
+        data-bs-target="#votingModal" *ngIf="player.stats && player.stats.eviction === 'on-going'"
+        disabled="{{canVote ? '' :'disabled'}}"
+        >
         Save
       </button>
     </div>

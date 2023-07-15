@@ -12,3 +12,6 @@ export const firebase_configuration = {
   appId: "1:559858827116:web:009fb00c14ab0fa35bfd49",
   measurementId: "G-G2XMWWFYPQ"
 }
+
+
+export const CAN_VOTE = false;

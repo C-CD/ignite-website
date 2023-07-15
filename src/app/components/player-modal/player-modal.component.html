@@ -283,6 +283,7 @@
                     class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10"
                     data-bs-toggle="modal"
                     data-bs-target="#votingModal"
+                    disabled="{{canVote ? '' :'disabled'}}"
                   >
                     VOTE {{ player.fname }}&nbsp;{{ player.lname }}
                   </button>

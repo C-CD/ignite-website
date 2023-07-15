@@ -15,6 +15,7 @@ import {
 import { Teams, TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { Votes, VotingService } from 'src/app/services/votings/voting.service';
+import { CAN_VOTE } from 'src/environments/environment';
 
 @Component({
   selector: 'app-players',
@@ -29,6 +30,7 @@ export class PlayersComponent implements OnInit {
   selectedTeam: any;
   searchInput: string = '';
   checkPlayerSubscription = Observable;
+  canVote = CAN_VOTE;
 
   public theBoundCallback!: () => void;
 
@@ -47,7 +49,7 @@ export class PlayersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchTeams();
+
     this.theBoundCallback = this.refreshPlayers.bind(this);
     // this.fetchPlayers();
     this.route.params.subscribe((params) => {
@@ -63,11 +65,13 @@ export class PlayersComponent implements OnInit {
               const team = snapshots_data[0];
               // this.fetchPlayersByTeam({ ...team, snap_id: team.snap_id });
               this.selectedTeam = { ...team, snap_id: team.snap_id };
+              localStorage.setItem('selectedTeam', team.snap_id);
             }
           }).catch(() => {
             console.log('team not found');
           }).finally(() => {
             this.loadingService.clearLoader();
+            this.fetchTeams();
           });
         });
       }
