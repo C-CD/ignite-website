@@ -145,11 +145,10 @@ export class FixturesComponent implements OnInit {
     fixtures.forEach((f: FixturesData, i) => {
       const fixedFixture = f;
       let fixture = f;
-
+      // console.log(this.teams, "teams")
       // team info
       fixture.home_team_data = this.teams.find((t: any) => t.snap_id === fixture.home)
-      fixture.away_team_data = this.teams.find((t: any) => t.snap_id === fixture.away)
-
+      fixture.away_team_data = this?.teams?.find((t: any) => t.snap_id === fixture.away)
       // format date
       // console.log(fixture.match_day + " " +fixture.match_time);
       fixture.date = moment(fixture.match_day).calendar();

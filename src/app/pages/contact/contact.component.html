@@ -22,7 +22,7 @@
   </div>
   <div class="row">
     <div class="col-lg-6 col-12 mt-5">
-      <form [formGroup]="formDataGroup" (ngSubmit)="sendMail(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd">
+      <form [formGroup]="formDataGroup" (ngSubmit)="submitHelp(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd">
         <fieldset class="row g-3">
 
           <!-- Text -->
@@ -75,6 +75,26 @@
               <div class="form-group">
                 <label class="control-label" for="text_3">Phone Number</label>
                 <input type="text" formControlName="phone" name="phone" class="form-control">
+              </div>
+              <div class="text-danger pt-1">
+                <ngx-fv-error></ngx-fv-error>
+              </div>
+            </ngx-fv-validate>
+          </div>
+
+          <!-- Categories dropdown -->
+          <div class="col-xs-12">
+            <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.category"
+              labelName='Category'>
+              <div class="form-group required-control">
+                <label class="control-label" for="select_1">Category</label>
+                <select id="select_1" formControlName="category" name="category" class="form-control" required="">
+                  <option value="">Select Category</option>
+                  <option value="General">General</option>
+                  <option value="Technical">Technical</option>
+                  <option value="Complaint">Complaint</option>
+                  <option value="Suggestion">Suggestion</option>
+                </select>
               </div>
               <div class="text-danger pt-1">
                 <ngx-fv-error></ngx-fv-error>

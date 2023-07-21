@@ -174,6 +174,7 @@ export class VoteModalComponent implements OnInit {
       amount: 50 * formData.votes,
       reference: `${this.category}-voting-${ref}`
     };
+    console.log(voteData, "votedata")
     // init flutterwave
     initFwCheckout(formData, voteData, {
       ...voteData,
