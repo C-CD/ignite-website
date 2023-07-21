@@ -26,3 +26,4 @@ export const firebase_configuration = {
   measurementId: "G-G2XMWWFYPQ"
 }
 
+
