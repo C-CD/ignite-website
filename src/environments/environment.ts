@@ -26,4 +26,4 @@ export const firebase_configuration = {
   measurementId: "G-G2XMWWFYPQ"
 }
 
-export const CAN_VOTE = false;
+export const CAN_VOTE = true;
