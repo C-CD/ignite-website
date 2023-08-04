@@ -9,12 +9,17 @@
   </div>
 
   <div class="row no-gutter contact-info-container">
-    <div class="col-6 contact-info">
+    <div class="col-md-6 col-lg-4 contact-info">
+      <img src="../assets/img/help-icon.png" alt="Call icon">
+      <h5>Help Desk</h5>
+      <p><a href="tel:2348069912614">Fill the form below</a></p>
+    </div>
+    <div class="col-md-6 col-lg-4 contact-info">
       <img src="../assets/img/call-icon.png" alt="Call icon">
       <h5>Talk to Us</h5>
       <p><a href="tel:2348069912614">(234) 806 991 2614</a></p>
     </div>
-    <div class="col-6 contact-info">
+    <div class="col-md-6 col-lg-4 contact-info">
       <img src="../assets/img/mail-icon.png" alt="Mail icon">
       <h5>Mail Us</h5>
       <p><a href="mailto:info@ignitemegastars.ng">info@ignitemegastars.ng</a></p>
@@ -22,7 +27,7 @@
   </div>
   <div class="row">
     <div class="col-lg-6 col-12 mt-5">
-      <form [formGroup]="formDataGroup" (ngSubmit)="submitHelp(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd">
+      <form [formGroup]="formDataGroup" (ngSubmit)="submitHelp(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd" type="submit">
         <fieldset class="row g-3">
 
           <!-- Text -->
@@ -87,13 +92,13 @@
             <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.category"
               labelName='Category'>
               <div class="form-group required-control">
-                <label class="control-label" for="select_1">Category</label>
+                <label class="control-label" for="select_1">Incident Category</label>
                 <select id="select_1" formControlName="category" name="category" class="form-control" required="">
                   <option value="">Select Category</option>
-                  <option value="General">General</option>
-                  <option value="Technical">Technical</option>
-                  <option value="Complaint">Complaint</option>
-                  <option value="Suggestion">Suggestion</option>
+                  <option value="Payments">Payments</option>
+                  <option value="Registration">Registration</option>
+                  <option value="Feedback for players">Feedback for players</option>
+                  <option value="Others">Others</option>
                 </select>
               </div>
               <div class="text-danger pt-1">

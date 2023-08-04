@@ -14,4 +14,4 @@ export const firebase_configuration = {
 }
 
 
-export const CAN_VOTE = false;
+export const CAN_VOTE = true;

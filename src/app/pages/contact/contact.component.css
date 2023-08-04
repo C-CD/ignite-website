@@ -1,0 +1,10 @@
+.contact-info-container {
+   margin: 0 20%;
+}
+
+@media screen and (max-width: 992px) {
+    .contact-info-container{
+        margin: 0 5%;
+    }
+}
+

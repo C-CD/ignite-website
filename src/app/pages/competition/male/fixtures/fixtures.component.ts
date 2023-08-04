@@ -49,7 +49,8 @@ export class FixturesComponent implements OnInit {
       this.fetchPlayers().then(() => {
         this.fetchFixtures().then((fixtures: any) => {
           this.fixtures = this.groupByDate(fixtures);
-          // console.log(this.fixtures);
+          // this.fixtures = this.groupedByTime(fixtures);
+          console.log(this.fixtures);
         }).catch((error) => {
           this.fixtures = null;
           // console.log(error);
@@ -71,6 +72,22 @@ export class FixturesComponent implements OnInit {
     }
 
     return groupedDate;
+  }
+
+  groupedByTime(data: any) {
+    let groupedTime: any = {};
+    // sortbytime
+    data.sort(function (a: any, b: any) { return (new Date(a.match_time)).getTime() - (new Date(b.match_time)).getTime() });
+    for (let i = 0; i < data.length; i++) {
+      let match_time = moment(data[i].match_time).format("h:mm a");
+      if (groupedTime[match_time]) {
+        groupedTime[match_time].push(data[i]);
+      } else {
+        groupedTime[match_time] = [data[i]];
+      }
+    }
+
+    return groupedTime;
   }
 
   objectKeys() {
@@ -120,6 +137,12 @@ export class FixturesComponent implements OnInit {
           if (snapshots_data) {
             this.organizeFixturesData(snapshots_data, true).then((organizedData) => {
               console.log('fixtures', organizedData);
+             //sort by id
+             organizedData.sort(function(a: any,b: any){
+                return (a.id - b.id);
+             })
+
+            
               resolve(organizedData);
             })
           } else {

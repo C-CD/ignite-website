@@ -7,3 +7,31 @@
   object-fit: cover;
   min-height: 280px;
 }
+
+.bold-text{
+  font-weight: 700;
+}
+.slide-news{
+  background-color:  rgba(160, 160, 162, 0.8);
+}
+
+@media screen and (max-width: 768px) {
+  .slide-news{
+    background-color:  rgba(160, 160, 162, 0.8);
+  }
+  /* .slide-direction-icons{
+    font-size: 3rem !important;
+    color: #fff;
+  } */
+  .carousel-item img {
+    object-fit: cover;
+    min-height: 280px;
+  }
+  .bold-text{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+}
