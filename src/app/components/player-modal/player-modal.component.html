@@ -29,9 +29,9 @@
                       copyToClipboard(
                         location.host +
                           '/competition/male/' +
-                          player?.team +
+                          player?.team_data?.ref +
                           '/players/' +
-                          player?.snap_id
+                          player?.snap_id + '?q=' + player?.fname + ' ' + player?.lname
                       )
                     "
                   >
@@ -190,6 +190,91 @@
                             <small class="text-light">Red Cards</small>
                           </div>
                         </div>
+                        <div  *ngIf="
+                        player.position.toLowerCase() === 'df'" class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.tackles }}
+                          </div>
+                          <div>
+                            <small class="text-light">Tackles</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="player.position.toLowerCase() !== 'gk'">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.area_duel }}
+                          </div>
+                          <div>
+                            <small class="text-light">Aerial duel</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4"  *ngIf="
+                        player.position.toLowerCase() === 'mf'" >
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.passes }}
+                          </div>
+                          <div>
+                            <small class="text-light">Passes</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4"  *ngIf="player.position.toLowerCase() === 'fw'">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.shots_on_target }}
+                          </div>
+                          <div>
+                            <small class="text-light">Shots(On Target)</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4"  *ngIf="player.position.toLowerCase() === 'fw'">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.shots_off_target }}
+                          </div>
+                          <div>
+                            <small class="text-light">Shots(Off Target)</small>
+                          </div>
+                        </div>
+                        <div  *ngIf="
+                        player.position.toLowerCase() === 'df'" class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.blocked_shots }}
+                          </div>
+                          <div>
+                            <small class="text-light">Blocked Shots</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.blocked_shots }}
+                          </div>
+                          <div>
+                            <small class="text-light">Blocked Shots</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.motm }}
+                          </div>
+                          <div>
+                            <small class="text-light">MOTM</small>
+                          </div>
+                        </div>
+                        <div  *ngIf="
+                        player.position.toLowerCase() === 'df'" class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.clearance }}
+                          </div>
+                          <div>
+                            <small class="text-light">Clearance</small>
+                          </div>
+                        </div>
+                        <div  *ngIf="
+                        player.position.toLowerCase() === 'df'" class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            {{ player.stats.interception }}
+                          </div>
+                          <div>
+                            <small class="text-light">Interception</small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div *ngIf="!player.stats">
@@ -257,6 +342,72 @@
                             <small class="text-light">Red Cards</small>
                           </div>
                         </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                           0
+                          </div>
+                          <div>
+                            <small class="text-light">Tackles</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                           0
+                          </div>
+                          <div>
+                            <small class="text-light">Aerial duel</small>
+                          </div>
+                        </div>
+                        <div  *ngIf="
+                        player.position.toLowerCase() === 'mf'" class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                          0
+                          </div>
+                          <div>
+                            <small class="text-light">Passes</small>
+                          </div>
+                        </div>
+                        <div *ngIf="player.position.toLowerCase() === 'fw'" class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                           0
+                          </div>
+                          <div>
+                            <small class="text-light">Shots(On Target)</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="
+                        player.position.toLowerCase() === 'fw'">
+                          <div class="display-5 text-light fw-bold">
+                            0
+                          </div>
+                          <div>
+                            <small class="text-light">Shots(Off Target)</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            0
+                          </div>
+                          <div>
+                            <small class="text-light">Blocked Shots</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            0
+                          </div>
+                          <div>
+                            <small class="text-light">MOTM</small>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="display-5 text-light fw-bold">
+                            0
+                          </div>
+                          <div>
+                            <small class="text-light">Clearance</small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,6 +434,7 @@
                     class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10"
                     data-bs-toggle="modal"
                     data-bs-target="#votingModal"
+                    disabled="{{canVote ? '' :'disabled'}}"
                   >
                     VOTE {{ player.fname }}&nbsp;{{ player.lname }}
                   </button>

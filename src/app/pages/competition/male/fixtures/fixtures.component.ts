@@ -1,4 +1,4 @@
-import { Fixtures, FixturesService } from './../../../../services/fixtures/fixtures.service';
+import { Fixtures, FixturesService, PlayersList } from './../../../../services/fixtures/fixtures.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { take } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { forEach } from 'lodash';
 interface FixturesData extends Fixtures {
   snap_id: string;
   date: string;
+  scorers: any[];
   match_time_fmt: string;
   home_team_data: Teams;
   away_team_data: Teams;
@@ -48,7 +49,8 @@ export class FixturesComponent implements OnInit {
       this.fetchPlayers().then(() => {
         this.fetchFixtures().then((fixtures: any) => {
           this.fixtures = this.groupByDate(fixtures);
-          // console.log(this.fixtures);
+          // this.fixtures = this.groupedByTime(fixtures);
+          console.log(this.fixtures);
         }).catch((error) => {
           this.fixtures = null;
           // console.log(error);
@@ -70,6 +72,22 @@ export class FixturesComponent implements OnInit {
     }
 
     return groupedDate;
+  }
+
+  groupedByTime(data: any) {
+    let groupedTime: any = {};
+    // sortbytime
+    data.sort(function (a: any, b: any) { return (new Date(a.match_time)).getTime() - (new Date(b.match_time)).getTime() });
+    for (let i = 0; i < data.length; i++) {
+      let match_time = moment(data[i].match_time).format("h:mm a");
+      if (groupedTime[match_time]) {
+        groupedTime[match_time].push(data[i]);
+      } else {
+        groupedTime[match_time] = [data[i]];
+      }
+    }
+
+    return groupedTime;
   }
 
   objectKeys() {
@@ -117,9 +135,16 @@ export class FixturesComponent implements OnInit {
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           // console.log('fixtures', snapshots_data);
           if (snapshots_data) {
-            const organizedData = this.organizeFixturesData(snapshots_data, true)
+            this.organizeFixturesData(snapshots_data, true).then((organizedData) => {
             console.log('fixtures', organizedData);
+             //sort by id
+             organizedData.sort(function(a: any,b: any){
+                return (a.id - b.id);
+             })
+
+            
             resolve(organizedData);
+            })
           } else {
             reject(snapshots_data);
           }
@@ -129,6 +154,21 @@ export class FixturesComponent implements OnInit {
       });
     })
 
+  }
+
+  fetchPlayer(id: string) {
+    return new Promise((resolve) => {
+      if (id && id.length) {
+        this.loadingService.quickLoader().then(() => {
+          this.playerService.getPlayer(id).pipe(take(1)).subscribe((data: any) => {
+            // console.log(data);
+            resolve(data);
+          });
+        })
+      } else {
+        resolve(null);
+      }
+    })
   }
 
   fetchMedia(id: string) {
@@ -147,8 +187,13 @@ export class FixturesComponent implements OnInit {
       let fixture = f;
       // console.log(this.teams, "teams")
       // team info
-      fixture.home_team_data = this.teams.find((t: any) => t.snap_id === fixture.home)
-      fixture.away_team_data = this?.teams?.find((t: any) => t.snap_id === fixture.away)
+      fixture.home_team_data = this.teams.find((t: any) => (t.snap_id === fixture.home))
+      fixture.away_team_data = this.teams.find((t: any) => (t.snap_id === fixture.away))
+      // this check was added if teams had been deleted earlier
+
+      // console.log("home_team: ", fixture?.home_team_data, "away_team: ", fixture?.away_team_data)
+      if (fixture?.home_team_data && fixture?.away_team_data) {
+
       // format date
       // console.log(fixture.match_day + " " +fixture.match_time);
       fixture.date = moment(fixture.match_day).calendar();
@@ -159,12 +204,22 @@ export class FixturesComponent implements OnInit {
       const matchEnd = fixture.match_day + ' ' + (fixture.match_end_time ?? '00:00');
       const curTime = moment().format("YYYY-MM-DD hh:mm");
 
-      fixture.scorers = (fixture.scorers ?? []).map((score: any, index: number) => {
-        let subExt = score;
-        subExt.player_data = this.players.find((p: any) => p.snap_id === score.player)
-        return subExt
-      })
+        const homeScorers = (fixture.scores?.home_scorers ?? []);
+        const awayScorers = (fixture.scores?.away_scorers ?? []);
+        let fixtureScorers: any[] = [];
 
+
+        homeScorers.forEach((score: PlayersList) => {
+          let player_id = String(score.id).split('_').pop();
+          fixtureScorers.push({ ...score, player: player_id, team: fixture.home });
+        });
+
+        awayScorers.forEach((score: PlayersList, index: number) => {
+          let player_id = String(score.id).split('_').pop();
+          fixtureScorers.push({ ...score, player: player_id, team: fixture.away });
+        });
+
+        fixture.scorers = fixtureScorers;
       // console.log(curTime, matchStart, matchEnd);
       // console.log((curTime > matchStart && curTime < matchEnd), (curTime > matchEnd));
 
@@ -186,6 +241,7 @@ export class FixturesComponent implements OnInit {
       }
 
       storeFixtures.push(fixture);
+      }
     });
 
     return storeFixtures;

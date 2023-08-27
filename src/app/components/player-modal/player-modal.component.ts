@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ClipboardService } from 'ngx-clipboard';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { CAN_VOTE } from 'src/environments/environment';
 
 @Component({
   selector: 'app-player-modal',
@@ -9,7 +10,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class PlayerModalComponent implements OnInit {
   @Input() player: any;
-
+  canVote = CAN_VOTE;
   location = window.location;
 
   constructor(
@@ -17,7 +18,9 @@ export class PlayerModalComponent implements OnInit {
     private _clipboardService: ClipboardService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log(this.player)
+  }
 
   copyToClipboard(item: string) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
