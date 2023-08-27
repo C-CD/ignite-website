@@ -40,7 +40,7 @@ export class VoteModalComponent implements OnInit {
   usr: any;
   formDataGroup!: FormGroup;
   voteConfig: VoteConfig = {
-    points: 5,
+    points: 2,
     amount: 50
   };
   error: string | boolean = false;
@@ -85,7 +85,7 @@ export class VoteModalComponent implements OnInit {
       this.formDataGroup.controls.votes.disable();
       this.formDataGroup.controls.votes.setValue(1);
       this.voteConfig = {
-        points: 5,
+        points: 2,
         amount: 50
       }
     } else {
@@ -94,7 +94,7 @@ export class VoteModalComponent implements OnInit {
   }
 
   setVoteConfig(formData: any) {
-    this.voteConfig.points = formData.votes * 5;
+    this.voteConfig.points = formData.votes * 2;
     this.voteConfig.amount = formData.votes * 50;
   }
 
@@ -172,7 +172,7 @@ export class VoteModalComponent implements OnInit {
   initPurchaseVote(formData: any, ref: string) {
     const voteData = {
       amount: 50 * formData.votes,
-      reference: `${this.category}-voting-${ref}`
+      reference: `${this.category}-voting-${ref}-${this.player.snap_id}`
     };
     console.log(voteData, "votedata")
     // init flutterwave
@@ -230,7 +230,7 @@ export class VoteModalComponent implements OnInit {
       quantity: 1,
       points: this.voteConfig.points,
       amount: 0,
-      ref: `coaches-voting-${reference}`,
+      ref: `coaches-voting-${reference}-${this.player.snap_id}`,
       meta_data: null,
       votee: this.player.snap_id,
       coach: coach,
@@ -287,7 +287,7 @@ export class VoteModalComponent implements OnInit {
     this.formDataGroup.controls.votes.setValue(1);
     this.formDataGroup.controls.coach_id.setValue(null);
     this.voteConfig = {
-      points: 5,
+      points: 2,
       amount: 50
     }
   }

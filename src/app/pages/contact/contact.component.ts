@@ -79,6 +79,7 @@ export class ContactComponent implements OnInit {
   }
 
   
+  
   submitHelp(formData: any){
     console.log(formData)
     this.loadingService.quickLoader().then(()=>{
@@ -101,6 +102,7 @@ export class ContactComponent implements OnInit {
           status: true,
           message: 'Your message has been sent successfully. We will get back to you shortly.'
         }
+        this.formDataGroup.reset()
       }).catch((error)=>{
         console.log(error)
       })
