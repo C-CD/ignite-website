@@ -68,7 +68,7 @@ export class MaleEvictionsComponent implements OnInit {
 
       this.fetchPlayers().then((players) => {
         this.players = players;
-        // console.log(players)
+        console.log(players,  "players")
         this.loadingService.clearLoader();
       }).catch((error) => {
         // console.log(error);
@@ -76,6 +76,8 @@ export class MaleEvictionsComponent implements OnInit {
       });
     });
 
+   
+   
   }
 
   fetchFixtures() {
@@ -88,9 +90,10 @@ export class MaleEvictionsComponent implements OnInit {
             let snapshots_data = this.funcService.handleSnapshot(snapshots);
             // console.log(snapshots_data);
             if (snapshots_data) {
-              this.organizeFixturesData(snapshots_data).then((data) => {
-                resolve(data);
-              })
+              // this.organizeFixturesData(snapshots_data).then((data) => {
+              //   resolve(data);
+              // })
+              resolve(snapshots_data)
             } else {
               reject(snapshots_data);
             }
@@ -152,6 +155,8 @@ export class MaleEvictionsComponent implements OnInit {
         }
       }
     }
+
+    
     // console.log(storeFixtures);
     storeFixtures = (storeFixtures.length) ? storeFixtures : null;
 
@@ -173,6 +178,14 @@ export class MaleEvictionsComponent implements OnInit {
     })
   }
 
+ 
+
+
+ 
+
+
+
+
   selectPlayer(player: any) {
     // console.log(player);
     this.selected_player = player;
@@ -189,6 +202,9 @@ export class MaleEvictionsComponent implements OnInit {
             this.organizePlayerData(snapshots_data, true).then((data) => {
               resolve(data);
             })
+            // this.filterPlayersByStats(snapshots_data, "0").then((data) => {
+            //   resolve(data);
+            // })
           } else {
             reject(snapshots_data);
           }
@@ -291,6 +307,29 @@ export class MaleEvictionsComponent implements OnInit {
     player.votes_data = await this.fetchVoteDetails(player.snap_id);
 
     return player;
+  }
+
+
+  async filterPlayersByStats(players: any[], stat: string) {
+    let storePlayers: any[] | null = [];
+    for (let i = 0; i < players.length; i++) {
+      let playerExt = players[i];
+
+      if (playerExt) {
+        playerExt = await this.fecthPlayerFullInfo(playerExt);
+        // console.log(playerExt);
+        if (playerExt.stats[stat] > 0) {
+          storePlayers.push(playerExt);
+        }
+      }
+    };
+
+    console.log(storePlayers);
+    storePlayers = (storePlayers.length) ? storePlayers : null;
+
+    return storePlayers;
+
+
   }
 
 

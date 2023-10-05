@@ -14,7 +14,7 @@ export class PlayerModalComponent implements OnInit {
   location = window.location;
 
   constructor(
-    private clipboard: Clipboard,
+    // private clipboard: Clipboard,
     private _clipboardService: ClipboardService
   ) {}
 

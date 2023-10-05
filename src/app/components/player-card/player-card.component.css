@@ -5,6 +5,10 @@
   padding: 20px;
 }
 
+strong{
+  color: #000;
+}
+
 .player-box {
   background: #20273f;
   border-radius: 10px;

@@ -31,6 +31,7 @@ import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind
 import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
 import { CoachesVotingComponent } from './pages/coache/coaches-voting/coaches-voting.component';
 import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-evictions.component';
+import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'players-terms-and-conditions',
     component: PlayersTermsAndConditionsComponent,
+  },
+  {
+    path: 'terms-of-use',
+    component : TermsOfUseComponent
   },
   { path: 'competition/female', component: FemaleCompetitionAbout },
   { path: 'competition/female/fixtures', component: FemaleCompetitionFixtures },

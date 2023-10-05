@@ -1,3 +1,6 @@
 #mobileNav{
   z-index: 150;
 }
+.hamburger{
+  padding: 0px 5px 5px 5px;
+}

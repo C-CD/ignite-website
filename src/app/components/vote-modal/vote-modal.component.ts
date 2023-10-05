@@ -40,7 +40,7 @@ export class VoteModalComponent implements OnInit {
   usr: any;
   formDataGroup!: FormGroup;
   voteConfig: VoteConfig = {
-    points: 5,
+    points: 2,
     amount: 50
   };
   error: string | boolean = false;
@@ -69,6 +69,8 @@ export class VoteModalComponent implements OnInit {
   ngOnInit(): void {
     this.onSuccess();
     this.validateFormData();
+    
+    
   }
 
   closeModal() {
@@ -85,7 +87,7 @@ export class VoteModalComponent implements OnInit {
       this.formDataGroup.controls.votes.disable();
       this.formDataGroup.controls.votes.setValue(1);
       this.voteConfig = {
-        points: 5,
+        points: 2,
         amount: 50
       }
     } else {
@@ -94,7 +96,7 @@ export class VoteModalComponent implements OnInit {
   }
 
   setVoteConfig(formData: any) {
-    this.voteConfig.points = formData.votes * 5;
+    this.voteConfig.points = formData.votes * 2;
     this.voteConfig.amount = formData.votes * 50;
   }
 
@@ -164,16 +166,51 @@ export class VoteModalComponent implements OnInit {
     // initialize payment
     if (!coach_snapId) {
       this.initPurchaseVote(formData, generatedRef);
+      // this.initVoteWithoutPayment(formData)
     } else {
       this.initCoachVotePlayer(formData, generatedRef, coach_snapId);
     }
   }
 
-  initPurchaseVote(formData: any, ref: string) {
+  initVoteWithoutPayment(formData: any) {
+    this.loading = true;
+    this.setVoteConfig(formData);
     const voteData = {
       amount: 50 * formData.votes,
-      reference: `${this.category}-voting-${ref}`
+      reference: `free-voting-${this.category}-${this.player.snap_id}`
     };
+    this.votingService.addVote({
+      quantity: formData.votes,
+      points: this.voteConfig.points,
+      amount: voteData.amount,
+      ref: voteData.reference,
+      meta_data: {
+        customer:{
+          phone_number: formData.phone,
+          email: formData.email
+        }
+      },
+      votee: this.player.snap_id,
+      coach: null,
+      date: moment().format('YYYY-MM-DD hh:mm:ss')   
+    }).then((response: any) => {
+      console.log(response)
+      this.paymentSuccess();
+      this.closeModal();
+    }).catch((error: any) => {
+      console.log(error);
+      this.paymentLoading(false);
+      this.paymentFailed(false)
+    });
+  }
+
+  initPurchaseVote(formData: any, ref: string) {
+    let playerName = (this.player.fname + this.player.lname).toLowerCase()
+    const voteData = {
+      amount: 50 * formData.votes,
+      reference: `${this.category}-voting-${ref}-${playerName}`
+    };
+    console.log(playerName, "player Name")
     console.log(voteData, "votedata")
     // init flutterwave
     initFwCheckout(formData, voteData, {
@@ -183,7 +220,7 @@ export class VoteModalComponent implements OnInit {
     }).then((transaction: any) => {
       // console.log(transaction);
       // check transaction status
-      if ((['successful', 'completed']).includes(transaction.status)) {
+      if ((['successful', 'completed', 'pending']).includes(transaction.status)) {
         this.fwSuccess = transaction;
         this.fwService.verifyTransaction(transaction).then((response: any) => {
           if (response.data && response.data.status === 'successful') {
@@ -226,11 +263,12 @@ export class VoteModalComponent implements OnInit {
   }
 
   initCoachVotePlayer(formData: any, reference: string, coach: string) {
+     let playerName = (this.player.fname + this.player.lname).toLowerCase()
     this.votingService.addVote({
       quantity: 1,
       points: this.voteConfig.points,
       amount: 0,
-      ref: `coaches-voting-${reference}`,
+      ref: `coaches-voting-${reference}-${playerName}`,
       meta_data: null,
       votee: this.player.snap_id,
       coach: coach,
@@ -287,7 +325,7 @@ export class VoteModalComponent implements OnInit {
     this.formDataGroup.controls.votes.setValue(1);
     this.formDataGroup.controls.coach_id.setValue(null);
     this.voteConfig = {
-      points: 5,
+      points: 2,
       amount: 50
     }
   }
