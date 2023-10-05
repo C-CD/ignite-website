@@ -3,8 +3,8 @@
   <div class="d-flex py-3 px-4">
     <div class="rounded ms-auto rounded-pill px-2 py-1 bg-white d-flex" data-bs-toggle="tooltip" data-bs-placement="top"
       title="Player's Point">
-      <img src="../../../../../assets/img/point.png" class="align-self-center me-1" width="15" height="15" />
-      <strong>{{ (player.votes_data) ? funcService.formatNumber(player.votes_data.points) : 0 }}</strong>
+      <img src="../../../../../assets/img/point.png" class="align-self-center me-1" width="15" height="15"  />
+      <strong >{{ (player.votes_data) ? funcService.formatNumber(player.votes_data.points) : 0 }}</strong>
     </div>
   </div>
 </div>
@@ -42,13 +42,13 @@
       </button>
       <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
         data-bs-target="#votingModal" *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')"
-        disabled="{{canVote ? '' :'disabled'}}"
+        
         >
         Vote
       </button>
       <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
         data-bs-target="#votingModal" *ngIf="player.stats && player.stats.eviction === 'on-going'"
-        disabled="{{canVote ? '' :'disabled'}}"
+      
         >
         Save
       </button>

@@ -19,6 +19,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+          "dependsOn": [],
           "options": {
             "outputPath": "dist/ignite-website",
             "index": "src/index.html",
