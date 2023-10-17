@@ -120,11 +120,13 @@
                     View Profile
                   </button>
                   <button id="player-vote-{{ player.snap_id }}" class="btn btn-success mt-2"
-                    disabled="{{canVote ? '' :'disabled'}}" (click)="selectPlayer(player)" data-bs-toggle="modal"
+                   (click)="selectPlayer(player)" data-bs-toggle="modal"
                     data-bs-target="#votingModal" *ngIf="
                       !player.stats ||
                       (player.stats && player.stats.eviction === 'in-game')
-                    ">
+                    "
+                    disabled="{{canVote ? '' :'disabled'}}"
+                    >
                     Vote
                   </button>
                   <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
