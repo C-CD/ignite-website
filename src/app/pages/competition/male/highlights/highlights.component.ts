@@ -40,7 +40,7 @@ export class HighlightsComponent implements OnInit {
         .getHighlights()
         .then((snapshots: any) => {
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
-          this.highlights = this.organizeData(snapshots_data);
+          this.highlights = this.organizeData(snapshots_data).sort().reverse();
           // console.log(this.highlights)
         })
         .catch(() => {
