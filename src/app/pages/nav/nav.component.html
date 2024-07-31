@@ -67,10 +67,10 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <ul class="navbar-nav">
                 <li class="navbar-item active">
-                    <a class="nav-link" routerLink="/">Home</a>
+                    <a class="nav-link" routerLink="/" onclick="closeNav()">Home</a>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" routerLink="/about">About</a>
+                    <a class="nav-link" routerLink="/about" onclick="closeNav()">About</a>
                 </li>
 
 
@@ -82,15 +82,15 @@
                           <a class="dropdown-item" data-bs-toggle="dropdown" class="nav-link"
                              routerLink="/competition/male">Ignite Soccer Stars (Male)</a>
                           <ul class="dropdown-menu main-nav-dropdown d-none">
-                              <li><a routerLink="/ignite-soccer-stars-male">About</a></li>
-                              <li><a routerLink="/ignite-soccer-stars-male/register">Register</a></li>
-                              <li><a routerLink="#">Fixtures/Results</a></li>
-                              <li><a routerLink="#">Highlights</a></li>
-                              <li><a routerLink="#">Player Profile</a></li>
+                              <li><a routerLink="/ignite-soccer-stars-male" onclick="closeNav()">About</a></li>
+                              <li><a routerLink="/ignite-soccer-stars-male/register" onclick="closeNav()">Register</a></li>
+                              <li><a routerLink="#" onclick="closeNav()">Fixtures/Results</a></li>
+                              <li><a routerLink="#" onclick="closeNav()">Highlights</a></li>
+                              <li><a routerLink="#" onclick="closeNav()">Player Profile</a></li>
                           </ul>
                       </li>
                       <li>
-                        <a class="dropdown-item" routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
+                        <a class="dropdown-item" onclick="closeNav()" routerLink="/competition/female">Ignite Soccer Stars (Female)</a>
                       </li>
                   </ul>
               </li>
@@ -98,30 +98,32 @@
 
 
 
-                <li class="navbar-item">
-                    <button class="nav-link mobile-dropdown-btn">Coaches<span class="fas fa-caret-down"></span></button>
-                        <ul class="mobile-dropdown-container">
-                            <li class="navbar-item">
-                                <a class="dropdown-item" routerLink="coaches/register">Apply</a>
+                <li class="navbar-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" role="button" id="smCoachNav" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Coaches</a>
+                        <ul class="dropdown-menu" aria-labelledby="smCoachNav" bs-target="smCoachNav">
+                            <li class="">
+                                <a class="dropdown-menu" routerLink="coaches/register">Apply</a>
                             </li>
-                            <li><a class="dropdown-item" routerLink="/coaches/profiles">Coaches Profile</a></li>
+                            <li  class=""><a class="dropdown-menu" routerLink="/coaches/profiles">Coaches Profile</a></li>
 
                         </ul>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" routerLink="/gallery">Gallery</a>
+                    <a class="nav-link" routerLink="/gallery" onclick="closeNav()">Gallery</a>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" routerLink="/whats-hot">What's Hot</a>
+                    <a class="nav-link" routerLink="/whats-hot" onclick="closeNav()">What's Hot</a>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" routerLink="/contact">Contact</a>
+                    <a class="nav-link" routerLink="/contact" onclick="closeNav()">Contact</a>
                 </li>
             </ul>
     </div>
 
     <div class="mobile-header nodisplay">
-        <span class="hamburger align-middle" onclick="openNav()">&#9776; </span>
+        <span class="hamburger align-middle border border border-white rounded" onclick="openNav()">&#9776; </span>
+        
         <div class="mobile-logo text-center">
             <a routerLink="/"><img src="../assets/img/logo.png" alt="Logo"></a>
         </div>

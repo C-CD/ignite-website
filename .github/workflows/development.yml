@@ -1,0 +1,49 @@
+name: 🚀 Deploy updates to server
+on:
+  push:
+    branches:
+      - develop
+env:
+  CI: false
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  web-deploy:
+    name: 🎉 Code deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Set up node environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: 🔨 Build App
+        run: npm run build --noUnusedLocals --noUnusedParameters --noErrorOnTypeScriptWarnings
+
+      - name: Copy .htaccess
+        run: cp ./public/.htaccess ./dist/ignite-website
+
+      - name: 📂 Upload files to the cpanel
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./dist/ignite-website/
+          # server-dir: ./tests_dir/ # Specify the remote directory here
+          # dry-run: true

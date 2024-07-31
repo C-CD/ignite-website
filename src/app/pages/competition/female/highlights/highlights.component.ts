@@ -35,11 +35,15 @@ export class HighlightsComponent implements OnInit {
   fetchHighlights(){
       this.loadingService.quickLoader().then(()=>{
         this.highlightsService.getHighlights().then((snapshots: any) => {
+          debugger
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
-          this.highlights = this.organizeData(snapshots_data);
-          console.log(this.highlights)
+       
+          // this.highlights = this.organizeData(snapshots_data);
+         
+          console.log(this.highlights, "highlights")
+        
         }).catch(() => {
-          this.toaster.quickToast({ msg: "No match standings yet found yet." });
+          this.toaster.quickToast({ msg: "No highlight uploaded yet." });
         }).finally(()=> {
           this.loadingService.clearLoader()
         })

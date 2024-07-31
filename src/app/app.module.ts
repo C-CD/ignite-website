@@ -55,6 +55,8 @@ import { PlayerRegisterationModule } from './components/player-registeration/pla
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { PlayerCardComponent } from './components/player-card/player-card.component';
+// import { PaystackComponent } from './components/paystack/paystack.component';
+// import { Angular4PaystackModule } from 'angular4-paystack';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,10 @@ import { PlayerCardComponent } from './components/player-card/player-card.compon
     MaleEvictionsComponent,
     CoachesAllComponent,
     CoachModalComponent,
-    PlayerCardComponent,    
+    PlayerCardComponent,
+    // PaystackComponent,
+    
+
   ],
   imports: [
     BrowserModule,
@@ -120,6 +125,7 @@ import { PlayerCardComponent } from './components/player-card/player-card.compon
     ClipboardModule,
     NgxFormValidationsModule,
     IntlTelInputNgModule.forRoot(),
+    // Angular4PaystackModule.forRoot('pk_test_c613fc7d428a64fd1e5daea22f8380551b28c78e')
   ],
   providers: [NgxImageCompressService],
   bootstrap: [AppComponent]

@@ -51,59 +51,122 @@
     <div class="team-squad wf100 p80-50">
       <div class="container-fluid">
 
-        <div class="row  g-md-3 text-white" *ngIf="games && games.length">
+        <div class="row  g-md-3 text-white" *ngIf="players && players.length">
           <!--Player Box Start-->
-          <div class="col-12" *ngFor="let game of games">
+          <div class="col-12" >
             <div class="py-2 px-3 bg-dark rounded">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="d-none d-md-block">
-                  <h5 class="mb-0 text-light">{{ game.home_team.name }} Team</h5>
-                </div>
-                <div class="text-left text-md-center">
-                  <h5 class="mb-0 text-light">Match #:&nbsp;{{ game.id ?? 0 }}</h5>
-                  <small class="text-light">Played - {{ game.date }}</small>
-                </div>
-                <div class="d-none d-md-block text-right">
-                  <h5 class="mb-0 text-light">{{ game.away_team.name }} Team</h5>
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="d-md-block">
+                  <h5 class="mb-0 text-light">Position: GK</h5>
                 </div>
               </div>
             </div>
             <div class="">
               <div class="row">
 
-                <div class="col-6 pt-3">
-                  <div class="py-2 px-3 bg-dark rounded mb-2 d-block d-md-none">
-                    <h5 class="mb-0 text-light">{{ game.home_team.name }} Team</h5>
-                  </div>
+                <div class="col-12 pt-3">
                   <div class="row">
-                    <div class="col-12 col-md-4" *ngFor="let player of game.substitutions"
-                      [ngClass]="player.team === game.home ? '' : 'd-none'">
-                      <app-player-card [player]="player.player_data" (onSelect)="selectPlayer($event)">
+                    <div class="col-12 col-md-3"  *ngFor="let player of players"  [ngClass]="player.position ===  'GK' && player.stats.eviction === 'on-going' ? '' : 'd-none'">
+                      <div *ngIf="player.position ===  'GK' && player.stats.eviction === 'on-going'"
+                     
+                    >
+                      <app-player-card [player]="player" (onSelect)="selectPlayer($event)" *ngIf="player.position ===  'GK' && player.stats.eviction === 'on-going'">
                       </app-player-card>
+                    </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-6 pt-3">
-                  <div class="py-2 px-3 bg-dark rounded mb-2 d-block d-md-none">
-                    <h5 class="mb-0 text-light">{{ game.away_team.name }} Team</h5>
-                  </div>
-                  <div class="row justify-content-end">
-                    <div class="col-12 col-md-4" *ngFor="let player of game.substitutions"
-                      [ngClass]="player.team === game.away ? '' : 'd-none'">
-                      <app-player-card [player]="player.player_data" (onSelect)="selectPlayer($event)">
-                      </app-player-card>
-                    </div>
-                  </div>
-                </div>
+                
 
 
               </div>
             </div>
           </div>
+          <!-- defenders -->
+          <div class="col-12" >
+            <div class="py-2 px-3 bg-dark rounded">
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="d-md-block">
+                  <h5 class="mb-0 text-light">Position: DF</h5>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <div class="row">
+
+                <div class="col-12 pt-3">
+                  <div class="row">
+                    <div class="col-12 col-md-3"  *ngFor="let player of players" [ngClass]="player.position ===  'DF' && player.stats.eviction === 'on-going' ? '' : 'd-none'">
+                      <div *ngIf="player.position ===  'DF' && player.stats.eviction === 'on-going'"
+                    >
+                      <app-player-card [player]="player" (onSelect)="selectPlayer($event)">
+                      </app-player-card>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+ <!-- midfield -->
+ <div class="col-12" >
+  <div class="py-2 px-3 bg-dark rounded">
+    <div class="d-flex justify-content-between align-items-start">
+      <div class="d-md-block">
+        <h5 class="mb-0 text-light">Position: MF</h5>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="row">
+      <div class="col-12 pt-3">
+        <div class="row">
+          <div class="col-12 col-md-3"  *ngFor="let player of players" [ngClass]="player.position ===  'MF' && player.stats.eviction === 'on-going' ? '' : 'd-none'">
+            <div *ngIf="player.position ===  'MF' && player.stats.eviction === 'on-going'"
+          >
+            <app-player-card [player]="player" (onSelect)="selectPlayer($event)">
+            </app-player-card>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- forward -->
+<div class="col-12" >
+  <div class="py-2 px-3 bg-dark rounded">
+    <div class="d-flex justify-content-between align-items-start">
+      <div class="d-md-block">
+        <h5 class="mb-0 text-light">Position: FW</h5>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="row">
+
+      <div class="col-12 pt-3">
+        <div class="row">
+          <div class="col-12 col-md-3"  *ngFor="let player of players" [ngClass]="player.position ===  'FW' && player.stats.eviction === 'on-going' ? '' : 'd-none'">
+            <div *ngIf="player.position ===  'FW' && player.stats.eviction === 'on-going'"
+          >
+            <app-player-card [player]="player" (onSelect)="selectPlayer($event)">
+            </app-player-card>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
 
-        <div class="row" *ngIf="games && !games.length">
+       
+
+        <div class="row" *ngIf="players && !players.length">
           <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
             <div class="text-center align-self-center">
               <div class="p-y mb-3">
@@ -119,7 +182,7 @@
           </div>
         </div>
 
-        <div class="row" *ngIf="!games">
+        <div class="row" *ngIf="!players">
           <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
             <div class="text-center align-self-center">
               <div class="p-y mb-3">
@@ -128,7 +191,7 @@
               <div class="mb-3">
                 <b class="h5 fw-bold">No Substitutions Found..</b><br />
                 <div>
-                  There where no Substitutions found yet...
+                  No Substitutions found yet...
                 </div>
               </div>
             </div>

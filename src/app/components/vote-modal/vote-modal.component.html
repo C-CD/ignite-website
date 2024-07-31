@@ -1,74 +1,123 @@
-<div class="modal fade" tabindex="-1" id="votingModal" data-bs-keyboard="false" data-bs-backdrop="static">
+<div
+  class="modal fade"
+  tabindex="-1"
+  id="votingModal"
+  data-bs-keyboard="false"
+  data-bs-backdrop="static"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-capitalize">VOTE {{ category }}</h5>
-        <button type="button" id="closeModalButton" class="btn-close" (click)="clearInputOnClose()"
-          data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          id="closeModalButton"
+          class="btn-close"
+          (click)="clearInputOnClose()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body" *ngIf="player">
         <div *ngIf="!loading && !success && !error">
-          <div class="alert alert-primary ">
+          <div class="alert alert-primary">
             <strong>Information</strong>
             <div>Please note the following.</div>
             <div>
               <ul>
                 <li>Each vote costs <b>&#8358;50.00</b></li>
-                <li>Each vote gives <b>5(five) points</b> to the selected player.</li>
-                <li>You can vote as much as you want for your favorite player</li>
+                <li>
+                  Each vote gives <b>2(two) points</b> to the selected player.
+                </li>
+                <li>
+                  You can vote as much as you want for your favorite player
+                </li>
               </ul>
             </div>
           </div>
 
           <div>
-            <form [formGroup]="formDataGroup" (ngSubmit)="authPayment(formDataGroup.value)" #fd="ngForm"
-              [ngxFvControl]="fd">
+            <form
+              [formGroup]="formDataGroup"
+              (ngSubmit)="authPayment(formDataGroup.value)"
+              #fd="ngForm"
+              [ngxFvControl]="fd"
+            >
               <div class="row g-3">
                 <div class="col-12">
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" (click)="toggleCoachVote()" [checked]="coachVote" type="checkbox">
+                      <input
+                        class="form-check-input"
+                        (click)="toggleCoachVote()"
+                        [checked]="coachVote"
+                        type="checkbox"
+                      />
                       Click to vote as a Coach.
                     </label>
                   </div>
                 </div>
 
                 <div *ngIf="coachVote">
-                  <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.coach_id"
-                    labelName='Coach Voting ID'>
+                  <ngx-fv-validate
+                    class="form-group col-12"
+                    [control]="formDataGroup.controls.coach_id"
+                    labelName="Coach Voting ID"
+                  >
                     <label class="form-label">Coach Voting ID</label>
-                    <input class="form-control form-control-lg" type="email" formControlName="coach_id"
-                      placeholder="Enter your Coach Voting ID" #ngxFvFormControl>
+                    <input
+                      class="form-control form-control-lg"
+                      type="email"
+                      formControlName="coach_id"
+                      placeholder="Enter your Coach Voting ID"
+                      #ngxFvFormControl
+                    />
                     <div class="text-danger pt-1">
                       <ngx-fv-error></ngx-fv-error>
                     </div>
                   </ngx-fv-validate>
                 </div>
 
-
-                <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.email"
-                  labelName='Email Address'>
+                <ngx-fv-validate
+                  class="form-group col-12"
+                  [control]="formDataGroup.controls.email"
+                  labelName="Email Address"
+                >
                   <label class="form-label">Email Address</label>
-                  <input class="form-control form-control-lg" type="email" formControlName="email"
-                    placeholder="Ex: myemail@example.com" #ngxFvFormControl>
+                  <input
+                    class="form-control form-control-lg"
+                    type="email"
+                    formControlName="email"
+                    placeholder="Ex: myemail@example.com"
+                    #ngxFvFormControl
+                  />
                   <div class="text-danger pt-1">
                     <ngx-fv-error></ngx-fv-error>
                   </div>
                 </ngx-fv-validate>
 
-                <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.phone"
-                  labelName='Mobile Number'>
-                   <international-phone-number
+                <ngx-fv-validate
+                  class="form-group col-12"
+                  [control]="formDataGroup.controls.phone"
+                  labelName="Mobile Number"
+                >
+                  <international-phone-number
                     placeholder="Enter phone number"
-                     [maxlength]="20"
-                     [defaultCountry]="'ng'"
-                     [required]="true"
-                     [classList]="['phoneInput']"
-                     [formControlName]="'phone'"
-                     name="phone"></international-phone-number>
+                    [maxlength]="20"
+                    [defaultCountry]="'ng'"
+                    [required]="true"
+                    [classList]="['phoneInput']"
+                    [formControlName]="'phone'"
+                    name="phone"
+                  ></international-phone-number>
 
-                  <div class="text-danger pt-1" *ngIf="(!formDataGroup.controls.touched) &&
-                        !formDataGroup.controls.phone.valid">
+                  <div
+                    class="text-danger pt-1"
+                    *ngIf="
+                      !formDataGroup.controls.touched &&
+                      !formDataGroup.controls.phone.valid
+                    "
+                  >
                     Phone number is required and should be valid
                   </div>
                   <div class="text-danger pt-1">
@@ -76,21 +125,32 @@
                   </div>
                 </ngx-fv-validate>
 
-
                 <div class="col-12" *ngIf="coachVote">
-                  <div class="alert alert-info ">
-                    <strong>Note: </strong>Coaches are only applicable to one(1) vote per player.
+                  <div class="alert alert-info">
+                    <strong>Note: </strong>Coaches are only applicable to one(1)
+                    vote per player.
                   </div>
                 </div>
 
                 <div class="form-group col-6 col-md-4">
                   <label class="form-label">Number of votes</label>
-                  <input type="number" class="form-control form-control-lg" (input)="setVoteConfig(formDataGroup.value)"
-                    formControlName="votes" placeholder="Number of votes" min="1">
+                  <input
+                    type="number"
+                    class="form-control form-control-lg"
+                    (input)="setVoteConfig(formDataGroup.value)"
+                    formControlName="votes"
+                    placeholder="Number of votes"
+                    min="1"
+                  />
                 </div>
                 <div class="form-group col-6 col-md-4">
                   <label class="form-label">Points Earned</label>
-                  <input class="form-control form-control-lg" readonly [value]="voteConfig.points" placeholder="Points">
+                  <input
+                    class="form-control form-control-lg"
+                    readonly
+                    [value]="voteConfig.points"
+                    placeholder="Points"
+                  />
                 </div>
                 <div class="form-group col-md-4">
                   <label class="form-label">Amount</label>
@@ -98,20 +158,25 @@
                     <span class="input-group-text" id="basic-addon1">
                       <i class="mdi mdi-currency-ngn"></i>
                     </span>
-                    <input class="form-control form-control-lg" readonly [value]="voteConfig.amount"
-                      placeholder="Amount">
+                    <input
+                      class="form-control form-control-lg"
+                      readonly
+                      [value]="voteConfig.amount"
+                      placeholder="Amount"
+                    />
                   </div>
-
                 </div>
 
                 <div class="col-12 d-grid">
-                  <button class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10" type="submit"
-                    [disabled]="!formDataGroup.valid">
+                  <button
+                    class="d-block btn btn-success text-uppercase fw-bold btn-lg b-rad-10"
+                    type="submit"
+                    [disabled]="!formDataGroup.valid"
+                  >
                     VOTE {{ player.fname }}&nbsp;{{ player.lname }}
                   </button>
                 </div>
               </div>
-
             </form>
           </div>
         </div>
@@ -120,15 +185,23 @@
           <div class="d-flex justify-content-center" [style.height]="'350px'">
             <div class="text-center align-self-center">
               <div class="p-y mb-3">
-                <img style="width: 100px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
+                <img
+                  style="width: 100px"
+                  class="img-fluid"
+                  src="assets/img/gifs/loading-buffering.gif"
+                />
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Verifying Payment..</b><br />
                 <div *ngIf="category === 'players'">
-                  Kindly wait while we validate your payment for <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                  Kindly wait while we validate your payment for
+                  <b>{{ player.fname }}&nbsp;{{ player.lname }}</b
+                  >.
                 </div>
                 <div *ngIf="category === 'coaches'">
-                  Kindly wait while we validate your payment for <b>{{ player.name }}</b>.
+                  Kindly wait while we validate your payment for
+                  <b>{{ player.name }}</b
+                  >.
                 </div>
               </div>
             </div>
@@ -139,15 +212,22 @@
           <div class="d-flex justify-content-center" [style.height]="'350px'">
             <div class="text-center align-self-center">
               <div class="px-5 mb-3">
-                <img style="min-width: 200px;" class="img-fluid" src="assets/img/gifs/success.gif">
+                <img
+                  style="min-width: 200px"
+                  class="img-fluid"
+                  src="assets/img/gifs/success.gif"
+                />
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Payment Successful..</b><br />
                 <div *ngIf="category === 'players'">
-                  Thanks for voting <b>{{ player.fname }}&nbsp;{{ player.lname }}</b>.
+                  Thanks for voting
+                  <b>{{ player.fname }}&nbsp;{{ player.lname }}</b
+                  >.
                 </div>
                 <div *ngIf="category === 'coaches'">
-                  Thanks for voting <b>{{ player.name }}</b>.
+                  Thanks for voting <b>{{ player.name }}</b
+                  >.
                 </div>
               </div>
             </div>
@@ -158,49 +238,69 @@
           <div class="d-flex justify-content-center" [style.height]="'450px'">
             <div class="text-center align-self-center">
               <div class="px-5 mb-3 mt-2">
-                <img style="max-width: 130px;" class="img-fluid" src="assets/img/credit-card.png">
+                <img
+                  style="max-width: 130px"
+                  class="img-fluid"
+                  src="assets/img/credit-card.png"
+                />
               </div>
               <div class="mb-3">
                 <b class="h4 fw-bold">Payment Failed..</b><br />
                 <div>
                   <p>
-                    Error processing payment, your payment was either declined by the third party or cancelled by you.
+                    Error processing payment, your payment was either declined
+                    by the third party or cancelled by you.
                   </p>
-                  <hr>
+                  <hr />
                   <h5>Note.</h5>
-                   <p>
-                     Note if you are experiencing issues with payment kindly send a mail with a proof of payment to the below email address.
-                   </p>
-                  <br/>
+                  <p>
+                    Note if you are experiencing issues with payment kindly send
+                    a mail with a proof of payment to the below email address.
+                  </p>
+                  <br />
                   <div class="px-3">
                     <div class="row">
                       <div class="col-md">
-                        <button class="btn btn-danger btn-lg w-100 mb-2" (click)="closeErrorModal()">
-                          <i class="mdi mdi-arrow-left align-self-center text-white"></i>&nbsp;Back
+                        <button
+                          class="btn btn-danger btn-lg w-100 mb-2"
+                          (click)="closeErrorModal()"
+                        >
+                          <i
+                            class="mdi mdi-arrow-left align-self-center text-white"
+                          ></i
+                          >&nbsp;Back
                         </button>
                       </div>
                       <div class="col-md">
-                        <div class="email-to d-flex w-100 mb-2" >
+                        <div class="email-to d-flex w-100 mb-2">
                           <i class="mdi mdi-email align-self-center"></i>
-                          <a class="align-self-center" href="mailto: support@ignitemegastars.ng" #supportEmail>
+                          <a
+                            class="align-self-center"
+                            href="mailto: support@ignitemegastars.ng"
+                            #supportEmail
+                          >
                             &nbsp;&nbsp;support@ignitemegastars.ng&nbsp;&nbsp;&nbsp;&nbsp;
                           </a>
-                          <button class="border-0 transparent" (click)="copyToClipboard('support@ignitemegastars.ng')">
-                            <i class="mdi mdi-content-copy align-self-center kikk"></i>
+                          <button
+                            class="border-0 transparent"
+                            (click)="
+                              copyToClipboard('support@ignitemegastars.ng')
+                            "
+                          >
+                            <i
+                              class="mdi mdi-content-copy align-self-center kikk"
+                            ></i>
                           </button>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
-                            <!-- (click)="copyText('support@ignitemegastars.ng')" -->

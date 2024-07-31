@@ -1,9 +1,8 @@
 <app-point-indicator></app-point-indicator>
 
 <div>
-  <div class="position-fixed w-100" style="z-index: 101;">
+  <div class="position-fixed w-100" style="z-index: 101">
     <app-male-competition-nav page="players"></app-male-competition-nav>
-
 
     <div class="">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
@@ -17,15 +16,17 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 teams-item">
               <li class="nav-item touch b-rad-10" *ngFor="let team of teams">
-                <a class="nav-link fw-bold" *ngIf="team.snap_id ?? null"
-                  [ngClass]="{'active': (selectedTeam.snap_id === (team?.snap_id ?? ''))}"
-                  aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
+                <a class="nav-link fw-bold" *ngIf="team.snap_id ?? null" [ngClass]="{
+                    active: selectedTeam?.snap_id === (team?.snap_id ?? '')
+                  }" aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
               </li>
             </ul>
             <form class="d-flex" (ngSubmit)="searchPlayer()">
               <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput"
-                placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-danger" type="submit">Search</button>
+                placeholder="Search" aria-label="Search" />
+              <button class="btn btn-outline-danger" type="submit">
+                Search
+              </button>
             </form>
           </div>
         </div>
@@ -34,9 +35,7 @@
   </div>
 </div>
 
-
 <!-- <div class="soccer-star-spacer"></div> -->
-
 <!-- <div class="w-100 position-absolute coming-soon-box">
   <div class="overlay-container w-100 d-flex justify-content-center">
     <div class="align-self-center text-center">
@@ -47,12 +46,9 @@
 </div> -->
 
 <div class="container-fluid px-0 px-lg-4" [style.padding-top]="'9rem'">
-
   <div id="c2">
-
     <div class="team-squad wf100 p80-50">
       <div class="container-fluid">
-
         <div class="row g-2 g-md-3 text-white" *ngIf="players && players.length">
           <!--Player Box Start-->
           <div class="col-6 col-md-3 col-lg-2" *ngFor="let player of players">
@@ -62,46 +58,75 @@
                   data-bs-placement="top" title="Player's Point">
                   <img src="../../../../../../../assets/img/point.png" class="align-self-center me-1" width="15"
                     height="15" />
-                  <strong>{{ (player.votes_data) ? funcService.formatNumber(player.votes_data.points) : 0 }}</strong>
+                  <strong class="text-secondary">{{
+                    player.votes_data
+                    ? funcService.formatNumber(player.votes_data.points)
+                    : 0
+                    }}</strong>
                 </div>
               </div>
             </div>
-            <div class="player-box  text-white">
-
-              <div class="player-img" *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')"
-                [style.background-image]="(player.media) ? 'url(' + player.media.avatar + ')' : 'url(../../../../../../../assets/avatar/male.jpeg)'">
-              </div>
+            <div class="player-box text-white">
+              <div class="player-img" *ngIf="
+                  !player.stats ||
+                  (player.stats && player.stats.eviction === 'in-game')
+                " [style.background-image]="
+                  player.media
+                    ? 'url(' + player.media.avatar + ')'
+                    : 'url(../../../../../../../assets/avatar/male.jpeg)'
+                "></div>
               <div class="player-img" *ngIf="player.stats && player.stats.eviction === 'on-going'"
-                [style.background-image]="(player.media) ? 'linear-gradient(to
-                bottom, rgba(255, 193, 7, 0.4), rgba(255, 193, 7, 0.4)), url(' + player.media.avatar + ')' :
-                'url(../../../../../../../assets/avatar/male.jpeg)'">
-              </div>
+                [style.background-image]="
+                  player.media
+                    ? 'linear-gradient(to
+                bottom, rgba(255, 193, 7, 0.4), rgba(255, 193, 7, 0.4)), url(' +
+                      player.media.avatar +
+                      ')'
+                    : 'url(../../../../../../../assets/avatar/male.jpeg)'
+                "></div>
               <div class="player-img" *ngIf="player.stats && player.stats.eviction === 'evicted'"
-                [style.background-image]="(player.media) ? 'linear-gradient(to
-                bottom, rgba(220, 53, 69, 0.5), rgba(220, 53, 69, 0.5)), url(' + player.media.avatar + ')' :
-                'url(../../../../../../../assets/avatar/male.jpeg)'">
-              </div>
+                [style.background-image]="
+                  player.media
+                    ? 'linear-gradient(to
+                bottom, rgba(220, 53, 69, 0.5), rgba(220, 53, 69, 0.5)), url(' +
+                      player.media.avatar +
+                      ')'
+                    : 'url(../../../../../../../assets/avatar/male.jpeg)'
+                "></div>
 
               <div class="bg-dark p-3 text-white player-card">
                 <div class="eviction-status" *ngIf="player.stats && player.stats.eviction !== 'in-game'">
-                  <div class="px-2 py-1  text-white fw-bold rounded text-capitalize small"
-                    [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
+                  <div class="px-2 py-1 text-white fw-bold rounded text-capitalize small" [ngClass]="{
+                      'bg-danger': player.stats.eviction === 'evicted',
+                      'bg-success': player.stats.eviction === 'in-game',
+                      'bg-warning': player.stats.eviction === 'on-going'
+                    }">
                     Eviction Status: {{ player.stats.eviction }}
                   </div>
                 </div>
-                <div class="text-white fw-light" *ngIf="showTeam && player.team_data">{{ player.team_data.name }}</div>
-                <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}
+                <div class="text-white fw-light" *ngIf="showTeam && player.team_data">
+                  {{ player.team_data.name }}
+                </div>
+                <div class="fw-bolder text-capitalize h5 mb-0 text-white">
+                  {{ player.fname }}&nbsp;{{ player.lname }}
                 </div>
                 <div class="fw-bold text-white">{{ player.position_full }}</div>
-                <div class="fw-bold pb-2 text-white">Player ID: {{ (player.stats) ? player.stats.id : '000' }}</div>
+                <div class="fw-bold pb-2 text-white">
+                  Player ID: {{ player.stats ? player.stats.id : "000" }}
+                </div>
                 <div class="">
-                  <button class="btn btn-primary me-2 mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#playerModal">
+                  <button id="player-view-{{ player.snap_id }}" class="btn btn-primary me-2 mt-2"
+                    (click)="selectPlayer(player)" data-bs-toggle="modal" data-bs-target="#playerModal">
                     View Profile
                   </button>
-                  <button class="btn btn-success mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
-                    data-bs-target="#votingModal"
-                    *ngIf="!player.stats || (player.stats && player.stats.eviction === 'in-game')">
+                  <button id="player-vote-{{ player.snap_id }}" class="btn btn-success mt-2"
+                   (click)="selectPlayer(player)" data-bs-toggle="modal"
+                    data-bs-target="#votingModal" *ngIf="
+                      !player.stats ||
+                      (player.stats && player.stats.eviction === 'in-game')
+                    "
+                    disabled="{{canVote ? '' :'disabled'}}"
+                    >
                     Vote
                   </button>
                   <button class="btn btn-warning text-dark mt-2" (click)="selectPlayer(player)" data-bs-toggle="modal"
@@ -119,13 +144,11 @@
           <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
             <div class="text-center align-self-center">
               <div class="p-y mb-3">
-                <img style="width: 70px;" class="img-fluid" src="assets/img/gifs/loading-buffering.gif">
+                <img style="width: 70px" class="img-fluid" src="assets/img/gifs/loading-buffering.gif" />
               </div>
               <div class="mb-3">
                 <b class="h5 fw-bold">Loading Players..</b><br />
-                <div>
-                  Kindly wait while we load the player profiles...
-                </div>
+                <div>Kindly wait while we load the player profiles...</div>
               </div>
             </div>
           </div>
@@ -135,21 +158,17 @@
           <div class="col-md-4 mx-auto d-flex justify-content-center" [style.height]="'350px'">
             <div class="text-center align-self-center">
               <div class="p-y mb-3">
-                <img style="width: 250px;" class="img-fluid" src="assets/img/gifs/nothing-found.gif">
+                <img style="width: 250px" class="img-fluid" src="assets/img/gifs/nothing-found.gif" />
               </div>
               <div class="mb-3">
                 <b class="h5 fw-bold">No Players Found..</b><br />
-                <div>
-                  There where no players found yet...
-                </div>
+                <div>There where no players found yet...</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
 

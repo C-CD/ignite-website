@@ -1,6 +1,6 @@
 <div>
   <form id="form-app" enctype="multipart/form-data" role="form" autocomplete="on" novalidate="novalidate"
-    [formGroup]="formDataGroup" (ngSubmit)="register(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd">
+    [formGroup]="formDataGroup" (ngSubmit)="register(formDataGroup)" #fd="ngForm" [ngxFvControl]="fd">
     <fieldset class="row g-2">
 
       <!-- Heading -->
@@ -13,8 +13,7 @@
         <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.surname"
           labelName='Surname'>
           <label class="control-label" for="text_2">Surname</label>
-          <input formControlName="surname" #ngxFvFormControl type="text" id="text_2" name="text_2" class="form-control"
-            required="">
+          <input formControlName="surname" #ngxFvFormControl type="text" id="text_2" name="text_2" class="form-control" required="">
           <!-- display form errors -->
           <div class="text-danger pt-1">
             <ngx-fv-error></ngx-fv-error>
@@ -552,7 +551,7 @@
             <input formControlName="consent_terms" #ngxFvFormControl type="checkbox" name="checkbox_2[]"
               id="checkbox_2_0" value="I agree to the Terms and Conditions of Ignite Megastars" data-alias=""
               data-required="true"><label for="checkbox_2_0" class="checkbox-inline">&nbsp;&nbsp;
-              I agree to the <a href="https://ignitemegastars.com/ignite-soccer-stars-terms-and-condition"
+              I agree to the <a href="/players-terms-and-conditions"
                 target="_blank">Terms and Conditions</a> of Ignite Megastars </label>
           </div>
           <span id="checkbox_2"></span>
@@ -626,7 +625,7 @@
       <!-- Button -->
       <div class="col-xs-12">
         <div class="form-action">
-          <button type="submit" name="button_1" class="btn btn-primary" [disabled]="!formDataGroup.valid">
+          <button type="submit" name="button_1" class="btn btn-primary" >
             {{ (loadingService.load) ? 'Submitting' : 'Submit Registration'}}
           </button>
           <!-- <a class="btn btn-" (click)="test()">click</a> -->

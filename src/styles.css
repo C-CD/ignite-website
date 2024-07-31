@@ -18,7 +18,7 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   line-height: 25px;
-  color: #666;
+  /* color: #666; */
 }
 
 .text-muted {
@@ -249,7 +249,7 @@ button:active {
 }
 
 .nav-link {
-  font-family:sans-serif;
+  font-family: sans-serif;
   font-size: 16px;
 }
 
@@ -473,13 +473,14 @@ a.nav-active {
   height: 70px;
   width: 70px;
 }
+
 .carousel-controls a:hover {
   color: 004289;
   z-index: 5;
 }
 
 .slide-news {
-  background-color: rgb(235,235,236);
+  background-color: rgba(235, 235, 236, 0.45);
   position: absolute;
   top: 60%;
   left: 15%;
@@ -491,6 +492,7 @@ a.nav-active {
 
 .slide-news .news-content {
   padding: 15px;
+  color: rgba(0, 0, 0, 0.953) !important;
 }
 
 
@@ -556,7 +558,7 @@ a.nav-active {
   text-align: justify;
 }
 
-.home-about .h2{
+.home-about .h2 {
   font-weight: 900;
   font-size: calc(1.325rem + 0.9vw);
 }
@@ -733,7 +735,8 @@ a.nav-active {
 .home-blog-title {
   color: var(--blue) !important;
 }
-.home-blog-title:hover{
+
+.home-blog-title:hover {
   text-decoration: underline;
 }
 
@@ -794,7 +797,7 @@ a.nav-active {
   padding-top: 0px;
 }
 
-.blog-link:hover{
+.blog-link:hover {
   text-decoration: underline;
 }
 
@@ -1019,7 +1022,7 @@ a.nav-active {
     display: block;
   }
 
-  .header-spacer{
+  .header-spacer {
     height: 81px !important;
   }
 
@@ -1057,7 +1060,22 @@ a.nav-active {
   }
 
   .slide-news {
-    display: none;
+    /* display: none; */
+    top: 50%;
+    left: 0%;
+  }
+
+  .slide-news .news-content>h3 {
+    font-size: calc(0.8rem + 0.6vw) !important;
+  }
+
+  .slide-news .news-content>p {
+    font-size: 12px !important;
+  }
+
+  .slide-news .news-content>a.btn {
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.5rem;
   }
 
   .divider {
@@ -1231,7 +1249,7 @@ a.nav-active {
 }
 
 @media screen and (min-width: 550px) {
-  .full-width-dialog  {
+  .full-width-dialog {
     max-width: 500px !important;
   }
 }
@@ -1268,11 +1286,11 @@ body {
   color: #fff;
 }
 
-.b-rad-10{
+.b-rad-10 {
   border-radius: 10px;
 }
 
-.smaller-nav-container{
+.smaller-nav-container {
   display: flex;
   justify-content: space-between;
   list-style: none;

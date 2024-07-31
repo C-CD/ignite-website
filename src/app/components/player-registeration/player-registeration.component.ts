@@ -104,71 +104,110 @@ export class PlayerRegisterationComponent implements OnInit {
 
   register(formData: any) {
     // return console.log(formData);
-    this.formDataGroup.disable();
-    this.loadingService.quickLoader().then(() => {
-      this.uploadFiles(formData).then((formData) => {
-        // console.log(formData);
-        this.playerRegService.addPlayersRegistration({
-          surname: formData.surname,
-          first_name: formData.first_name,
-          middle_name: '',
-          dob: formData.dob,
-          gender: formData.gender,
-          state_of_origin: formData.state_of_origin,
-          home_address: formData.home_address,
-          state: formData.state,
-          lga: formData.lga,
-          city: formData.city,
-          edu_level: formData.edu_level,
-          school_name: formData.school_name,
-          school_cert_file: formData.school_cert_file,
-          school_address: formData.school_address,
-          sport_interested: formData.sport_interested,
-          sport_position: formData.sport_position,
-          health_challenge: formData.health_challenge,
-          health_challenge_desc: formData.health_challenge_desc,
-          current_play: formData.current_play,
-          current_team: formData.current_team,
-          guardian_surname: formData.guardian_surname,
-          guardian_fname: formData.guardian_fname,
-          guardian_relationship: formData.guardian_relationship,
-          guardian_address: formData.guardian_address,
-          guardian_email: formData.guardian_email,
-          guardian_phone: formData.guardian_phone,
-          identification_type: formData.identification_type,
-          identification_number: formData.identification_number,
-          identification_file: formData.identification_file,
-          consent_terms: formData.consent_terms,
-          consent_guardian: formData.consent_guardian,
-          consent_ccd: formData.consent_ccd,
-          year: formData.year,
-          updated: moment().format(),
-          created: moment().format()
-        }).then(() => {
-          this.toaster.quickToast({ msg: "Player Registration Successful", cat: "success" });
-          const directData = {
-            title: "Registration Successful",
-            body: "Thanks your registration form has been submitted successfully, you will be contacted with instructions on the next steps.",
-            success: true
-          };
-          this.openModal(directData);
-          this.funcService.resetReactiveForm(this.formDataGroup);
-        }).catch(() => {
-          // this.toaster.quickToast({ msg: "Error registering player", cat: "danger" });
-          const directData = {
-            title: "Registration Failed",
-            body: "Error registering your information kindly try again.",
-            success: false
-          };
-          this.openModal(directData);
-        }).finally(() => {
-          this.formDataGroup.enable();
-          this.loadingService.clearLoader();
-        })
-      }).catch((error) => {
-        console.log(error);
-        this.toaster.quickToast({ msg: "Player Registration Failed", cat: "danger" });
+    if(formData.valid){
+      // show specific unfilled field
+        console.log(formData);
+      this.formDataGroup.disable();
+      this.loadingService.quickLoader().then(() => {
+        this.uploadFiles(formData).then((formData) => {
+          console.log(formData);
+          this.playerRegService.addPlayersRegistration({
+            surname: formData.value.surname,
+            first_name: formData.value.first_name,
+            middle_name: '',
+            dob: formData.value.dob,
+            gender: formData.value.gender,
+            state_of_origin: formData.value.state_of_origin,
+            home_address: formData.value.home_address,
+            state: formData.value.state,
+            lga: formData.value.lga,
+            city: formData.value.city,
+            edu_level: formData.value.edu_level,
+            school_name: formData.value.school_name,
+            school_cert_file: formData.value.school_cert_file,
+            school_address: formData.value.school_address,
+            sport_interested: formData.value.sport_interested,
+            sport_position: formData.value.sport_position,
+            health_challenge: formData.value.health_challenge,
+            health_challenge_desc: formData.value.health_challenge_desc,
+            current_play: formData.value.current_play,
+            current_team: formData.value.current_team,
+            guardian_surname: formData.value.guardian_surname,
+            guardian_fname: formData.value.guardian_fname,
+            guardian_relationship: formData.value.guardian_relationship,
+            guardian_address: formData.value.guardian_address,
+            guardian_email: formData.value.guardian_email,
+            guardian_phone: formData.value.guardian_phone,
+            identification_type: formData.value.identification_type,
+            identification_number: formData.value.identification_number,
+            identification_file: formData.value.identification_file,
+            consent_terms: formData.value.consent_terms,
+            consent_guardian: formData.value.consent_guardian,
+            consent_ccd: formData.value.consent_ccd,
+            year: formData.value.year,
+            updated: moment().format(),
+            created: moment().format()
+          }).then(() => {
+            this.toaster.quickToast({ msg: "Player Registration Successful", cat: "success" });
+            const directData = {
+              title: "Registration Successful",
+              body: "Thanks your registration form has been submitted successfully, you will be contacted with instructions on the next steps.",
+              success: true
+            };
+            this.openModal(directData);
+            this.funcService.resetReactiveForm(this.formDataGroup);
+          }).catch(() => {
+            // this.toaster.quickToast({ msg: "Error registering player", cat: "danger" });
+            const directData = {
+              title: "Registration Failed",
+              body: "Error registering your information kindly try again.",
+              success: false
+            };
+            this.openModal(directData);
+          }).finally(() => {
+            this.formDataGroup.enable();
+            this.loadingService.clearLoader();
+          })
+        }).catch((error) => {
+          console.log(error);
+          this.toaster.quickToast({ msg: "Player Registration Failed", cat: "danger" });
+        });
       });
+
+    }else{
+      // return;
+      // debugger
+      // console.log("here")
+      //   console.log(formData);
+        // show specific unfilled fields
+        // 
+        this.toaster.quickToast({ msg: "Please fill all required fields", cat: "danger" });
+        this.markFormGroupTouched(this.formDataGroup);
+        // Object.keys(formData.controls).forEach(field => {
+        //   const control = formData.get(field);
+        //   if (control instanceof FormControl) {
+        //     control.markAsTouched({ onlySelf: true });
+        //     // display error for specific fields on submit
+        //     // console.log(control.errors);
+
+        //   }else{
+        //     this.toaster.quickToast({ msg: "Error registering player", cat: "danger" });
+
+        //   }
+        // })
+
+       
+    }
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+      
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+     
+      }
     });
   }
 
@@ -178,12 +217,12 @@ export class PlayerRegisterationComponent implements OnInit {
 
   async uploadFiles(formData: any) {
     try {
-      if (formData.identification_file.length && this.uploads && this.uploads.identification) {
+      if (formData.identification_file?.length && this.uploads && this.uploads.identification) {
         const identification_file: any = await this.uploadService.startFileUpload(this.uploads.identification, 'playerIdentificationImage', 0, 'file');
         if (identification_file) formData.identification_file = identification_file.filepath;
       }
 
-      if (formData.school_cert_file.length && this.uploads && this.uploads.cert) {
+      if (formData.school_cert_file?.length && this.uploads && this.uploads.cert) {
         const school_cert_file: any = await this.uploadService.startFileUpload(this.uploads.cert, 'schoolCertificateImage', 0, 'file');
         if (school_cert_file) formData.school_cert_file = school_cert_file.filepath;
       }

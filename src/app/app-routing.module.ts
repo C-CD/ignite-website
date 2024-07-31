@@ -31,6 +31,7 @@ import { PostFirstOfItsKindComponent } from './pages/blog/post-first-of-its-kind
 import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.component';
 import { CoachesVotingComponent } from './pages/coache/coaches-voting/coaches-voting.component';
 import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-evictions.component';
+import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,33 +39,63 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'whats-hot', component: BlogComponent },
-  { path: 'coaches-terms-and-conditions', component: CoachesTermsAndConditionsComponent },
+  {
+    path: 'coaches-terms-and-conditions',
+    component: CoachesTermsAndConditionsComponent,
+  },
   { path: 'gallery', component: GalleryComponent },
   { path: 'footer', component: FooterComponent },
-  { path: 'players-terms-and-conditions', component: PlayersTermsAndConditionsComponent },
+  {
+    path: 'players-terms-and-conditions',
+    component: PlayersTermsAndConditionsComponent,
+  },
+  {
+    path: 'terms-of-use',
+    component : TermsOfUseComponent
+  },
   { path: 'competition/female', component: FemaleCompetitionAbout },
   { path: 'competition/female/fixtures', component: FemaleCompetitionFixtures },
-  { path: 'competition/female/highlights', component: FemaleCompetitionHighlights },
+  {
+    path: 'competition/female/highlights',
+    component: FemaleCompetitionHighlights,
+  },
   { path: 'competition/female/players', component: FemaleCompetitionPlayers },
   { path: 'competition/female/register', component: FemaleCompetitionRegister },
   { path: 'competition/male', component: MaleCompetitionAbout },
   { path: 'competition/male/fixtures', component: MaleCompetitionFixtures },
   { path: 'competition/male/highlights', component: MaleCompetitionHighlights },
   { path: 'competition/male/players', component: MaleCompetitionPlayers },
+  { path: 'competition/male/:team/players', component: MaleCompetitionPlayers },
+  {
+    path: 'competition/male/:team/players/:player',
+    component: MaleCompetitionPlayers,
+  },
   { path: 'competition/male/register', component: MaleCompetitionRegister },
   { path: 'competition/male/evictions', component: MaleEvictionsComponent },
-  { path: 'blog/post/lagos-endorse', component: PostLagosEndorseIgniteComponent },
-  { path: 'blog/post/govornor-visits', component: PostGovernorVisitsVeniaBusinessHubComponent },
-  { path: 'blog/post/ignite-team', component: PostIgniteTeamVisitsRadianceFootballClubComponent },
-  { path: 'blog/post/first-of-its-kind', component: PostFirstOfItsKindComponent },
+  {
+    path: 'blog/post/lagos-endorse',
+    component: PostLagosEndorseIgniteComponent,
+  },
+  {
+    path: 'blog/post/govornor-visits',
+    component: PostGovernorVisitsVeniaBusinessHubComponent,
+  },
+  {
+    path: 'blog/post/ignite-team',
+    component: PostIgniteTeamVisitsRadianceFootballClubComponent,
+  },
+  {
+    path: 'blog/post/first-of-its-kind',
+    component: PostFirstOfItsKindComponent,
+  },
   { path: 'blog/post/post-next-top', component: PostNextTopComponent },
-  { path: 'coaches/voting', component: CoachesVotingComponent},
+  { path: 'coaches/voting', component: CoachesVotingComponent },
   { path: 'coaches/profiles', component: CoachesAllComponent },
   { path: 'coaches/register', component: CoachAgentApplicationComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
