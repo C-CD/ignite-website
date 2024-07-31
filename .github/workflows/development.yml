@@ -1,4 +1,4 @@
-name: 🚀 Deploy updates to server
+name: 🚀 Deploy updates to development
 on:
   push:
     branches:
