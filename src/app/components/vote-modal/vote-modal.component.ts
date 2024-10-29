@@ -41,7 +41,7 @@ export class VoteModalComponent implements OnInit {
   formDataGroup!: FormGroup;
   voteConfig: VoteConfig = {
     points: 2,
-    amount: 50
+    amount: 100
   };
   error: string | boolean = false;
   success: boolean = false;
@@ -88,7 +88,7 @@ export class VoteModalComponent implements OnInit {
       this.formDataGroup.controls.votes.setValue(1);
       this.voteConfig = {
         points: 2,
-        amount: 50
+        amount: 100
       }
     } else {
       this.formDataGroup.controls.votes.enable();
@@ -97,7 +97,7 @@ export class VoteModalComponent implements OnInit {
 
   setVoteConfig(formData: any) {
     this.voteConfig.points = formData.votes * 2;
-    this.voteConfig.amount = formData.votes * 50;
+    this.voteConfig.amount = formData.votes * 100;
   }
 
   validateFormData() {
@@ -176,7 +176,7 @@ export class VoteModalComponent implements OnInit {
     this.loading = true;
     this.setVoteConfig(formData);
     const voteData = {
-      amount: 50 * formData.votes,
+      amount: 100 * formData.votes,
       reference: `free-voting-${this.category}-${this.player.snap_id}`
     };
     this.votingService.addVote({
@@ -207,7 +207,7 @@ export class VoteModalComponent implements OnInit {
   initPurchaseVote(formData: any, ref: string) {
     let playerName = (this.player.fname + this.player.lname).toLowerCase()
     const voteData = {
-      amount: 50 * formData.votes,
+      amount: 100 * formData.votes,
       reference: `${this.category}-voting-${ref}-${playerName}`
     };
     console.log(playerName, "player Name")
@@ -223,6 +223,7 @@ export class VoteModalComponent implements OnInit {
       if ((['successful', 'completed', 'pending']).includes(transaction.status)) {
         this.fwSuccess = transaction;
         this.fwService.verifyTransaction(transaction).then((response: any) => {
+          console.log(response);
           if (response.data && response.data.status === 'successful') {
             this.votingService.addVote({
               quantity: formData.votes,
@@ -326,7 +327,7 @@ export class VoteModalComponent implements OnInit {
     this.formDataGroup.controls.coach_id.setValue(null);
     this.voteConfig = {
       points: 2,
-      amount: 50
+      amount: 100
     }
   }
 

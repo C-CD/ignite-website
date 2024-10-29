@@ -137,7 +137,7 @@ export class PlayersComponent implements OnInit {
     this.selected_player = player;
   }
 
-  fetchPlayers() {
+  async fetchPlayers() {
     return new Promise((resolve, reject) => {
       this.showTeam = true;
       this.loadingService.quickLoader().then(() => {
@@ -174,7 +174,7 @@ export class PlayersComponent implements OnInit {
         .where('team', '==', team.snap_id)
         .get()
         .then((snapshots: any) => {
-          // console.log(snapshots);
+          //console.log(snapshots);
 
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
           if (snapshots_data) {
@@ -393,7 +393,7 @@ export class PlayersComponent implements OnInit {
   searchPlayer() {
     console.log(this.searchInput);
     this.players = [];
-    this.fetchPlayers()
+    let players = this.fetchPlayers()
       .then((players: any) => {
         console.log(players, players.length);
         players.forEach((player: any) => {
@@ -419,4 +419,72 @@ export class PlayersComponent implements OnInit {
         this.players = error;
       });
   }
+
+  getSearchResults(){
+    console.log(this.searchInput);
+    this.players = [];
+
+    this.loadingService.quickLoader().then(() => {
+      this.playerService
+        .collection()
+        .get()
+        .then((snapshots: any) => {
+          let snapshots_data = this.funcService.handleSnapshot(snapshots);
+          if (snapshots_data) {
+            let playersOrdered = this.orderPlayers(snapshots_data);
+            this.organizeSearchPlayerData(playersOrdered);
+          } else {
+            this.players = snapshots_data;
+          }
+          // console.log(this.players);
+          this.loadingService.clearLoader();
+        });
+    });
+  }
+
+  organizeSearchPlayerData(players: any, parse = false) {
+    let storePlayers: any = [];
+    players.forEach((player: any) => {
+      // team info
+      this.fetchTeam(player.team).then((team_data) => {
+        player.team_data = team_data;
+        // media
+        this.fetchMedia(player.snap_id).then((media) => {
+          player.media = media;
+          // format date
+          this.fetchVoteDetails(player.snap_id).then((votes) => {
+            player.votes_data = votes;
+            this.statsService
+              .getPlayerStats(player.snap_id)
+              .pipe(take(1))
+              .subscribe((stats: any) => {
+                player.stats = stats;
+                console.log(player.stats);
+                player.date = moment(player.created).calendar();
+                player.position_full = this.teamInfoPosition(player.position);
+                let checks = {
+                  team: player.team_data.name
+                    .toLowerCase()
+                    .includes(this.searchInput),
+                  name:
+                    player.fname.toLowerCase().includes(this.searchInput) ||
+                    player.lname.toLowerCase().includes(this.searchInput),
+                };
+                console.log(checks);
+                if (checks.team || checks.name) {
+                  storePlayers.push(player);
+                }
+              });
+          });
+        });
+      });
+    });
+
+    if (!parse) {
+      this.players = storePlayers;
+    }
+
+    return storePlayers;
+  }
 }
+

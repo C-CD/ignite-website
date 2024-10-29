@@ -21,7 +21,7 @@
                   }" aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
               </li>
             </ul>
-            <form class="d-flex" (ngSubmit)="searchPlayer()">
+            <form class="d-flex" (ngSubmit)="getSearchResults()">
               <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput"
                 placeholder="Search" aria-label="Search" />
               <button class="btn btn-outline-danger" type="submit">
