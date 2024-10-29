@@ -1,9 +1,35 @@
 .slide-direction-icons{
     font-size: 6rem !important;
-    color: #fff;
+    color: #706d6d;
+}
+
+.carousel-indicators>div{
+  background-color: #706d6d;
+}
+/*
+.carousel{
+  min-height: 400px
+} */
+
+.news-content .carousel-inner{
+  min-height: 100%;
+  /* padding: 20px */
+}
+
+.carousel-item {
+    min-height: 300px;
 }
 
 .carousel-item img {
   object-fit: cover;
-  min-height: 280px;
+  min-height: 100%;
+}
+
+h3.text-uppercase{
+  margin-bottom: 5px;
+}
+
+.slide-news{
+  /* margin-bottom: -10px; */
+  padding-bottom: 30px;
 }
