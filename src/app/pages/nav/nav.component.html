@@ -80,7 +80,7 @@
         <a class="nav-link dropdown-toggle" href="#" role="button" id="smCompetitionNav" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">Competition</a>
         <ul class="dropdown-menu main-nav-dropdown" aria-labelledby="smCompetitionNav">
-          <li class="dropdown-submenu dropdown">
+          <li class="dropdown-submenu dropdown" onclick="closeNav()">
             <a class="dropdown-item" data-bs-toggle="dropdown" class="nav-link" routerLink="/competition/male">Ignite
               Soccer Stars (Male)</a>
             <ul class="dropdown-menu main-nav-dropdown d-none">
@@ -105,10 +105,10 @@
         <a class="nav-link dropdown-toggle" href="#" role="button" id="smCoachNav" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">Coaches</a>
         <ul class="dropdown-menu" aria-labelledby="smCoachNav" bs-target="smCoachNav">
-          <li class="">
+          <li class="" onclick="closeNav()">
             <a class="dropdown-menu" routerLink="coaches/register">Apply</a>
           </li>
-          <li class=""><a class="dropdown-menu" routerLink="/coaches/profiles">Coaches Profile</a></li>
+          <li class="" onclick="closeNav()"><a class="dropdown-menu" routerLink="/coaches/profiles" >Coaches Profile</a></li>
 
         </ul>
       </li>
