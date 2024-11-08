@@ -1,5 +1,6 @@
 #mobileNav{
   z-index: 150;
+  overflow: scroll;
 }
 .hamburger{
   padding: 0px 5px 5px 5px;
