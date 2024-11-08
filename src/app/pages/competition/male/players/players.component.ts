@@ -465,10 +465,12 @@ export class PlayersComponent implements OnInit {
                 let checks = {
                   team: player.team_data.name
                     .toLowerCase()
-                    .includes(this.searchInput),
+                    .includes(this.searchInput.toLowerCase()),
                   name:
-                    player.fname.toLowerCase().includes(this.searchInput) ||
-                    player.lname.toLowerCase().includes(this.searchInput),
+                    player.fname.toLowerCase().includes(this.searchInput.toLowerCase()) ||
+                    player.lname.toLowerCase().includes(this.searchInput.toLowerCase()) ||
+                    this.searchInput.toLowerCase().includes(player.fname.toLowerCase()) ||
+                    this.searchInput.toLowerCase().includes(player.fname.toLowerCase()),
                 };
                 console.log(checks);
                 if (checks.team || checks.name) {

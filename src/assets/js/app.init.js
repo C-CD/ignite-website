@@ -3,7 +3,7 @@ var initFwCheckout = function (usr, data, meta = null) {
 
     return new Promise( function (resolve, reject) {
       const fwModal = FlutterwaveCheckout({
-          // public_key: 'FLWPUBK_TEST-4f3ea2e6ca5f9ec98fa29686de92786e-X',
+          //public_key: 'FLWPUBK_TEST-4f3ea2e6ca5f9ec98fa29686de92786e-X',
           public_key: 'FLWPUBK-44473b3533fa0550acd7ae72861b74f2-X',
           tx_ref: data.reference,
           amount: data.amount,
@@ -12,7 +12,7 @@ var initFwCheckout = function (usr, data, meta = null) {
           // meta: meta,
           customer: {
               email: usr.email,
-              phonenumber: usr.phone,
+              phone_number: usr.phone,
               name: 'Ignite Player Voting'
           },
           callback: function(data) {

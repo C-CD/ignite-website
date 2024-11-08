@@ -95,7 +95,7 @@
                       <div class="row g-3 text-center pt-4 pb-3">
                         <div class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.games }}
+                            {{ player.stats.games ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Games Played</small>
@@ -124,7 +124,7 @@
                           *ngIf="player.position.toLowerCase() !== 'gk'"
                         >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.goals }}
+                            {{ player.stats.goals ?? 0  }}
                           </div>
                           <div>
                             <small class="text-light">Goals Scored</small>
@@ -135,7 +135,7 @@
                           *ngIf="player.position.toLowerCase() !== 'gk'"
                         >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.assists }}
+                            {{ player.stats.assists ?? 0  }}
                           </div>
                           <div>
                             <small class="text-light">Goals Assist</small>
@@ -146,7 +146,7 @@
                           *ngIf="player.position.toLowerCase() === 'gk'"
                         >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.saves }}
+                            {{ player.stats.saves ?? 0  }}
                           </div>
                           <div>
                             <small class="text-light">Goals Saved</small>
@@ -157,7 +157,7 @@
                           *ngIf="player.position.toLowerCase() === 'fw'"
                         >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.shots }}
+                            {{ player.stats.shots ?? 0  }}
                           </div>
                           <div>
                             <small class="text-light">Shots on Target</small>
@@ -168,7 +168,7 @@
                           *ngIf="player.position.toLowerCase() === 'gk'"
                         >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.conceded }}
+                            {{ player.stats.conceded ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Goals Conceded</small>
@@ -179,7 +179,7 @@
                         *ngIf="player.position.toLowerCase() === 'gk'"
                       >
                         <div class="display-5 text-light fw-bold">
-                          {{ player.stats.shots_against }}
+                          {{ player.stats.shots_against ?? 0 }}
                         </div>
                         <div>
                           <small class="text-light">Shots Against</small>
@@ -187,7 +187,7 @@
                       </div>
                         <div class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.yellow_card }}
+                            {{ player.stats.yellow_card ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Yellow Cards</small>
@@ -195,7 +195,7 @@
                         </div>
                         <div class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.red_card }}
+                            {{ player.stats.red_card ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Red Cards</small>
@@ -204,7 +204,7 @@
                         <div  *ngIf="
                         player.position.toLowerCase() === 'df'" class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.tackles }}
+                            {{ player.stats.tackles ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Tackles</small>
@@ -212,7 +212,7 @@
                         </div>
                         <div class="col-sm-4"  >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.area_duel }}
+                            {{ player.stats.area_duel ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Aerial duel</small>
@@ -221,7 +221,7 @@
                         <div class="col-sm-4"  *ngIf="
                         player.position.toLowerCase() === 'mf'" >
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.passes }}
+                            {{ player.stats.passes ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Passes</small>
@@ -237,7 +237,7 @@
                         </div> -->
                         <div class="col-sm-4"  *ngIf="player.position.toLowerCase() === 'fw'">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.shots_off_target }}
+                            {{ player.stats.shots_off_target ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Shots(Off Target)</small>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="col-sm-4"  *ngIf="player.position === 'DF'">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.blocked_shots }}
+                            {{ player.stats.blocked_shots ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Blocked Shots</small>
@@ -253,7 +253,7 @@
                         </div>
                         <div class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.motm }}
+                            {{ player.stats.motm ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">MOTM</small>
@@ -262,7 +262,7 @@
                         <div  *ngIf="
                         player.position.toLowerCase() === 'df'" class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.clearance }}
+                            {{ player.stats.clearance ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Clearance</small>
@@ -271,7 +271,7 @@
                         <div  *ngIf="
                         player.position.toLowerCase() === 'df'" class="col-sm-4">
                           <div class="display-5 text-light fw-bold">
-                            {{ player.stats.interception }}
+                            {{ player.stats.interception ?? 0 }}
                           </div>
                           <div>
                             <small class="text-light">Interception</small>
