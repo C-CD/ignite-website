@@ -16,7 +16,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 25px;
   /* color: #666; */
 }
@@ -46,7 +46,7 @@ h5 {
 }
 
 li {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 ol,
