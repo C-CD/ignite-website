@@ -10,7 +10,7 @@ import { CAN_VOTE } from 'src/environments/environment';
 })
 export class PlayerModalComponent implements OnInit {
   @Input() player: any;
-  canVote = CAN_VOTE;
+  @Input() canVote: boolean = false;
   location = window.location;
 
   constructor(

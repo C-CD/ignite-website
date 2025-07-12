@@ -40,7 +40,7 @@ export class HighlightsComponent implements OnInit {
         .getHighlights()
         .then((snapshots: any) => {
           let snapshots_data = this.funcService.handleSnapshot(snapshots);
-          this.highlights = this.organizeData(snapshots_data).sort().reverse();
+          this.highlights = this.organizeData(snapshots_data);
           // console.log(this.highlights)
         })
         .catch(() => {
@@ -70,6 +70,10 @@ export class HighlightsComponent implements OnInit {
       highlight.truncated_title = _.truncate(highlight.highlight_title, {
         length: 80,
       });
+
+      // Store created date as actual Date object for sorting
+      highlight.created_date = moment(highlight.created).toDate();
+
       highlight.date = moment(highlight.created).calendar();
       highlight.highlight_date_fmt = moment(highlight.highlight_date).format(
         'Do MMM YYYY'
@@ -77,6 +81,9 @@ export class HighlightsComponent implements OnInit {
 
       return highlight;
     });
+
+    // Sort highlights: latest created first
+    data.sort((a, b) => b.created_date.getTime() - a.created_date.getTime());
 
     return data;
   }

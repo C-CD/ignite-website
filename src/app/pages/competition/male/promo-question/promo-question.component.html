@@ -1,0 +1,110 @@
+<div class="page-header">
+  <img src="../assets/img/contact-header.png" alt="Contact us header" class="img-fluid">
+</div>
+
+
+<div class="container">
+  <div class="page-title">
+    <h3>Promo Question</h3>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-12 mt-5">
+      <form [formGroup]="formDataGroup" (ngSubmit)="submitAnswer(formDataGroup.value)" #fd="ngForm" [ngxFvControl]="fd">
+        <fieldset class="row g-3">
+
+          <!-- Email -->
+          <div class="col-xs-12">
+            <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.email"
+              labelName='Email Address'>
+              <div class="form-group required-control">
+                <label class="control-label" for="email_1">Email Address</label>
+                <input type="email" formControlName="email" name="email" class="form-control" required="">
+              </div>
+              <div class="text-danger pt-1">
+                <ngx-fv-error></ngx-fv-error>
+              </div>
+            </ngx-fv-validate>
+          </div>
+
+          <!-- Text -->
+          <div class="col-xs-6">
+            <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.firstName"
+              labelName='First Name'>
+              <div class="form-group required-control">
+                <label class="control-label" for="text_2">First Name</label>
+                <input type="text" formControlName="firstName" name="firstName" value="" data-alias=""
+                  class="form-control">
+              </div>
+              <div class="text-danger pt-1">
+                <ngx-fv-error></ngx-fv-error>
+              </div>
+            </ngx-fv-validate>
+          </div>
+
+          <!-- Text -->
+          <div class="col-xs-6">
+            <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.lastName"
+              labelName='Last Name'>
+              <div class="form-group required-control">
+                <label class="control-label" for="text_1">Last Name</label>
+                <input type="text" formControlName="lastName" name="lastName" class="form-control" required="">
+              </div>
+              <div class="text-danger pt-1">
+                <ngx-fv-error></ngx-fv-error>
+              </div>
+            </ngx-fv-validate>
+          </div>
+          
+          <!-- Text -->
+          <div class="col-xs-12">
+            <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.phone"
+              labelName='Phone Number'>
+              <div class="form-group">
+                <label class="control-label" for="text_3">Phone Number</label>
+                <input type="text" formControlName="phone" name="phone" class="form-control">
+              </div>
+              <div class="text-danger pt-1">
+                <ngx-fv-error></ngx-fv-error>
+              </div>
+            </ngx-fv-validate>
+          </div>
+                    
+          <!-- Categories dropdown -->
+          <div class="col-xs-12">
+            <ngx-fv-validate class="form-group col-12" [control]="formDataGroup.controls.content"
+              labelName='Content'>
+              <div class="form-group required-control">
+                <label class="control-label" for="select_1">
+                    In the game between Ignite Soccer Stars and FC Bethel Sporting-U17, how many goals were scored? Link: <a href="https://www.youtube.com/watch?v=cZRDEuOoNCY&t=171s" target="_blank">https://www.youtube.com/watch?v=cZRDEuOoNCY&t=171s</a> 
+                </label>
+                <select id="select_1" formControlName="content" name="content" class="form-control" required="">
+                  <option value=-1 disabled>Select An Answer</option>
+                  <option value=5>5</option>
+                  <option value=3>3</option>
+                  <option value=2>2</option>
+                  <option value=0>0</option>
+                </select>
+              </div>
+              <div class="text-danger pt-1">
+                <ngx-fv-error></ngx-fv-error>
+              </div>
+            </ngx-fv-validate>
+          </div>
+
+          <!-- Button -->
+          <div class="col-xs-12">
+            <div class="form-action">
+              <button type="submit" id="button_1" name="button_1" class="btn btn-primary"
+                [disabled]="!formDataGroup.valid">Submit</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="col-lg-6 align-self-center d-none d-lg-block">
+      <img src="../assets/img/contact.jpg" alt="Contact Image" class="w-100">
+    </div>
+  </div>
+</div>

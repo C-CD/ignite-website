@@ -32,6 +32,7 @@ export interface PlayersRegistration {
   identification_type: string;
   identification_number: string;
   identification_file: string;
+  showcase_video: string;
   consent_terms: boolean|0|1;
   consent_guardian: boolean | 0 | 1;
   consent_ccd: boolean | 0 | 1;

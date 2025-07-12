@@ -495,6 +495,8 @@
           <select formControlName="identification_type" #ngxFvFormControl id="selectlist_5" name="selectlist_5[]"
             data-alias="" class="form-control  form-select" required="">
             <option value="Birth Certificate" selected="">Birth Certificate</option>
+            <option value="International Passport" selected="">International Passport</option>
+            <option value="National Identification Card" selected="">National Identification Card</option>
           </select>
           <!-- display form errors -->
           <div class="text-danger pt-1">
@@ -507,7 +509,7 @@
       <div class="col-xs-12 col-sm-4">
         <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.identification_number"
           labelName='Certificate Number'>
-          <label class="control-label" for="text_4">Certificate Number</label>
+          <label class="control-label" for="text_4">Identification Number</label>
           <input formControlName="identification_number" #ngxFvFormControl type="text" id="text_4" name="text_4"
             class="form-control" required="" data-unique="true">
           <!-- display form errors -->
@@ -532,6 +534,30 @@
         </ngx-fv-validate>
       </div>
 
+      <!-- Spacer -->
+      <div class="col-xs-12">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!-- Heading -->
+      <div class="col-xs-12">
+        <h4 class="legend">Showcase Video</h4>
+      </div>
+
+      <!-- File -->
+      <div class="col-xs-12">
+        <ngx-fv-validate class="form-group required-control" [control]="formDataGroup.controls.showcase_video"
+          labelName='Upload showcase video'>
+          <label class="control-label" for="file_5">Upload 1 minute video showcasing your skills (supported format are: mp4, avi, mov, webm, mkv) </label>
+          <br>
+          <input formControlName="showcase_video" #ngxFvFormControl type="file" accept=".mp4, .avi, .webm, .mkv, .mov"
+            data-max-size="50000000" (change)="setFile($event, 'showcase')">
+          <!-- display form errors -->
+          <div class="text-danger pt-1">
+            <ngx-fv-error></ngx-fv-error>
+          </div>
+        </ngx-fv-validate>
+      </div>
 
       <!-- Spacer -->
       <div class="col-xs-12">

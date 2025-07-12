@@ -1,0 +1,18 @@
+<div class="random-players-container">
+  <div class="players-slider">
+    <div
+      class="player-card"
+      *ngFor="let player of randomPlayers"
+      [style.background-image]="
+        player.media
+          ? 'url(' + player.media.avatar + ')'
+          : 'url(assets/avatar/male.jpeg)'
+      "
+    >
+      <div class="player-info">
+        <h3 class="player-name">{{ player.fname }} {{ player.lname }}</h3>
+        <p class="player-position">{{ player.position_full }}</p>
+      </div>
+    </div>
+  </div>
+</div>

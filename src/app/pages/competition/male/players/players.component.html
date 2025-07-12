@@ -14,19 +14,41 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 teams-item">
               <li class="nav-item touch b-rad-10" *ngFor="let team of teams">
                 <a class="nav-link fw-bold" *ngIf="team.snap_id ?? null" [ngClass]="{
                     active: selectedTeam?.snap_id === (team?.snap_id ?? '')
                   }" aria-current="page" (click)="fetchPlayersByTeam(team)">Team {{ team.name }}</a>
               </li>
-            </ul>
-            <form class="d-flex" (ngSubmit)="getSearchResults()">
+            </ul>   
+            -->
+            <select class="form-select w-25" [(ngModel)]="selectedTeam" (change)="onTeamChange($event)">
+              <option value="" disabled>Select a team</option>
+              <option *ngFor="let team of filteredTeams" [value]="team.snap_id" [selected]="selectedTeam?.snap_id === team.snap_id">
+                Team {{ team.name }}
+              </option>
+            </select>
+
+            <!-- Select Round -->
+            <select class="form-select w-25" [(ngModel)]="selectedRound" (change)="onRoundChange($event)">
+              <option value=0 disabled>Select a round</option>
+              <option *ngFor="let round of uniqueRounds" [value]="round">Round {{ round }}</option>
+            </select>
+
+
+
+            <form class="floated d-flex" (ngSubmit)="getSearchResults()">
               <input class="form-control me-2" name="search" type="search" [(ngModel)]="searchInput"
                 placeholder="Search" aria-label="Search" />
               <button class="btn btn-outline-danger" type="submit">
                 Search
               </button>
+              <!--
+              <select class="form-control me-2" name="season" [(ngModel)]="selectedSeason" (change)="onSeasonChange($event)">
+                <option value="1">Season 1</option>
+                <option value="2">Season 2</option>
+              </select>-->
             </form>
           </div>
         </div>
@@ -172,6 +194,12 @@
   </div>
 </div>
 
-<app-player-modal [player]="selected_player"></app-player-modal>
+<app-player-modal [player]="selected_player" [canVote]="canVote"></app-player-modal>
 <app-vote-modal [player]="selected_player" category="players" [onSuccess]="theBoundCallback">
 </app-vote-modal>
+
+<!-- Select Season -->
+<select class="form-select w-25 seasonSel" [(ngModel)]="selectedSeason" (change)="onSeasonChange($event)">
+  <option value=0 disabled>Select a season</option>
+  <option *ngFor="let season of uniqueSeasons" [value]="season">Season {{ season }}</option>
+</select>

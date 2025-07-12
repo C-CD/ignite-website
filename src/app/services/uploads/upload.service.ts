@@ -112,6 +112,10 @@ export class UploadService {
       //   return;
       // }
       // console.log(file);
+      console.log('Uploading file:', file);
+      console.log('File type:', file.type);
+      console.log('File name:', file.name);
+
       this.imgName = file.name;
       const time = new Date().getTime();
       const ext = file.name.split('.').pop();
@@ -121,14 +125,14 @@ export class UploadService {
       const imageRef = this.afStorage.ref(fileStoragePath);
       // File upload task
       this.fileUploadTask = this.afStorage.upload(fileStoragePath, file);
-      // console.log(this.fileUploadTask);
+      console.log(this.fileUploadTask);
 
       this.fileUploadTask.then((data) => {
         this.uploadedImageURL = imageRef.getDownloadURL();
-        // console.log(this.uploadedImageURL);
+        console.log(this.uploadedImageURL);
         this.uploadedImageURL.pipe(take(1)).subscribe(
           (resp) => {
-            // console.log(resp);
+            console.log('Resp:', resp);
             resolve({
               name: file.name,
               filepath: resp,

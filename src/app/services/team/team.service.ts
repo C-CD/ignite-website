@@ -12,6 +12,8 @@ export interface Teams {
   year: string;
   updated: string;
   created: string;
+  round: number;
+  season: number;
 }
 
 @Injectable({

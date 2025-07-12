@@ -45,3 +45,21 @@ img{
   color: #fff !important;
 }
 
+.sponsor-showcase {
+  background-color: #f8f9fa;
+}
+
+.sponsor-showcase img {
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+
+.sponsor-logo img:hover {
+  transform: scale(1.05);
+}
+
+

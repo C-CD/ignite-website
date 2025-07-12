@@ -16,7 +16,7 @@ export class LoadingService {
     return new Observable((observer) => {
       setInterval(() => {
         observer.next(this.load);
-      }, 1000);
+      }, 500);
     })
   }
 

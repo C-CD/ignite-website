@@ -26,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule} from 'src/app/shared/shared.module';
+import { PromoQuestionComponent } from './promo-question/promo-question.component';
 @NgModule({
   declarations: [
     PlayersComponent,
@@ -39,6 +40,7 @@ import { SharedModule} from 'src/app/shared/shared.module';
     MaleCompetitionNavComponent,
     PointIndicatorComponent,
     MatchStandingsComponent,
+    PromoQuestionComponent,
   ],
   exports: [
     PlayersComponent,

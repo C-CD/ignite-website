@@ -29,6 +29,7 @@
         [ngClass]="{'bg-danger': (player.stats.eviction === 'evicted'), 'bg-success': (player.stats.eviction === 'in-game'), 'bg-warning': (player.stats.eviction === 'on-going')}">
         Eviction Status: {{ player.stats.eviction }}
       </div>
+      
     </div>
     <div class="text-white fw-light" *ngIf="player.team_data">{{ player.team_data.name }}</div>
     <div class="fw-bolder text-capitalize h5 mb-0 text-white">{{ player.fname }}&nbsp;{{ player.lname }}

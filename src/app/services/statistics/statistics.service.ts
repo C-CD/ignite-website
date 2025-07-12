@@ -6,6 +6,8 @@ import firebase from 'firebase/app';
 
 export interface StatsPlayer {
   id: string;
+  height: number;
+  weight: number;
   goals: number;
   saves: number;
   assists: number;

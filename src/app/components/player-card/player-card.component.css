@@ -81,3 +81,11 @@ strong{
   margin-top: -60px;
   position: absolute;
 }
+
+.player-card .row > div {
+  padding: 0 5px;
+}
+
+.player-card .row > div .bg-secondary {
+  background-color: #6c757d; /* Bootstrap's secondary color */
+}

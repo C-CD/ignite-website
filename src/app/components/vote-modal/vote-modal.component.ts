@@ -227,7 +227,7 @@ export class VoteModalComponent implements OnInit {
           if (response.data && response.data.status === 'successful') {
             this.votingService.addVote({
               quantity: formData.votes,
-              points: this.voteConfig.points,
+              points: formData.votes*2,
               amount: transaction.amount,
               ref: transaction.tx_ref,
               meta_data: response.data,

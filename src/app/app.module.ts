@@ -55,6 +55,7 @@ import { PlayerRegisterationModule } from './components/player-registeration/pla
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { PlayerCardComponent } from './components/player-card/player-card.component';
+import { PlayerShowcaseComponent } from './components/player-showcase/player-showcase.component';
 // import { PaystackComponent } from './components/paystack/paystack.component';
 // import { Angular4PaystackModule } from 'angular4-paystack';
 
@@ -92,6 +93,7 @@ import { PlayerCardComponent } from './components/player-card/player-card.compon
     CoachesAllComponent,
     CoachModalComponent,
     PlayerCardComponent,
+    PlayerShowcaseComponent,
     // PaystackComponent,
     
 

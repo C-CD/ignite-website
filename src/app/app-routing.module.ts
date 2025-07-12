@@ -32,9 +32,11 @@ import { PostNextTopComponent } from './pages/blog/post-next-top/post-next-top.c
 import { CoachesVotingComponent } from './pages/coache/coaches-voting/coaches-voting.component';
 import { MaleEvictionsComponent } from './pages/competition/male/evictions/male-evictions.component';
 import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component';
+import { PromoQuestionComponent } from './pages/competition/male/promo-question/promo-question.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'players', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
@@ -65,6 +67,7 @@ const routes: Routes = [
   { path: 'competition/male/fixtures', component: MaleCompetitionFixtures },
   { path: 'competition/male/highlights', component: MaleCompetitionHighlights },
   { path: 'competition/male/players', component: MaleCompetitionPlayers },
+  { path: 'competition/male/promo', component:PromoQuestionComponent},
   { path: 'competition/male/:team/players', component: MaleCompetitionPlayers },
   {
     path: 'competition/male/:team/players/:player',

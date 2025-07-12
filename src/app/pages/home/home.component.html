@@ -127,18 +127,13 @@
 
         <a routerLink="about" class="btn btn-default pl-3 pr-3 pt-2 pb-2 mt-3" role="button">More About Us</a>
       </div>
-      <div class="col-lg-8 pb-md-5">
+      <div class="col-lg-4 align-middle divider pb-md-5">
         <div class="home-clips">
           <div class="home-clips-container">
             <div class="row g-3">
-              <div class="col-md-6">
+              <div class="col-md">
                 <video class="clip w-100" controls poster="../assets/img/ignite-clips-thumb.jpg">
                   <source src="../assets/videos/video-1.mp4" type="video/mp4">
-                </video>
-              </div>
-              <div class="col-md-6">
-                <video class="clip w-100" controls poster="../assets/img/main-match-thumb.jpg">
-                  <source src="../assets/videos/Main%20Match.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
@@ -155,7 +150,61 @@
           </p>
         </div>
       </div>
+      <div class="col-lg-4 pb-md-5">
+        <div class="home-clips">
+          <p class="text-end">
+            <a href="/competition/male/fixtures">
+              View Fixtures <span class="fas fa-arrow-right pl-2" aria-hidden="true"></span>
+            </a>
+          </p>
+          <app-match-standings></app-match-standings>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+    
+<!-- Competition-->
+<section>
+  <div class="container">
+    <div class="row pt-5 pb-3">
+      <div class="col-md">
+        <h3 class="text-bold"><span class="fas fa-grip-lines-vertical header-icon font-weight-bol h3"></span>
+          COMPETITION</h3>
+      </div>
+      <div class="col-md d-none d-md-block">
+        <p class="text-end"><a href="/competition/male/players">See Players' Profile <span class="fas fa-arrow-right pl-2"></span></a></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 home-about align-middle divider pb-5">
+        <div class="page-title">
+          <h3 class="fw-bold">Ignite Soccer Stars&reg;</h3>
+        </div>
+        <p><strong>Ignite Soccer Stars</strong> football competition is an extension of the Ignite Megastars platform,
+          designed to discover, develop, and promote
+          aspiring professional footballers aged 16 to 19. This initiative provides an open opportunity for all young people
+          within the specified age range—regardless of their socio-economic background—to pursue their dream of showcasing
+          their
+          talent to the world.</p>
+
+        <a href="/competition/male" class="btn btn-default pl-3 pr-3 pt-2 pb-2 mt-3" role="button">Learn More</a>
+      </div>
+      <div class="col-md mini-blog">
+        <app-player-showcase></app-player-showcase>
+      </div>
+    </div>
+
+    <div class="d-block d-md-none">
+      <p class="text-center d-block d-md-none"><a href="/whats-hot">View More <span
+            class="fas fa-arrow-right pl-2"></span></a></p>
+    </div>
+  </div>
+</section>
+
+
+<div class="home-gallery-container">
+  <div class="container pb-5">
     <!-- Home Picture Gallery-->
     <div class="row pt-5 pb-3 align-items">
       <div class="col-md">
@@ -259,3 +308,33 @@
     </div>
   </div>
 </section>
+
+<section class="sponsor-showcase py-5 bg-light">
+  <div class="container">
+    <h3 class="text-center mb-4">Our Trusted Partners</h3>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 d-flex justify-content-center">
+        <a href="https://reggianacalcio.it/" target="_blank" rel="noopener">
+          <img src="../assets/img/calcio.jpg" class="img-fluid" alt="Sponsor 1">
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 d-flex justify-content-center">
+        <a href="" target="_blank" rel="noopener">
+          <img src="../assets/img/skn.jpg" class="img-fluid" alt="Sponsor 2">
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 d-flex justify-content-center">
+        <a href="https://www.glmsportsmanagement.com/" target="_blank" rel="noopener">
+          <img src="../assets/img/glm.jpg" class="img-fluid" alt="Sponsor 2">
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 d-flex justify-content-center">
+        <a href="https://www.completesports.com/" target="_blank" rel="noopener">
+          <img src="../assets/img/complete-sports.jpg" class="img-fluid" alt="Sponsor 2">
+        </a>
+      </div>
+      <!-- Add more sponsor logos as needed -->
+    </div>
+  </div>
+</section>
+

@@ -84,6 +84,29 @@
                   >
                     Eviction Status: {{ player.stats.eviction }}
                   </div>
+
+                  <div
+                    class="px-2 py-1 text-white fw-bold rounded text-capitalize small"
+                    [ngClass]="{
+                      'bg-danger': player.stats.eviction === 'evicted',
+                      'bg-success': player.stats.eviction === 'in-game',
+                      'bg-warning': player.stats.eviction === 'on-going'
+                    }"
+                  >
+                    Height: {{ player.stats.height ?? 'N/A' }}
+                  </div>
+
+                <div
+                  class="px-2 py-1 text-white fw-bold rounded text-capitalize small"
+                  [ngClass]="{
+                    'bg-danger': player.stats.eviction === 'evicted',
+                    'bg-success': player.stats.eviction === 'in-game',
+                    'bg-warning': player.stats.eviction === 'on-going'
+                  }"
+                >
+                  Weight: {{ player.stats.weight ?? 'N/A' }}
+                </div>
+
                 </div>
                 <div class="col-12">
                   <div class="player-info-small-box bg-rhythm">

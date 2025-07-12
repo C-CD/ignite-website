@@ -16,6 +16,8 @@ import { Teams, TeamService } from 'src/app/services/team/team.service';
 import { ToastrService } from 'src/app/services/toastr/toastr.service';
 import { Votes, VotingService } from 'src/app/services/votings/voting.service';
 import { CAN_VOTE } from 'src/environments/environment';
+import { ChangeDetectorRef } from '@angular/core';
+import { ConfigService } from 'src/app/services/config/config.service';
 
 @Component({
   selector: 'app-players',
@@ -30,9 +32,18 @@ export class PlayersComponent implements OnInit {
   selectedTeam: any;
   searchInput: string = '';
   checkPlayerSubscription = Observable;
-  canVote = CAN_VOTE;
+  canVote = false;
+  
+  uniqueSeasons: number[] = [];
+  uniqueRounds: number[] = [];
+  filteredTeams: any[] = [];
+
+  selectedSeason!: number;
+  selectedRound!: number;
+
 
   public theBoundCallback!: () => void;
+  subscription: Subscription = new Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,13 +56,20 @@ export class PlayersComponent implements OnInit {
     protected teamService: TeamService,
     private playerService: PlayerService,
     private statsService: StatisticsService,
-    private votingService: VotingService
+    private votingService: VotingService,
+    private configService: ConfigService,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
 
     this.theBoundCallback = this.refreshPlayers.bind(this);
     // this.fetchPlayers();
+
+    this.subscription = this.configService.getCanVote().subscribe(value => {
+      this.canVote = value;
+    });
+
     this.route.params.subscribe((params) => {
       const team_id = params['team'];
       const player_id = params['player'];
@@ -118,9 +136,16 @@ export class PlayersComponent implements OnInit {
     });
   }
 
-  //   ngOnDestroy() {
-  //     this.checkPlayerSubscription.unsubscribe()
-  // }
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
+
+  addPlayer(player: any, playerArray: any[]){
+    this.fetchMedia(player.snap_id).then((media) => {
+      player.media = media;
+        playerArray.push(player);
+    })
+  }
 
   refreshPlayers() {
     // console.log('call back returned'); return;
@@ -269,6 +294,25 @@ export class PlayersComponent implements OnInit {
     });
   }
 
+  convertFirebaseUrlToCloudinary(firebaseUrl: string): string { 
+    const regex = /https:\/\/firebasestorage.googleapis.com\/v0\/b\/[a-zA-Z0-9-_]+\.appspot\.com\/o\/(.+)\?alt=media/;
+    const match = firebaseUrl.match(regex);
+    
+    if (!match) {
+      throw new Error("Invalid Firebase Storage URL");
+    }
+  
+    const cloudName = "dxkoqh2gz"; // Your Cloudinary cloud name
+    
+    // Extract the filename after '%2F' and decode it
+    const fileName = decodeURIComponent(match[1].split('%2F').pop() || ''); 
+  
+    const cloudinaryUrl = `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/${fileName}`;
+  
+    return cloudinaryUrl;
+  }
+  
+
   fetchMedia(id: string) {
     return new Promise((resolve) => {
       this.mediaService
@@ -276,6 +320,9 @@ export class PlayersComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data: any) => {
           // console.log((data && data.avatar) ? data : false, id);
+          //if (data && data.avatar){
+          //  data.avatar = this.convertFirebaseUrlToCloudinary(data.avatar)
+          //}
           resolve(data && data.avatar ? data : null);
         });
     });
@@ -287,25 +334,22 @@ export class PlayersComponent implements OnInit {
       this.fetchTeam(player.team).then((team_data) => {
         playerDetails.team_data = team_data;
         // media
-        this.fetchMedia(player.snap_id).then((media) => {
-          playerDetails.media = media;
-          // format date
-          this.fetchVoteDetails(player.snap_id).then((votes) => {
-            playerDetails.votes_data = votes;
-            this.statsService
-              .getPlayerStats(player.snap_id)
-              .pipe(take(1))
-              .subscribe((stats: any) => {
-                playerDetails.stats = stats;
+        this.fetchVoteDetails(player.snap_id).then((votes) => {
+          playerDetails.votes_data = votes;
+          this.statsService
+            .getPlayerStats(player.snap_id)
+            .pipe(take(1))
+            .subscribe((stats: any) => {
+              playerDetails.stats = stats;
 
-                playerDetails.date = moment(player.created).calendar();
-                playerDetails.position_full = this.teamInfoPosition(
-                  player.position
-                );
-                resolve(playerDetails);
-              });
-          });
+              playerDetails.date = moment(player.created).calendar();
+              playerDetails.position_full = this.teamInfoPosition(
+                player.position
+              );
+              resolve(playerDetails);
+            });
         });
+
       });
     });
   }
@@ -317,23 +361,22 @@ export class PlayersComponent implements OnInit {
       this.fetchTeam(player.team).then((team_data) => {
         player.team_data = team_data;
         // media
-        this.fetchMedia(player.snap_id).then((media) => {
-          player.media = media;
-          // format date
-          this.fetchVoteDetails(player.snap_id).then((votes) => {
-            player.votes_data = votes;
-            this.statsService
-              .getPlayerStats(player.snap_id)
-              .pipe(take(1))
-              .subscribe((stats: any) => {
-                player.stats = stats;
 
-                player.date = moment(player.created).calendar();
-                player.position_full = this.teamInfoPosition(player.position);
-                storePlayers.push(player);
-              });
-          });
+        this.fetchVoteDetails(player.snap_id).then((votes) => {
+          player.votes_data = votes;
+          this.statsService
+            .getPlayerStats(player.snap_id)
+            .pipe(take(1))
+            .subscribe((stats: any) => {
+              player.stats = stats;
+
+              player.date = moment(player.created).calendar();
+              player.position_full = this.teamInfoPosition(player.position);
+              this.addPlayer(player, storePlayers)
+              //storePlayers.push(player);
+            });
         });
+
       });
     });
 
@@ -369,20 +412,32 @@ export class PlayersComponent implements OnInit {
         .then((snapshots: any) => {
           // console.log(snapshots);
           this.teams = this.funcService.handleSnapshot(snapshots);
-          this.teams = this.teams.sort((a, b) => a?.index - b?.index);
-
+          this.teams = this.teams.sort((a, b) => {
+            // Compare by season
+            if (a.season !== b.season) {
+              return b.season - a.season;
+            }
+            // If seasons are equal, compare by round
+            if (a.round !== b.round) {
+              return b.round - a.round;
+            }
+            // If rounds are also equal, compare by index
+            return a.index - b.index;
+          });
+          console.log(this.teams);
           const storedTeam = localStorage.getItem('selectedTeam');
+          //const storedTeam = null;
           if (storedTeam) {
             this.fetchTeam(storedTeam).then((team: any) => {
               if (team) {
                 const teamData = { snap_id: storedTeam, ...team };
                 this.fetchPlayersByTeam(teamData);
-                this.selectedTeam = teamData;
+                this.extractSeasons();   
               }
             });
           } else {
-            this.fetchPlayersByTeam(this.teams[0]);
-            this.selectedTeam = this.teams[0];
+            this.fetchPlayersByTeam(this.teams[0]); 
+            this.extractSeasons(); 
           }
 
           this.loadingService.clearLoader();
@@ -449,36 +504,35 @@ export class PlayersComponent implements OnInit {
       this.fetchTeam(player.team).then((team_data) => {
         player.team_data = team_data;
         // media
-        this.fetchMedia(player.snap_id).then((media) => {
-          player.media = media;
-          // format date
-          this.fetchVoteDetails(player.snap_id).then((votes) => {
-            player.votes_data = votes;
-            this.statsService
-              .getPlayerStats(player.snap_id)
-              .pipe(take(1))
-              .subscribe((stats: any) => {
-                player.stats = stats;
-                console.log(player.stats);
-                player.date = moment(player.created).calendar();
-                player.position_full = this.teamInfoPosition(player.position);
-                let checks = {
-                  team: player.team_data.name
-                    .toLowerCase()
-                    .includes(this.searchInput.toLowerCase()),
-                  name:
-                    player.fname.toLowerCase().includes(this.searchInput.toLowerCase()) ||
-                    player.lname.toLowerCase().includes(this.searchInput.toLowerCase()) ||
-                    this.searchInput.toLowerCase().includes(player.fname.toLowerCase()) ||
-                    this.searchInput.toLowerCase().includes(player.fname.toLowerCase()),
-                };
-                console.log(checks);
-                if (checks.team || checks.name) {
-                  storePlayers.push(player);
-                }
-              });
+
+        this.fetchVoteDetails(player.snap_id).then((votes) => {
+          player.votes_data = votes;
+          this.statsService
+            .getPlayerStats(player.snap_id)
+            .pipe(take(1))
+            .subscribe((stats: any) => {
+              player.stats = stats;
+              console.log(player.stats);
+              player.date = moment(player.created).calendar();
+              player.position_full = this.teamInfoPosition(player.position);
+              let checks = {
+                team: player.team_data.name
+                  .toLowerCase()
+                  .includes(this.searchInput.toLowerCase()),
+                name:
+                  player.fname.toLowerCase().includes(this.searchInput.toLowerCase()) ||
+                  player.lname.toLowerCase().includes(this.searchInput.toLowerCase()) ||
+                  this.searchInput.toLowerCase().includes(player.fname.toLowerCase()) ||
+                  this.searchInput.toLowerCase().includes(player.fname.toLowerCase()),
+              };
+              console.log(checks);
+              if (checks.team || checks.name) {
+                //storePlayers.push(player);
+                this.addPlayer(player, storePlayers)
+              }
+            });
           });
-        });
+
       });
     });
 
@@ -488,5 +542,78 @@ export class PlayersComponent implements OnInit {
 
     return storePlayers;
   }
+
+  //onSeasonChange(event: Event) {
+  //  const target = event.target as HTMLSelectElement;
+  //  this.selectedSeason = target.value;
+  //  this.fetchTeams();
+  //  console.log('Selected Season:', this.selectedSeason);
+  //}
+
+  extractSeasons() {
+    this.uniqueSeasons = [...new Set(this.teams.map(t => t.season))].sort((a, b) => b - a);
+    console.log(this.uniqueSeasons)
+
+    if (!this.selectedSeason){
+      this.selectedSeason = this.uniqueSeasons[0] || 0;
+    }
+    this.updateRounds();
+  }
+
+  updateRounds() {
+    this.uniqueRounds = [...new Set(this.teams.filter(t => t.season === this.selectedSeason).map(t => t.round))]
+      .sort((a, b) => b - a);
+
+
+    this.selectedRound = this.uniqueRounds[0] || 0;
+
+    console.log(this.uniqueRounds);
+    console.log(this.selectedRound);  
+    this.updateTeams();
+  }
+
+  updateTeams() {
+    this.filteredTeams = this.teams.filter(t => t.season === this.selectedSeason && t.round === this.selectedRound);
+    //if(!this.selectedTeam){
+    //  this.selectedTeam = this.filteredTeams.length ? this.filteredTeams[0].snap_id : '';
+    //}
+    this.selectedTeam = ""
+  }
+
+  onSeasonChange(event: Event) {  
+    const target = event.target as HTMLSelectElement;
+    this.selectedSeason = +target.value;
+
+    this.updateRounds(); // Update rounds based on the selected season
+    this.toaster.quickToast({ msg: "Season Selected, Please Select a Round", cat: "info" });
+    console.log(this.uniqueSeasons);
+    console.log(this.selectedSeason);
+  }
+  
+  onRoundChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    console.log(target)
+    this.selectedRound = +target.value;
+    this.updateTeams(); // Update teams based on the selected round
+    this.toaster.quickToast({ msg: "Round Selected, Please Select a Team", cat: "info" });
+    console.log(this.uniqueRounds);
+    console.log(this.selectedRound);
+  }
+
+  
+  onTeamChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const selectedTeamId = target.value;
+
+    this.selectedTeam = this.teams.find(team => team.snap_id === selectedTeamId);
+    if (this.selectedTeam) {
+      this.fetchPlayersByTeam(this.selectedTeam);
+    }
+  
+    console.log('Selected Team:', this.selectedTeam);
+  }
+
 }
+
+
 

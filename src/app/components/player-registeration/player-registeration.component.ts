@@ -23,7 +23,7 @@ export class PlayerRegisterationComponent implements OnInit {
 
   @ViewChild(SuccessModalComponent, { static: true }) modalChild!: SuccessModalComponent;
   @Input() gender: string = 'male';
-  uploads: { identification: any, cert: any } = { identification: null, cert: null };
+  uploads: { identification: any, cert: any , showcase: any} = { identification: null, cert: null, showcase: null };
   formDataGroup!: FormGroup;
   successData!: ModalData;
   modalData: any;
@@ -76,7 +76,7 @@ export class PlayerRegisterationComponent implements OnInit {
       city: new FormControl('', Validators.compose([Validators.required])),
       edu_level: new FormControl('', Validators.compose([Validators.required])),
       school_name: new FormControl('', Validators.compose([Validators.required])),
-      school_cert_file: new FormControl('', Validators.compose([Validators.required])),
+      school_cert_file: new FormControl(''),
       school_address: new FormControl('', Validators.compose([Validators.required])),
       sport_interested: new FormControl('', Validators.compose([Validators.required])),
       sport_position: new FormControl('', Validators.compose([Validators.required])),
@@ -95,6 +95,7 @@ export class PlayerRegisterationComponent implements OnInit {
       identification_type: new FormControl('', Validators.compose([Validators.required])),
       identification_number: new FormControl('', Validators.compose([Validators.required])),
       identification_file: new FormControl('', Validators.compose([Validators.required])),
+      showcase_video: new FormControl(''),
       consent_terms: new FormControl('', Validators.compose([Validators.required])),
       consent_guardian: new FormControl('', Validators.compose([Validators.required])),
       consent_ccd: new FormControl('', Validators.compose([Validators.required])),
@@ -104,12 +105,14 @@ export class PlayerRegisterationComponent implements OnInit {
 
   register(formData: any) {
     // return console.log(formData);
+    console.log(formData.valid);
     if(formData.valid){
       // show specific unfilled field
-        console.log(formData);
+      // console.log(formData);
       this.formDataGroup.disable();
       this.loadingService.quickLoader().then(() => {
-        this.uploadFiles(formData).then((formData) => {
+        this.uploadFiles(formData).then((filePaths) => {
+          console.log(this.uploads);
           console.log(formData);
           this.playerRegService.addPlayersRegistration({
             surname: formData.value.surname,
@@ -124,7 +127,7 @@ export class PlayerRegisterationComponent implements OnInit {
             city: formData.value.city,
             edu_level: formData.value.edu_level,
             school_name: formData.value.school_name,
-            school_cert_file: formData.value.school_cert_file,
+            school_cert_file: filePaths['school_cert_file'],
             school_address: formData.value.school_address,
             sport_interested: formData.value.sport_interested,
             sport_position: formData.value.sport_position,
@@ -140,7 +143,8 @@ export class PlayerRegisterationComponent implements OnInit {
             guardian_phone: formData.value.guardian_phone,
             identification_type: formData.value.identification_type,
             identification_number: formData.value.identification_number,
-            identification_file: formData.value.identification_file,
+            identification_file: filePaths['identification_file'],
+            showcase_video: filePaths['showcase_video'],
             consent_terms: formData.value.consent_terms,
             consent_guardian: formData.value.consent_guardian,
             consent_ccd: formData.value.consent_ccd,
@@ -211,21 +215,37 @@ export class PlayerRegisterationComponent implements OnInit {
     });
   }
 
-  setFile(event: any, sub: 'identification' | 'cert') {
+  setFile(event: any, sub: 'identification' | 'cert' | 'showcase') {
     this.uploads[sub] = event.target.files;
   }
 
-  async uploadFiles(formData: any) {
+  async uploadFiles(formData: any): Promise<any>{
+    var filePaths: Record<string, string> = {};
+    filePaths['identification_file'] = '';
+    filePaths['school_cert_file'] = '';
+    filePaths['showcase_video'] = '';
+
     try {
-      if (formData.identification_file?.length && this.uploads && this.uploads.identification) {
+      if (!!formData.value.identification_file && this.uploads && this.uploads.identification) {
         const identification_file: any = await this.uploadService.startFileUpload(this.uploads.identification, 'playerIdentificationImage', 0, 'file');
         if (identification_file) formData.identification_file = identification_file.filepath;
+        console.log('Saved identification filepath:', identification_file.filepath);
+        filePaths['identification_file'] = identification_file.filepath;
       }
 
-      if (formData.school_cert_file?.length && this.uploads && this.uploads.cert) {
+      if (!!formData.value.school_cert_file && this.uploads && this.uploads.cert) {
         const school_cert_file: any = await this.uploadService.startFileUpload(this.uploads.cert, 'schoolCertificateImage', 0, 'file');
         if (school_cert_file) formData.school_cert_file = school_cert_file.filepath;
+        console.log('Saved Cert filepath:', school_cert_file.filepath);
+        filePaths['school_cert_file'] = school_cert_file.filepath;
       }
+      if (!!formData.value.showcase_video && this.uploads && this.uploads.showcase) {
+        const showcase_video: any = await this.uploadService.startFileUpload(this.uploads.showcase, 'showcaseVideo', 0, 'file');
+        if (showcase_video) formData.showcase_video = showcase_video.filepath;
+        console.log('Saved Video filepath:', showcase_video.filepath);
+        filePaths['showcase_video'] = showcase_video.filepath;
+      }
+      return Promise.resolve(filePaths);
     }
     catch (error) {
       console.log(error);
